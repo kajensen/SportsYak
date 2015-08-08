@@ -1,4 +1,4 @@
-//
+ //
 //  AppDelegate.swift
 //  SportsYak
 //
@@ -7,16 +7,82 @@
 //
 
 import UIKit
+import Parse
+import Bolts
+import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        PFMember.registerSubclass()
+        PFNFLTeam.registerSubclass()
+        PFPost.registerSubclass()
+        PFComment.registerSubclass()
+        PFEvent.registerSubclass()
+        
+        // [Optional] Power your app with Local Datastore. For more info, go to
+        // https://parse.com/docs/ios_guide#localdatastore/iOS
+        // Parse.enableLocalDatastore()
+        
+        // Initialize Parse.
+        Parse.setApplicationId("dKZqBjSRUJV3H9QU2aIqLQFX5dMsoSBT1rBGjPoF",
+            clientKey: "wV3wBuIFJN8sCI0AdjiA9vvMkU9Ms2J9oCXNs6W0")
+        
+        PFUser.enableAutomaticUser()
+        println("launching with user \(PFMember.currentUser())")
+
+        // [Optional] Track statistics around application opens.
+        PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+        
+        let locationManager = SharedLocationManager.sharedInstance
+        locationManager.delegate = self
+        if (CLLocationManager.authorizationStatus() != CLAuthorizationStatus.AuthorizedWhenInUse) {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        refreshUser()
+        
         return true
+    }
+    
+    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if (status == CLAuthorizationStatus.AuthorizedWhenInUse) {
+            updateLocation()
+        }
+    }
+    
+    func updateLocation() {
+        if let user = PFMember.currentUser() {
+            if let location = SharedLocationManager.sharedInstance.location {
+                println("saving location \(location)")
+                user.location = PFGeoPoint(location: location)
+                user.saveInBackground()
+            }
+        }
+    }
+    
+    func refreshUser() {
+        if let user = PFMember.currentUser() {
+            if let query = PFMember.queryWithIncludes() {
+                if let userId = user.objectId {
+                    query.whereKey("objectId", equalTo:userId)
+                    query.getFirstObjectInBackgroundWithBlock({ (object : PFObject?, error: NSError?) -> Void in
+                        if error == nil {
+                            if let fetchedUser = object as? PFMember {
+                                println("refreshed user")
+                                user.nflTeam = fetchedUser.nflTeam
+                            }
+                        } else {
+                            println("Error: \(error!) \(error!.userInfo!)")
+                        }
+                    })
+                }
+            }
+        }
     }
 
     func applicationWillResignActive(application: UIApplication) {
