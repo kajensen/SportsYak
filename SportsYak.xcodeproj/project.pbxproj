@@ -36,6 +36,11 @@
 		90F3CEFF1B75A8C40051FED4 /* ButtonGroupUnderlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F3CEFE1B75A8C40051FED4 /* ButtonGroupUnderlineView.swift */; };
 		90F3CF011B75BF830051FED4 /* NSDate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F3CF001B75BF830051FED4 /* NSDate+Extension.swift */; };
 		90F3CF031B75C0480051FED4 /* NSDateTimeAgo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90F3CF021B75C0480051FED4 /* NSDateTimeAgo.bundle */; };
+		90FE8F361B8A23A90033AE9A /* PFTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE8F351B8A23A90033AE9A /* PFTeam.swift */; };
+		90FE8F3A1B8A3A2D0033AE9A /* KarmaNavigtionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE8F391B8A3A2D0033AE9A /* KarmaNavigtionController.swift */; };
+		90FE8F3C1B8A3ADF0033AE9A /* KarmaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE8F3B1B8A3ADF0033AE9A /* KarmaViewController.swift */; };
+		90FE8F3E1B8A65330033AE9A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE8F3D1B8A65330033AE9A /* Constants.swift */; };
+		90FE8F401B8A69900033AE9A /* HideBarsOnSwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE8F3F1B8A69900033AE9A /* HideBarsOnSwipeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +93,11 @@
 		90F3CEFE1B75A8C40051FED4 /* ButtonGroupUnderlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonGroupUnderlineView.swift; sourceTree = "<group>"; };
 		90F3CF001B75BF830051FED4 /* NSDate+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extension.swift"; sourceTree = "<group>"; };
 		90F3CF021B75C0480051FED4 /* NSDateTimeAgo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NSDateTimeAgo.bundle; sourceTree = "<group>"; };
+		90FE8F351B8A23A90033AE9A /* PFTeam.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFTeam.swift; sourceTree = "<group>"; };
+		90FE8F391B8A3A2D0033AE9A /* KarmaNavigtionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KarmaNavigtionController.swift; sourceTree = "<group>"; };
+		90FE8F3B1B8A3ADF0033AE9A /* KarmaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KarmaViewController.swift; sourceTree = "<group>"; };
+		90FE8F3D1B8A65330033AE9A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		90FE8F3F1B8A69900033AE9A /* HideBarsOnSwipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideBarsOnSwipeViewController.swift; sourceTree = "<group>"; };
 		9E5FC210B23AEB34F1001225 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C5A7E4CFF876A7DE88D89C1A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -168,12 +178,15 @@
 				901358BA1B752B4900C559BF /* Cells */,
 				901358B01B75274A00C559BF /* HomeViewController.swift */,
 				901358B21B75275900C559BF /* PeekViewController.swift */,
+				90F3CEF71B7565EE0051FED4 /* EventViewController.swift */,
 				901358B41B75276500C559BF /* MeViewController.swift */,
 				901358B61B75277200C559BF /* MoreViewController.swift */,
 				901358B81B752B1400C559BF /* PostViewController.swift */,
 				901358C11B75313200C559BF /* ComposeViewController.swift */,
 				90F3CEF31B7558D80051FED4 /* SelectTeamViewController.swift */,
-				90F3CEF71B7565EE0051FED4 /* EventViewController.swift */,
+				90FE8F391B8A3A2D0033AE9A /* KarmaNavigtionController.swift */,
+				90FE8F3B1B8A3ADF0033AE9A /* KarmaViewController.swift */,
+				90FE8F3F1B8A69900033AE9A /* HideBarsOnSwipeViewController.swift */,
 			);
 			path = SportsYak;
 			sourceTree = "<group>";
@@ -187,6 +200,7 @@
 				90F3CF001B75BF830051FED4 /* NSDate+Extension.swift */,
 				9013588D1B751CCF00C559BF /* Info.plist */,
 				90F3CEF91B7591010051FED4 /* SportsYak-Bridging-Header.h */,
+				90FE8F3D1B8A65330033AE9A /* Constants.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -227,6 +241,7 @@
 				90F3CEEB1B7536F80051FED4 /* PFPost.swift */,
 				90F3CEED1B7537020051FED4 /* PFComment.swift */,
 				90F3CEF51B7564A30051FED4 /* PFEvent.swift */,
+				90FE8F351B8A23A90033AE9A /* PFTeam.swift */,
 			);
 			name = PFObjects;
 			sourceTree = "<group>";
@@ -398,14 +413,19 @@
 				901358B71B75277200C559BF /* MoreViewController.swift in Sources */,
 				90F3CEF81B7565EE0051FED4 /* EventViewController.swift in Sources */,
 				90F3CF011B75BF830051FED4 /* NSDate+Extension.swift in Sources */,
+				90FE8F3E1B8A65330033AE9A /* Constants.swift in Sources */,
+				90FE8F3C1B8A3ADF0033AE9A /* KarmaViewController.swift in Sources */,
 				901358BE1B752B7800C559BF /* CommentTableViewCell.swift in Sources */,
+				90FE8F401B8A69900033AE9A /* HideBarsOnSwipeViewController.swift in Sources */,
 				90F3CEFC1B7591020051FED4 /* UIPlaceHolderTextView.m in Sources */,
 				90F3CEF01B7539170051FED4 /* SharedLocationManager.swift in Sources */,
 				90F3CEF41B7558D80051FED4 /* SelectTeamViewController.swift in Sources */,
 				901358C21B75313200C559BF /* ComposeViewController.swift in Sources */,
 				9013588F1B751CCF00C559BF /* AppDelegate.swift in Sources */,
+				90FE8F361B8A23A90033AE9A /* PFTeam.swift in Sources */,
 				901358B11B75274A00C559BF /* HomeViewController.swift in Sources */,
 				90F3CEEE1B7537020051FED4 /* PFComment.swift in Sources */,
+				90FE8F3A1B8A3A2D0033AE9A /* KarmaNavigtionController.swift in Sources */,
 				90F3CEEC1B7536F80051FED4 /* PFPost.swift in Sources */,
 				90F3CEF21B754DFD0051FED4 /* TeamTableViewCell.swift in Sources */,
 				90F3CEDE1B7533870051FED4 /* PFMember.swift in Sources */,

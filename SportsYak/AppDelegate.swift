@@ -46,6 +46,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         refreshUser()
         
+        //UI
+        //UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.magentaColor()], forState:.Normal)
+        UITabBar.appearance().tintColor = Constants.GLOBAL_TINT
+        
         return true
     }
     

@@ -9,12 +9,6 @@
 import UIKit
 import Parse
 
-enum TeamType: Int {
-    case NFL = 0
-    
-    case count
-}
-
 class PFEvent: PFObject, PFSubclassing {
     
     class func parseClassName() -> String {
@@ -24,7 +18,8 @@ class PFEvent: PFObject, PFSubclassing {
     @NSManaged var teamOneId: String!
     @NSManaged var teamTwoId: String!
     @NSManaged var teamType: Int
-    @NSManaged var name: String!
+    @NSManaged var teamOneName: String!
+    @NSManaged var teamTwoName: String!
     @NSManaged var date: NSDate!
     @NSManaged var votes: Int
     @NSManaged var live: Bool

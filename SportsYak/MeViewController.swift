@@ -9,15 +9,21 @@
 import UIKit
 import MapKit
 
-class MeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-self.setupView()
+        self.setupView()
     }
+    
+    /*override func viewDidLayoutSubviews() {
+        if let button = self.buttonGroupView.buttons.first {
+            self.buttonGroupView.tapped(button)
+        }
+    }*/
     
     func setupView() {
         if let location = SharedLocationManager.sharedInstance.location {

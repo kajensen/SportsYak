@@ -18,8 +18,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var replyLabel: UILabel!
     @IBOutlet var voteLabel: UILabel!
 
-    @IBOutlet var sendButton: UIButton!
-    @IBOutlet var commentTextView: UITextView!
+    @IBOutlet var sendButton: UIButton?
+    @IBOutlet var commentTextView: UITextView?
     var comments = [PFComment]()
     var post : PFPost!
     
@@ -68,11 +68,11 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.replyLabel.text = post.replyString()
         self.voteLabel.text = "\(post.upVotes.count - post.downVotes.count)"
         
-        self.commentTextView.text = ""
+        self.commentTextView?.text = ""
     }
     
     func checkSendEnablility() {
-        self.sendButton.enabled = !(self.commentTextView.text.isEmpty)
+        self.sendButton?.enabled = !(self.commentTextView != nil && self.commentTextView!.text.isEmpty)
     }
     
     func loadData() {
@@ -147,9 +147,9 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func textViewDidEndEditing(textView: UITextView) {
-        if (self.sendButton.enabled) {
+        /*if (self.sendButton.enabled) {
             self.send(self.sendButton)
-        }
+        }*/
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -181,7 +181,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var standardHeight : CGFloat = 34 //base height of textview
         var textView = UITextView()
         textView.font = UIFont.systemFontOfSize(14)
-        textView.text = self.commentTextView.text
+        textView.text = self.commentTextView?.text
         textView.scrollEnabled = false
         var expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
         var newHeight = expectedSize.height
@@ -196,8 +196,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     @IBAction func send(sender: AnyObject) {
+        var text = ""
+        if (self.commentTextView != nil) {
+            text = self.commentTextView!.text
+        }
         
-        let comment = PFComment(post: self.post, text: self.commentTextView.text)
+        let comment = PFComment(post: self.post, text: text)
         if comment.user != nil && comment.location != nil {
             comment.saveInBackgroundWithBlock({ (success, error) -> Void in
                 if (!contains(self.comments, comment)) {
@@ -205,8 +209,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.tableView.reloadData()
                 }
             })
-            self.commentTextView.resignFirstResponder()
-            self.commentTextView.text = ""
+            self.commentTextView?.resignFirstResponder()
+            self.commentTextView?.text = ""
             self.updateTextViewSize()
             self.checkSendEnablility()
         }

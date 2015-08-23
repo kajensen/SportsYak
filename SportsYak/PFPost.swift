@@ -9,6 +9,18 @@
 import UIKit
 import Parse
 
+enum PostType: Int {
+    case Nearby = 0
+    case MySquads
+    case TeamOne
+    case TeamTwo
+}
+
+enum PostSort: Int {
+    case New = 0
+    case Hot
+}
+
 let FIVE_HOURS : NSTimeInterval = 18000
 
 class PFPost: PFObject, PFSubclassing {
@@ -93,6 +105,33 @@ class PFPost: PFObject, PFSubclassing {
                 return query
             }
         }
+        return nil
+    }
+    
+    class func queryWithEvent(event : PFEvent, postType: PostType, postSort : PostSort) -> PFQuery? {
+        if let type = TeamType(rawValue: event.teamType) {
+            let className = type.className
+            println("fetching event posts")
+            var teamId : String
+            if (postType == PostType.TeamOne) {
+                teamId = event.teamOneId
+            }
+            else {
+                teamId = event.teamTwoId
+            }
+            var query = PFPost.query()
+            if (postSort == PostSort.New) {
+                query!.orderByDescending("createdAt")
+            }
+            else if (postSort == PostSort.Hot) {
+                query!.orderByDescending("votes")
+            }
+            query!.limit = 100
+            query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -FIVE_HOURS))
+            query!.whereKey("teamId", equalTo: teamId)
+            return query
+        }
+
         return nil
     }
     

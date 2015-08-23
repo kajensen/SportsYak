@@ -121,9 +121,9 @@ class ComposeViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     func textViewDidEndEditing(textView: UITextView) {
-        if (self.sendButton.enabled) {
+        /*if (self.sendButton.enabled) {
             self.send(self.sendButton)
-        }
+        }*/
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {

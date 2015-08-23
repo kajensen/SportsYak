@@ -18,6 +18,13 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         loadData()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selectedIndexPath = self.tableView.indexPathForSelectedRow() {
+            self.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: false)
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -62,7 +69,7 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("EventCell", forIndexPath: indexPath) as! UITableViewCell
         let event = self.events[indexPath.row]
-        cell.textLabel!.text = event.name
+        cell.textLabel!.text = "\(event.teamOneName) vs \(event.teamTwoName)"
         
         return cell
     }

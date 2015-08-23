@@ -9,17 +9,7 @@
 import UIKit
 import Parse
 
-enum PostType: Int {
-    case Nearby = 0
-    case MySquads
-}
-
-enum PostSort: Int {
-    case New = 0
-    case Hot
-}
-
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ButtonGroupUnderlineViewDelegate, PostTableViewCellDelegate {
+class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate, PostTableViewCellDelegate {
 
     @IBOutlet var buttonGroupView: ButtonGroupUnderlineView!
     @IBOutlet var tableView: UITableView!
@@ -33,13 +23,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.buttonGroupView.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if (self.posts.count == 0) {
-            self.loadData(false)
+        self.loadData(false)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if let button = self.buttonGroupView.buttons.first {
+            self.buttonGroupView.tapped(button)
         }
     }
 
@@ -52,7 +45,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if let user = PFMember.currentUser() {
             var query : PFQuery?
             if (self.postType == PostType.Nearby) {
-                if (self.postSort == PostSort.Hot && self.postsNearbyH.count > 0 && !forceDownload) {
+                if (self.postSort == PostSort.Hot && self.postsNearbyH.count > 0  && !forceDownload) {
                     self.setupPosts(self.postsNearbyH)
                 }
                 else if (self.postSort == PostSort.New && self.postsNearbyN.count > 0 && !forceDownload) {
@@ -60,7 +53,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
                 else {
                     var savedSort = self.postSort
-                    query = PFPost.queryWithNearby(postSort)
+                    query = PFPost.queryWithNearby(self.postSort)
                     if (query != nil) {
                         query!.findObjectsInBackgroundWithBlock {
                             (objects: [AnyObject]?, error: NSError?) -> Void in
@@ -96,7 +89,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
                 else {
                     var savedSort = self.postSort
-                    query = PFPost.queryWithMyTeams(postSort)
+                    query = PFPost.queryWithMyTeams(self.postSort)
                     if (query != nil) {
                         query!.findObjectsInBackgroundWithBlock {
                             (objects: [AnyObject]?, error: NSError?) -> Void in
@@ -179,9 +172,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     @IBAction func nearby(sender: UIButton) {
+        self.buttonGroupView.tapped(sender)
+        self.postType = PostType.Nearby
+        loadData(false)
     }
 
     @IBAction func mySquads(sender: UIButton) {
+        self.buttonGroupView.tapped(sender)
+        self.postType = PostType.MySquads
+        loadData(false)
     }
     
     @IBAction func controlChanged(sender: UISegmentedControl) {

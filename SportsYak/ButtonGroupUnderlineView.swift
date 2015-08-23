@@ -8,16 +8,11 @@
 
 import UIKit
 
-protocol ButtonGroupUnderlineViewDelegate {
-    func buttonGroupUnderlineViewDidSelectButtonAtIndex(index: Int)
-}
-
 class ButtonGroupUnderlineView: UIView {
     @IBOutlet var buttons: [UIButton]!
     var selectedButton : UIButton?
-    var delegate: ButtonGroupUnderlineViewDelegate?
     var underline : UIView?
-    var underlineThickness : CGFloat = 3
+    var underlineThickness : CGFloat = 2.5
     
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -36,11 +31,6 @@ class ButtonGroupUnderlineView: UIView {
         super.layoutSubviews()
         addTargets()
         addUnderline()
-        if (buttons.count > 0) {
-            if let button = buttons.first {
-                tapped(button)
-            }
-        }
     }
     
     override init (frame : CGRect) {
@@ -68,8 +58,9 @@ class ButtonGroupUnderlineView: UIView {
                 var frame = button.frame
                 frame.origin.y = frame.size.height + underlineThickness
                 frame.size.height = underlineThickness
+                frame.size.width = 0 //animate out
                 self.underline = UIView(frame: frame)
-                self.underline!.alpha = 0
+                self.underline!.backgroundColor = button.tintColor
                 self.addSubview(self.underline!)
             }
         }
@@ -78,23 +69,17 @@ class ButtonGroupUnderlineView: UIView {
     func tapped(sender : UIButton) {
         for button in buttons {
             if button != sender {
-                button.selected = false
+                //button.selected = false
             }
         }
-        sender.selected = true
+        //sender.selected = true
         self.selectedButton = sender
-        if (self.delegate != nil) {
-            if let index = find(buttons, sender) {
-                self.delegate?.buttonGroupUnderlineViewDidSelectButtonAtIndex(index)
-            }
-        }
+
         if (self.underline != nil) && (self.selectedButton != nil) {
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
-                    self.underline!.alpha = 1
-                    self.underline!.backgroundColor = UIColor.blackColor()
-                    let width = self.selectedButton!.frame.size.width/2.0
+                    var width = self.selectedButton!.titleLabel!.frame.size.width
                     self.underline!.frame.size.width = width
-                    self.underline!.frame.origin.x = self.selectedButton!.frame.origin.x + width/2.0
+                    self.underline!.frame.origin.x = self.selectedButton!.frame.origin.x + (self.selectedButton!.frame.size.width/2.0) - (width/2.0)
                 })
         }
     }
