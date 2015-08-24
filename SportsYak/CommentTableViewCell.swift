@@ -14,7 +14,7 @@ enum CommentActionType: Int {
 }
 
 protocol CommentTableViewCellDelegate {
-    func commentTableViewCellSelectButton(cell: CommentTableViewCell, actionType: CommentActionType)
+    func commentTableViewCellSelectButton(cell: CommentTableViewCell, comment: PFComment, actionType: CommentActionType)
 }
 
 class CommentTableViewCell: UITableViewCell {
@@ -30,6 +30,7 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet var userImageView: UIImageView!
     
     var delegate: CommentTableViewCellDelegate?
+    var comment: PFComment!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,9 +44,12 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     func configureWithComment(comment:PFComment) {
+        self.comment = comment
         self.textView.text = comment.text
         self.timeLabel.text = comment.createdAt?.timeAgoSimple
         self.voteLabel.text = "\(comment.upVotes.count - comment.downVotes.count)"
+        self.upVoteButton.selected = false
+        self.downVoteButton.selected = false
         if let user = PFMember.currentUser() {
             if let userId = user.objectId {
                 if contains(comment.upVotes, userId) {
@@ -59,11 +63,11 @@ class CommentTableViewCell: UITableViewCell {
     }
     
     @IBAction func downVote(sender: AnyObject) {
-        self.delegate?.commentTableViewCellSelectButton(self, actionType: CommentActionType.DownVote)
+        self.delegate?.commentTableViewCellSelectButton(self, comment: self.comment, actionType: CommentActionType.DownVote)
     }
     
     @IBAction func upVote(sender: AnyObject) {
-        self.delegate?.commentTableViewCellSelectButton(self, actionType: CommentActionType.UpVote)
+        self.delegate?.commentTableViewCellSelectButton(self, comment: self.comment, actionType: CommentActionType.UpVote)
     }
 
 

@@ -71,7 +71,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func refreshUser() {
         if let user = PFMember.currentUser() {
-            if let query = PFMember.queryWithIncludes() {
+            if user.objectId == nil {
+                user.setup()
+                user.saveInBackground()
+            }
+            else if let query = PFMember.queryWithIncludes() {
                 if let userId = user.objectId {
                     query.whereKey("objectId", equalTo:userId)
                     query.getFirstObjectInBackgroundWithBlock({ (object : PFObject?, error: NSError?) -> Void in

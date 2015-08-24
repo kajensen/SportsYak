@@ -14,7 +14,7 @@ enum PostActionType: Int {
 }
 
 protocol PostTableViewCellDelegate {
-    func postTableViewCellSelectButton(cell: PostTableViewCell, actionType: PostActionType)
+    func postTableViewCellSelectButton(cell: PostTableViewCell, post: PFPost, actionType: PostActionType)
 }
 
 class PostTableViewCell: UITableViewCell {
@@ -28,6 +28,7 @@ class PostTableViewCell: UITableViewCell {
     
     @IBOutlet var upVoteButton: UIButton!
     @IBOutlet var downVoteButton: UIButton!
+    var post: PFPost!
     var delegate: PostTableViewCellDelegate?
 
     override func awakeFromNib() {
@@ -42,6 +43,7 @@ class PostTableViewCell: UITableViewCell {
     }
     
     func configureWithPost(post:PFPost) {
+        self.post = post
         self.titleLabel.text = post.title
         self.textView.text = post.text
         self.timeLabel.text = post.createdAt?.timeAgoSimple
@@ -49,6 +51,10 @@ class PostTableViewCell: UITableViewCell {
         self.voteLabel.text = "\(post.upVotes.count - post.downVotes.count)"
         if let user = PFMember.currentUser() {
             if let userId = user.objectId {
+                println("\(post.upVotes) \(contains(post.upVotes, userId))")
+                println("\(post.downVotes) \(contains(post.downVotes, userId))")
+                self.upVoteButton.selected = false
+                self.downVoteButton.selected = false
                 if contains(post.upVotes, userId) {
                     self.upVoteButton.selected = true
                 }
@@ -60,11 +66,11 @@ class PostTableViewCell: UITableViewCell {
     }
 
     @IBAction func downVote(sender: AnyObject) {
-        self.delegate?.postTableViewCellSelectButton(self, actionType: PostActionType.DownVote)
+        self.delegate?.postTableViewCellSelectButton(self, post:self.post, actionType: PostActionType.DownVote)
     }
     
     @IBAction func upVote(sender: AnyObject) {
-        self.delegate?.postTableViewCellSelectButton(self, actionType: PostActionType.UpVote)
+        self.delegate?.postTableViewCellSelectButton(self, post:self.post, actionType: PostActionType.UpVote)
     }
     
 }

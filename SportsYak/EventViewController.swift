@@ -170,7 +170,7 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-    func postTableViewCellSelectButton(cell: PostTableViewCell, actionType: PostActionType) {
+    func postTableViewCellSelectButton(cell: PostTableViewCell, post: PFPost, actionType: PostActionType) {
         // TODO
     }
     

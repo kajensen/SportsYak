@@ -142,6 +142,8 @@
                                                             <state key="normal" image="Collapse Arrow-100">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <state key="selected" image="Collapse Arrow-100-1"/>
+                                                            <state key="highlighted" image="Collapse Arrow-100-1"/>
                                                             <connections>
                                                                 <action selector="upVote:" destination="B6x-Ud-Mdm" eventType="touchUpInside" id="0Oe-mr-SOo"/>
                                                             </connections>
@@ -152,6 +154,8 @@
                                                             <state key="normal" image="Expand Arrow-100">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <state key="selected" image="Expand Arrow-100-1"/>
+                                                            <state key="highlighted" image="Expand Arrow-100-1"/>
                                                             <connections>
                                                                 <action selector="downVote:" destination="B6x-Ud-Mdm" eventType="touchUpInside" id="4Fm-Hm-ZdM"/>
                                                             </connections>
@@ -808,6 +812,8 @@
                                                             <state key="normal" image="Collapse Arrow-100">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <state key="selected" image="Collapse Arrow-100-1"/>
+                                                            <state key="highlighted" image="Collapse Arrow-100-1"/>
                                                             <connections>
                                                                 <action selector="upVote:" destination="dNC-LN-t8f" eventType="touchUpInside" id="wzY-zM-6Cd"/>
                                                             </connections>
@@ -817,6 +823,8 @@
                                                             <state key="normal" image="Expand Arrow-100">
                                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                             </state>
+                                                            <state key="selected" image="Expand Arrow-100-1"/>
+                                                            <state key="highlighted" image="Expand Arrow-100-1"/>
                                                             <connections>
                                                                 <action selector="downVote:" destination="dNC-LN-t8f" eventType="touchUpInside" id="i1K-ZN-HGf"/>
                                                             </connections>
@@ -906,6 +914,8 @@
                                                 <state key="normal" image="Collapse Arrow-100">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="selected" image="Collapse Arrow-100-1"/>
+                                                <state key="highlighted" image="Collapse Arrow-100-1"/>
                                                 <connections>
                                                     <action selector="upVote:" destination="pXx-73-Jss" eventType="touchUpInside" id="05F-gS-F0f"/>
                                                 </connections>
@@ -916,6 +926,8 @@
                                                 <state key="normal" image="Expand Arrow-100">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="selected" image="Expand Arrow-100-1"/>
+                                                <state key="highlighted" image="Expand Arrow-100-1"/>
                                                 <connections>
                                                     <action selector="downVote:" destination="pXx-73-Jss" eventType="touchUpInside" id="54Q-QD-Kep"/>
                                                 </connections>
@@ -1046,6 +1058,7 @@
                     <connections>
                         <outlet property="bottomConstraint" destination="KSZ-yp-B6V" id="Uqk-Px-bnB"/>
                         <outlet property="commentTextView" destination="YcB-2z-9Xk" id="yby-5u-1g2"/>
+                        <outlet property="downVoteButton" destination="CMa-QA-Hax" id="Yiv-Ui-qja"/>
                         <outlet property="replyLabel" destination="wzl-Qi-lCK" id="ncs-UG-nIA"/>
                         <outlet property="sendButton" destination="VxT-BQ-j3E" id="idr-Bw-iBQ"/>
                         <outlet property="tableView" destination="uPb-SL-H1q" id="iqq-Tg-iXo"/>
@@ -1053,6 +1066,7 @@
                         <outlet property="textViewHeightConstraint" destination="jGL-Vp-kRN" id="7E4-zc-JHu"/>
                         <outlet property="timeLabel" destination="4pg-vx-zFq" id="9RP-kB-dKe"/>
                         <outlet property="titleLabel" destination="xK5-I8-tKR" id="Xco-QN-ZuY"/>
+                        <outlet property="upVoteButton" destination="Kza-l8-a8t" id="tT3-km-iuk"/>
                         <outlet property="voteLabel" destination="Jqc-sY-AQi" id="TsB-hE-BiP"/>
                     </connections>
                 </viewController>
@@ -1543,11 +1557,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="downVoteButton" destination="50t-y6-icE" id="8bU-o4-hDJ"/>
                         <outlet property="replyLabel" destination="gx7-kC-4YN" id="mUO-vV-XLw"/>
                         <outlet property="tableView" destination="Ekg-wI-sDe" id="lht-Ih-rFv"/>
                         <outlet property="textView" destination="yo6-hK-V91" id="5Zy-86-nED"/>
                         <outlet property="timeLabel" destination="cnQ-RH-5U3" id="s71-7t-xiq"/>
                         <outlet property="titleLabel" destination="EKz-aj-xg5" id="Pd8-Um-TqU"/>
+                        <outlet property="upVoteButton" destination="9hj-8q-Wwt" id="36V-Id-84A"/>
                         <outlet property="voteLabel" destination="52W-if-mXp" id="e74-mX-O7q"/>
                     </connections>
                 </viewController>
@@ -1559,7 +1575,9 @@
     <resources>
         <image name="Binoculars-100" width="33" height="33"/>
         <image name="Collapse Arrow-100" width="33" height="33"/>
+        <image name="Collapse Arrow-100-1" width="33" height="33"/>
         <image name="Expand Arrow-100" width="33" height="33"/>
+        <image name="Expand Arrow-100-1" width="33" height="33"/>
         <image name="Guest-100" width="33" height="33"/>
         <image name="More-100" width="33" height="33"/>
         <image name="Mountain-100" width="33" height="33"/>

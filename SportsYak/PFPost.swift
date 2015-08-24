@@ -38,7 +38,8 @@ class PFPost: PFObject, PFSubclassing {
     @NSManaged var upVotes: [String]
     @NSManaged var downVotes: [String]
     @NSManaged var comments: [PFComment]
-    
+    @NSManaged var flags: [String]
+
     override init() {
         super.init()
     }
@@ -63,6 +64,76 @@ class PFPost: PFObject, PFSubclassing {
         self.upVotes = [String]()
         self.downVotes = [String]()
         self.comments = [PFComment]()
+    }
+    
+    func upVote() {
+        if let user = PFMember.currentUser() {
+            if let userId = user.objectId {
+                if contains(self.upVotes, userId) {
+                    PFCloud.callFunctionInBackground("removeUpVote", withParameters: ["userObjectId":userId,"postObjectId":self.objectId!], block: { (object, error) -> Void in
+                        if (error == nil) {
+                            println("removed upvote for post \(self.objectId)")
+                        }
+                    })
+                    if let index = find(self.upVotes, userId) {
+                        self.upVotes.removeAtIndex(index)
+                    }
+                    self.votes -= 1
+                }
+                else {
+                    var shouldRemove = contains(self.downVotes, userId)
+                    PFCloud.callFunctionInBackground("addUpVote", withParameters: ["userObjectId":userId,"postObjectId":self.objectId!,"shouldRemove":shouldRemove], block: { (object, error) -> Void in
+                        if (error == nil) {
+                            println("added upvote for post \(self.objectId)")
+                        }
+                    })
+                    self.upVotes.append(userId)
+                    if (shouldRemove) {
+                        if let index = find(self.downVotes, userId) {
+                            self.downVotes.removeAtIndex(index)
+                        }
+                    }
+                    var votes = (shouldRemove ? 2 : 1)
+                    self.votes += votes
+                }
+            }
+
+
+        }
+    }
+    
+    func downVote() {
+        if let user = PFMember.currentUser() {
+            if let userId = user.objectId {
+                if contains(self.downVotes, userId) {
+                    PFCloud.callFunctionInBackground("removeDownVote", withParameters: ["userObjectId":userId,"postObjectId":self.objectId!], block: { (object, error) -> Void in
+                        if (error == nil) {
+                            println("removed downvote for post \(self.objectId)")
+                        }
+                    })
+                    if let index = find(self.downVotes, userId) {
+                        self.downVotes.removeAtIndex(index)
+                    }
+                    self.votes -= 1
+                }
+                else {
+                    var shouldRemove = contains(self.upVotes, userId)
+                    PFCloud.callFunctionInBackground("addDownVote", withParameters: ["userObjectId":userId,"postObjectId":self.objectId!,"shouldRemove":shouldRemove], block: { (object, error) -> Void in
+                        if (error == nil) {
+                            println("added downvote for post \(self.objectId)")
+                        }
+                    })
+                    self.downVotes.append(userId)
+                    if (shouldRemove) {
+                        if let index = find(self.upVotes, userId) {
+                            self.upVotes.removeAtIndex(index)
+                        }
+                    }
+                    var votes = (shouldRemove ? 2 : 1)
+                    self.votes -= votes
+                }
+            }            
+        }
     }
     
     class func queryWithMyTeams(postSort : PostSort) -> PFQuery? {
@@ -107,7 +178,7 @@ class PFPost: PFObject, PFSubclassing {
         }
         return nil
     }
-    
+
     class func queryWithEvent(event : PFEvent, postType: PostType, postSort : PostSort) -> PFQuery? {
         if let type = TeamType(rawValue: event.teamType) {
             let className = type.className

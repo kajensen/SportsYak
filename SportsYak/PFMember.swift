@@ -16,6 +16,12 @@ class PFMember: PFUser, PFSubclassing {
     @NSManaged var location: PFGeoPoint!
     @NSManaged var nflTeam: PFNFLTeam!
     @NSManaged var showNFL: Bool
+    @NSManaged var mutedUserIds: [String]
+
+    func setup() {
+        self.karma = 0
+        self.mutedUserIds = [String]()
+    }
     
     func teams() -> [PFObject] {
         var teams = [PFObject]()

@@ -23,11 +23,12 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.loadData(false)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.loadData(false)
+        self.tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -162,8 +163,19 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
         return cell
     }
     
-    func postTableViewCellSelectButton(cell: PostTableViewCell, actionType: PostActionType) {
-        // TODO
+    func postTableViewCellSelectButton(cell: PostTableViewCell, post: PFPost, actionType: PostActionType) {
+        if (actionType == PostActionType.UpVote) {
+            post.upVote()
+            if let indexPath = self.tableView.indexPathForCell(cell) {
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
+        else if (actionType == PostActionType.DownVote) {
+            post.downVote()
+            if let indexPath = self.tableView.indexPathForCell(cell) {
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
     }
     
     func buttonGroupUnderlineViewDidSelectButtonAtIndex(index: Int) {

@@ -23,6 +23,9 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var comments = [PFComment]()
     var post : PFPost!
     
+    @IBOutlet var upVoteButton: UIButton!
+    @IBOutlet var downVoteButton: UIButton!
+    
     @IBOutlet var textViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
@@ -66,9 +69,26 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.textView.text = post.text
         self.timeLabel.text = post.createdAt?.timeAgoSimple
         self.replyLabel.text = post.replyString()
-        self.voteLabel.text = "\(post.upVotes.count - post.downVotes.count)"
         
         self.commentTextView?.text = ""
+        self.setupVotes()
+    }
+    
+    func setupVotes() {
+        self.voteLabel.text = "\(post.upVotes.count - post.downVotes.count)"
+
+        if let user = PFMember.currentUser() {
+            if let userId = user.objectId {
+                self.upVoteButton.selected = false
+                self.downVoteButton.selected = false
+                if contains(self.post.upVotes, userId) {
+                    self.upVoteButton.selected = true
+                }
+                else if contains(post.downVotes, userId) {
+                    self.downVoteButton.selected = true
+                }
+            }
+        }
     }
     
     func checkSendEnablility() {
@@ -77,8 +97,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func loadData() {
         if let user = PFMember.currentUser() {
-            if let query = PFComment.query() {
-                query.whereKey("post", equalTo: post)
+            if let query = PFComment.queryWithPost(self.post) {
                 query.findObjectsInBackgroundWithBlock {
                     (objects: [AnyObject]?, error: NSError?) -> Void in
                     
@@ -131,15 +150,26 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
-        cell.delegate = self
         let comment = self.comments[indexPath.row]
         cell.configureWithComment(comment)
+        cell.delegate = self
         
         return cell
     }
     
-    func commentTableViewCellSelectButton(cell: CommentTableViewCell, actionType: CommentActionType) {
-        // TODO
+    func commentTableViewCellSelectButton(cell: CommentTableViewCell, comment: PFComment, actionType: CommentActionType) {
+        if (actionType == CommentActionType.UpVote) {
+            comment.upVote()
+            if let indexPath = self.tableView.indexPathForCell(cell) {
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
+        else if (actionType == CommentActionType.DownVote) {
+            comment.downVote()
+            if let indexPath = self.tableView.indexPathForCell(cell) {
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
     }
     
     func textViewDidChange(textView: UITextView) {
@@ -208,6 +238,11 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.comments.append(comment)
                     self.tableView.reloadData()
                 }
+                PFCloud.callFunctionInBackground("addComment", withParameters: ["postObjectId":self.post.objectId!,"commentObjectId":comment.objectId!], block: { (obj, error) -> Void in
+                    if (error == nil) {
+                        println("add comment \(comment.objectId!) for post \(self.post.objectId)")
+                    }
+                })
             })
             self.commentTextView?.resignFirstResponder()
             self.commentTextView?.text = ""
@@ -217,9 +252,13 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     @IBAction func upVote(sender: AnyObject) {
+        self.post.upVote()
+        self.setupVotes()
     }
     
     @IBAction func downVote(sender: AnyObject) {
+        self.post.downVote()
+        self.setupVotes()
     }
     
     @IBAction func share(sender: AnyObject) {
