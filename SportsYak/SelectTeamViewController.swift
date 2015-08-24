@@ -12,7 +12,7 @@ import Parse
 class SelectTeamViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet var tableView: UITableView!
-    var teams = [PFObject]()
+    var teams = [PFTeam]()
     var type = TeamType.count
     
     override func viewDidLoad() {
@@ -41,7 +41,7 @@ class SelectTeamViewController: UIViewController, UITableViewDataSource, UITable
                     
                     if error == nil {
                         println("Successfully retrieved \(objects!.count) teams.")
-                        if let objects = objects as? [PFObject] {
+                        if let objects = objects as? [PFTeam] {
                             for object in objects {
                                 println(object.objectId)
                             }
@@ -70,9 +70,7 @@ class SelectTeamViewController: UIViewController, UITableViewDataSource, UITable
         let cell = tableView.dequeueReusableCellWithIdentifier("TeamCell", forIndexPath: indexPath) as! UITableViewCell
         let team = self.teams[indexPath.row]
         if team.isDataAvailable() {
-            if let title = team.objectForKey("name") as? String {
-                cell.textLabel!.text = title
-            }
+            cell.textLabel!.text = team.name
         }
         
         return cell
@@ -81,7 +79,7 @@ class SelectTeamViewController: UIViewController, UITableViewDataSource, UITable
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let team = self.teams[indexPath.row]
         if let user = PFMember.currentUser() {
-            let title = team.objectForKey("name") as? String
+            let title = team.name
             var alertController = UIAlertController(title: title, message: "You can only choose your team once.", preferredStyle: UIAlertControllerStyle.Alert)
             let chooseAction = UIAlertAction(title: "Select", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 user.addTeam(team)

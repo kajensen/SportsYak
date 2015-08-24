@@ -19,7 +19,7 @@ class TeamTableViewCell: UITableViewCell {
     @IBOutlet var tSwitch: UISwitch!
     
     var delegate: TeamTableViewCellDelegate?
-    var team: PFObject?
+    var team: PFTeam?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -32,13 +32,11 @@ class TeamTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureWithTeam(team:PFObject) {
+    func configureWithTeam(team:PFTeam) {
         self.team = team
         if self.team != nil {
             if self.team!.isDataAvailable() {
-                if let title = self.team!.objectForKey("name") as? String {
-                    self.titleLabel.text = title
-                }
+                self.titleLabel.text = self.team!.name
                 if let user = PFMember.currentUser() {
                     let isOn = user.isOn(self.team)
                     self.tSwitch.on = isOn

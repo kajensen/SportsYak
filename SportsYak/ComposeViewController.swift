@@ -23,8 +23,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     @IBOutlet var mainView: UIView!
     @IBOutlet var charactersLabel: UILabel!
-    var team : PFObject?
-    var teams = [PFObject]()
+    var team : PFTeam?
+    var teams = [PFTeam]()
 
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     @IBOutlet var titleView: UIView!
@@ -90,8 +90,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     func pickerView(pickerView: AKPickerView!, titleForItem item: Int) -> String! {
         let team = self.teams[item]
-        let name = team.valueForKey("name") as? String
-        return name
+        return team.name
     }
     
     func pickerView(pickerView: AKPickerView!, didSelectItem item: Int) {

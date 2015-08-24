@@ -41,7 +41,7 @@ class PFMember: PFUser, PFSubclassing {
         return teamIds
     }
 
-    func teamForType(type : TeamType) -> PFObject? {
+    func teamForType(type : TeamType) -> PFTeam? {
         switch type {
             case TeamType.NFL:
                 return self.nflTeam

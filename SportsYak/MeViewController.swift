@@ -15,7 +15,7 @@ enum MeType: Int {
     case MyStuff
 }
 
-class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, PostTableViewCellDelegate {
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var mapView: MKMapView!
@@ -37,8 +37,11 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
         if (!hasShownPulses) {
             hasShownPulses = true
             let pulseEffect = LFTPulseAnimation(repeatCount: Float.infinity, radius:20, position:self.mapView.center)
+            pulseEffect.backgroundColor = Constants.GLOBAL_TINT.CGColor
             let pulseEffect2 = LFTPulseAnimation(repeatCount: Float.infinity, radius:40, position:self.mapView.center)
+            pulseEffect2.backgroundColor = Constants.GLOBAL_TINT.CGColor
             let pulseEffect3 = LFTPulseAnimation(repeatCount: Float.infinity, radius:60, position:self.mapView.center)
+            pulseEffect3.backgroundColor = Constants.GLOBAL_TINT.CGColor
             self.view.layer.insertSublayer(pulseEffect, above: self.mapView.layer)
             self.view.layer.insertSublayer(pulseEffect2, above: self.mapView.layer)
             self.view.layer.insertSublayer(pulseEffect3, above: self.mapView.layer)
@@ -55,6 +58,11 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                     }
                     else {
                         if let query = PFNotification.query() {
+                            query.whereKey("user", equalTo: user)
+                            query.includeKey("post")
+                            query.includeKey("comment")
+                            query.includeKey("comment.post")
+                            query.orderByDescending("createdAt")
                             query.findObjectsInBackgroundWithBlock {
                                 (objects: [AnyObject]?, error: NSError?) -> Void in
                                 
@@ -75,12 +83,13 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                     }
                 }
                 else {
-                    if (self.myStuff.count > 0 && !forceDownload) {
-                        self.setupData(self.myStuff)
+                    if ((self.posts != nil) && (self.comments != nil) && !forceDownload) {
+                        self.setupMyStuff()
                     }
                     else {
                         if let query = PFComment.query() {
-                            query.whereKey("userId", equalTo: userId)
+                            query.whereKey("user", equalTo: user)
+                            query.includeKey("post")
                             query.orderByDescending("createdAt")
                             query.findObjectsInBackgroundWithBlock {
                                 (objects: [AnyObject]?, error: NSError?) -> Void in
@@ -100,7 +109,7 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                             }
                         }
                         if let query = PFPost.query() {
-                            query.whereKey("userId", equalTo: userId)
+                            query.whereKey("user", equalTo: user)
                             query.orderByDescending("createdAt")
                             query.findObjectsInBackgroundWithBlock {
                                 (objects: [AnyObject]?, error: NSError?) -> Void in
@@ -129,10 +138,10 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
         if ((self.posts != nil) && (self.comments != nil)) {
             var myStuff = self.posts!
             myStuff += self.comments!
-            self.myStuff = myStuff.sorted { (lhs: PFObject, rhs: PFObject) -> Bool in
+            var data = myStuff.sorted { (lhs: PFObject, rhs: PFObject) -> Bool in
                 return rhs.createdAt!.compare(lhs.createdAt!) == .OrderedAscending
                 }.map { $0 as PFObject }
-            self.setupData(self.myStuff)
+            self.setupData(data)
         }
     }
     
@@ -170,24 +179,75 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.myStuff.count
     }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if let notification = self.myStuff[indexPath.row] as? PFNotification {
+            return 60
+        }
+        else if let post = self.myStuff[indexPath.row] as? PFPost {
+            return self.heightForCellForPost(post)
+        }
+        else if let comment = self.myStuff[indexPath.row] as? PFComment {
+            return self.heightForCellForPost(comment.post)
+        }
+        return tableView.rowHeight
+    }
+    
+    func heightForCellForPost(post : PFPost) -> CGFloat {
+        var fixedWidth = self.tableView.contentSize.width - 64 //width of cell, 8*3 padding 40 (vote view)
+        var standardHeight : CGFloat = 23 //base height of textview
+        var textView = UITextView()
+        //textView.font = [UIFont fontWithName:@"Myriad Pro" size:13.0f];
+        textView.text = post.text
+        textView.scrollEnabled = false
+        var expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
+        var newHeight = expectedSize.height
+        if (standardHeight > newHeight) {
+            newHeight = standardHeight
+        }
+        var height = self.tableView.rowHeight - standardHeight + newHeight
+        return height
+    }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if let notification = self.myStuff[indexPath.row] as? PFNotification {
-            let cell = tableView.dequeueReusableCellWithIdentifier("notification", forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("NotificationCell", forIndexPath: indexPath) as! NotificationTableViewCell
+            cell.configureWithNotification(notification)
             
             return cell
         }
         else if let post = self.myStuff[indexPath.row] as? PFPost {
-            let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostTableViewCell
+            cell.configureWithPost(post)
+            cell.delegate = self
             
             return cell
         }
         else if let comment = self.myStuff[indexPath.row] as? PFComment {
-            let cell = tableView.dequeueReusableCellWithIdentifier("comment", forIndexPath: indexPath) as! UITableViewCell
+            let post = comment.post
+            let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostTableViewCell
+            cell.configureWithPost(post)
+            cell.delegate = self
             
             return cell
         }
         return UITableViewCell()
+    }
+    
+    
+    func postTableViewCellSelectButton(cell: PostTableViewCell, post: PFPost, actionType: PostActionType) {
+        if (actionType == PostActionType.UpVote) {
+            post.upVote()
+            if let indexPath = self.tableView.indexPathForCell(cell) {
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
+        else if (actionType == PostActionType.DownVote) {
+            post.downVote()
+            if let indexPath = self.tableView.indexPathForCell(cell) {
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
+        }
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -208,11 +268,13 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
             let team = user.teams()[indexPath.row]
             cell.configureWithTeam(team)
             
-            println(cell.teamImageView)
             let cvPoint = collectionView.convertPoint(cell.center, toView: self.view)
             let pulseEffect = LFTPulseAnimation(repeatCount: Float.infinity, radius:10, position:cvPoint)
+            pulseEffect.backgroundColor = UIColor(hexString: team.colorMainHex).CGColor
             let pulseEffect2 = LFTPulseAnimation(repeatCount: Float.infinity, radius:20, position:cvPoint)
+            pulseEffect2.backgroundColor = UIColor(hexString: team.colorMainHex).CGColor
             let pulseEffect3 = LFTPulseAnimation(repeatCount: Float.infinity, radius:40, position:cvPoint)
+            pulseEffect3.backgroundColor = UIColor(hexString: team.colorMainHex).CGColor
             self.view.layer.insertSublayer(pulseEffect, below: collectionView.layer)
             self.view.layer.insertSublayer(pulseEffect2, below: collectionView.layer)
             self.view.layer.insertSublayer(pulseEffect3, below: collectionView.layer)
@@ -226,14 +288,39 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
         loadData(false)
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if (segue.identifier == "ViewComments") {
+            if let postViewController = segue.destinationViewController as? PostViewController {
+                if let cell = sender as? PostTableViewCell {
+                    if let indexPath = self.tableView.indexPathForCell(cell) {
+                        if let post = self.myStuff[indexPath.row] as? PFPost {
+                            postViewController.post = post
+                        }
+                        else if let comment = self.myStuff[indexPath.row] as? PFComment {
+                            postViewController.post = comment.post
+                        }
+                    }
+                }
+            }
+        }
+        else if (segue.identifier == "ViewNotification") {
+            if let postViewController = segue.destinationViewController as? PostViewController {
+                if let cell = sender as? NotificationTableViewCell {
+                    if let indexPath = self.tableView.indexPathForCell(cell) {
+                        if let notification = self.myStuff[indexPath.row] as? PFNotification {
+                            if let post = notification.post {
+                                postViewController.post = post
+                            }
+                            else if let comment = notification.comment {
+                                postViewController.post = comment.post
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-    */
-
 }

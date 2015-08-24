@@ -9,7 +9,16 @@
 import UIKit
 
 class NotificationTableViewCell: UITableViewCell {
+    
+    @IBOutlet var notificationImageView: UIImageView!
 
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var messageLabel: UILabel!
+
+    @IBOutlet var timeLabel: UILabel!
+    
+    var post : PFPost!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -17,8 +26,28 @@ class NotificationTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    func configureWithNotification(notification: PFNotification) {
+        self.titleLabel.text = notification.message
+        
+        
+        if let post = notification.post {
+            self.configureWithPost(post)
+        }
+        else if let comment = notification.comment {
+            self.configureWithPost(comment.post)
+        }
+        else {
+            println("no post or comment.")
+        }
 
-        // Configure the view for the selected state
+    }
+    
+    func configureWithPost(post: PFPost) {
+        self.post = post
+        self.timeLabel.text = self.post.createdAt?.timeAgoSimple
+        self.messageLabel.text = "'\(self.post.text)'"
     }
 
 }

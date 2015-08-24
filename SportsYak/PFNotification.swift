@@ -12,9 +12,9 @@ import Parse
 class PFNotification: PFObject, PFSubclassing {
     
     @NSManaged var user: PFMember!
-    @NSManaged var post: PFPost!
-    @NSManaged var comment: PFComment!
-    @NSManaged var text: String!
+    @NSManaged var post: PFPost?
+    @NSManaged var comment: PFComment?
+    @NSManaged var message: String!
     
     class func parseClassName() -> String {
         return "Notification"

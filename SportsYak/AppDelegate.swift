@@ -55,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         //UI
         //UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName: UIColor.magentaColor()], forState:.Normal)
         UITabBar.appearance().tintColor = Constants.GLOBAL_TINT
+        UISwitch.appearance().onTintColor = Constants.GLOBAL_TINT
         
         return true
     }
@@ -103,6 +104,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         // Store the deviceToken in the current Installation and save it to Parse
         let installation = PFInstallation.currentInstallation()
         installation.setDeviceTokenFromData(deviceToken)
+        if let user = PFMember.currentUser() {
+            installation.setValue(user, forKey: "user")
+        }
         installation.saveInBackground()
     }
 

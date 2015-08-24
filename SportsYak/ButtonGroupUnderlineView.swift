@@ -12,7 +12,7 @@ class ButtonGroupUnderlineView: UIView {
     @IBOutlet var buttons: [UIButton]!
     var selectedButton : UIButton?
     var underline : UIView?
-    var underlineThickness : CGFloat = 2.5
+    var underlineThickness : CGFloat = 2
     
     /*
     // Only override drawRect: if you perform custom drawing.
