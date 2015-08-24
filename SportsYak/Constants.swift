@@ -13,6 +13,10 @@ class Constants {
 }
 
 extension UIColor {
+    convenience init(hexString : String) {
+        let hexInt = strtoul(hexString, nil, 16)
+        self.init(hex: Int(hexInt))
+    }
     convenience init(hex : Int) {
         let blue = CGFloat(hex & 0xFF)
         let green = CGFloat((hex >> 8) & 0xFF)

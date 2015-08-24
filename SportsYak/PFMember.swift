@@ -23,8 +23,8 @@ class PFMember: PFUser, PFSubclassing {
         self.mutedUserIds = [String]()
     }
     
-    func teams() -> [PFObject] {
-        var teams = [PFObject]()
+    func teams() -> [PFTeam] {
+        var teams = [PFTeam]()
         if (showNFL && nflTeam != nil) {
             teams.append(nflTeam)
         }

@@ -8,15 +8,139 @@
 
 import UIKit
 import MapKit
+import Parse
 
-class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate {
+enum MeType: Int {
+    case Notifications = 0
+    case MyStuff
+}
+
+class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var mapView: MKMapView!
+    var notifications = [PFNotification]()
+    var posts : [PFObject]?
+    var comments : [PFObject]?
+    var myStuff = [PFObject]()
+    var meType = MeType.Notifications
+    var hasShownPulses = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupView()
+        self.loadData(false)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if (!hasShownPulses) {
+            hasShownPulses = true
+            let pulseEffect = LFTPulseAnimation(repeatCount: Float.infinity, radius:20, position:self.mapView.center)
+            let pulseEffect2 = LFTPulseAnimation(repeatCount: Float.infinity, radius:40, position:self.mapView.center)
+            let pulseEffect3 = LFTPulseAnimation(repeatCount: Float.infinity, radius:60, position:self.mapView.center)
+            self.view.layer.insertSublayer(pulseEffect, above: self.mapView.layer)
+            self.view.layer.insertSublayer(pulseEffect2, above: self.mapView.layer)
+            self.view.layer.insertSublayer(pulseEffect3, above: self.mapView.layer)
+        }
+    }
+    
+    func loadData(forceDownload: Bool) {
+        if let user = PFMember.currentUser() {
+            if let userId = user.objectId {
+                var query : PFQuery?
+                if (self.meType == MeType.Notifications) {
+                    if (self.notifications.count > 0 && !forceDownload) {
+                        self.setupData(self.notifications)
+                    }
+                    else {
+                        if let query = PFNotification.query() {
+                            query.findObjectsInBackgroundWithBlock {
+                                (objects: [AnyObject]?, error: NSError?) -> Void in
+                                
+                                if error == nil {
+                                    println("Successfully retrieved \(objects!.count) notifications.")
+                                    if let objects = objects as? [PFNotification] {
+                                        for object in objects {
+                                            println(object.objectId)
+                                        }
+                                        self.notifications = objects
+                                        self.setupData(self.notifications)
+                                    }
+                                } else {
+                                    println("Error: \(error!) \(error!.userInfo!)")
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    if (self.myStuff.count > 0 && !forceDownload) {
+                        self.setupData(self.myStuff)
+                    }
+                    else {
+                        if let query = PFComment.query() {
+                            query.whereKey("userId", equalTo: userId)
+                            query.orderByDescending("createdAt")
+                            query.findObjectsInBackgroundWithBlock {
+                                (objects: [AnyObject]?, error: NSError?) -> Void in
+                                
+                                if error == nil {
+                                    println("Successfully retrieved \(objects!.count) comments.")
+                                    if let objects = objects as? [PFComment] {
+                                        for object in objects {
+                                            println(object.objectId)
+                                        }
+                                        self.comments = objects
+                                        self.setupMyStuff()
+                                    }
+                                } else {
+                                    println("Error: \(error!) \(error!.userInfo!)")
+                                }
+                            }
+                        }
+                        if let query = PFPost.query() {
+                            query.whereKey("userId", equalTo: userId)
+                            query.orderByDescending("createdAt")
+                            query.findObjectsInBackgroundWithBlock {
+                                (objects: [AnyObject]?, error: NSError?) -> Void in
+                                
+                                if error == nil {
+                                    println("Successfully retrieved \(objects!.count) posts.")
+                                    if let objects = objects as? [PFPost] {
+                                        for object in objects {
+                                            println(object.objectId)
+                                        }
+                                        self.posts = objects
+                                        self.setupMyStuff()
+                                    }
+                                } else {
+                                    println("Error: \(error!) \(error!.userInfo!)")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func setupMyStuff() {
+        if ((self.posts != nil) && (self.comments != nil)) {
+            var myStuff = self.posts!
+            myStuff += self.comments!
+            self.myStuff = myStuff.sorted { (lhs: PFObject, rhs: PFObject) -> Bool in
+                return rhs.createdAt!.compare(lhs.createdAt!) == .OrderedAscending
+                }.map { $0 as PFObject }
+            self.setupData(self.myStuff)
+        }
+    }
+    
+    func setupData(data : [PFObject]) {
+        if (self.myStuff != data) {
+            self.myStuff = data
+            self.tableView.reloadData()
+        }
     }
     
     /*override func viewDidLayoutSubviews() {
@@ -40,59 +164,67 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
     // MARK: - Table view data source
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 0
+        return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
+        return self.myStuff.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
-        
-        // Configure the cell...
+        if let notification = self.myStuff[indexPath.row] as? PFNotification {
+            let cell = tableView.dequeueReusableCellWithIdentifier("notification", forIndexPath: indexPath) as! UITableViewCell
+            
+            return cell
+        }
+        else if let post = self.myStuff[indexPath.row] as? PFPost {
+            let cell = tableView.dequeueReusableCellWithIdentifier("post", forIndexPath: indexPath) as! UITableViewCell
+            
+            return cell
+        }
+        else if let comment = self.myStuff[indexPath.row] as? PFComment {
+            let cell = tableView.dequeueReusableCellWithIdentifier("comment", forIndexPath: indexPath) as! UITableViewCell
+            
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        var rows = 0
+        if let user = PFMember.currentUser() {
+            rows = user.teams().count
+        }
+        return rows
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TeamCell", forIndexPath: indexPath) as! TeamCollectionViewCell
+        if let user = PFMember.currentUser() {
+            let team = user.teams()[indexPath.row]
+            cell.configureWithTeam(team)
+            
+            println(cell.teamImageView)
+            let cvPoint = collectionView.convertPoint(cell.center, toView: self.view)
+            let pulseEffect = LFTPulseAnimation(repeatCount: Float.infinity, radius:10, position:cvPoint)
+            let pulseEffect2 = LFTPulseAnimation(repeatCount: Float.infinity, radius:20, position:cvPoint)
+            let pulseEffect3 = LFTPulseAnimation(repeatCount: Float.infinity, radius:40, position:cvPoint)
+            self.view.layer.insertSublayer(pulseEffect, below: collectionView.layer)
+            self.view.layer.insertSublayer(pulseEffect2, below: collectionView.layer)
+            self.view.layer.insertSublayer(pulseEffect3, below: collectionView.layer)
+        }
         
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+    @IBAction func segmentedControlChanged(sender: UISegmentedControl) {
+        self.meType = MeType(rawValue: sender.selectedSegmentIndex) ?? MeType.Notifications
+        loadData(false)
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation

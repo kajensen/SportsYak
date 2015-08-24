@@ -275,7 +275,7 @@
                     <navigationItem key="navigationItem" id="XCk-7O-Zw4">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="VzR-Ls-ZjE">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <rect key="frame" x="240" y="7" width="120" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="New"/>
@@ -502,7 +502,7 @@
             </objects>
             <point key="canvasLocation" x="878" y="896"/>
         </scene>
-        <!--Me-->
+        <!--Me View Controller-->
         <scene sceneID="T0y-nr-6zj">
             <objects>
                 <viewController id="BQ9-vc-zcH" customClass="MeViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
@@ -570,63 +570,86 @@
                                     <outlet property="delegate" destination="BQ9-vc-zcH" id="Oc5-Ky-Jzb"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1a4-ob-y4a" customClass="ButtonGroupUnderlineView" customModule="SportsYak" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="150" width="600" height="50"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BT9-jv-VGa">
-                                        <rect key="frame" x="8" y="10" width="288" height="30"/>
-                                        <state key="normal" title="Notifications">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uEw-mf-Mhb">
-                                        <rect key="frame" x="304" y="10" width="288" height="30"/>
-                                        <state key="normal" title="My Stuff">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="BT9-jv-VGa" firstAttribute="leading" secondItem="1a4-ob-y4a" secondAttribute="leading" constant="8" id="2qd-W6-Q6J"/>
-                                    <constraint firstItem="BT9-jv-VGa" firstAttribute="width" secondItem="uEw-mf-Mhb" secondAttribute="width" id="9rK-4E-i9C"/>
-                                    <constraint firstItem="uEw-mf-Mhb" firstAttribute="leading" secondItem="BT9-jv-VGa" secondAttribute="trailing" constant="8" id="NvN-ad-aYQ"/>
-                                    <constraint firstAttribute="trailing" secondItem="uEw-mf-Mhb" secondAttribute="trailing" constant="8" id="SMg-uf-hrC"/>
-                                    <constraint firstAttribute="height" constant="50" id="XIP-zE-gRg"/>
-                                    <constraint firstAttribute="centerY" secondItem="BT9-jv-VGa" secondAttribute="centerY" id="a9B-t5-hi6"/>
-                                    <constraint firstItem="BT9-jv-VGa" firstAttribute="bottom" secondItem="uEw-mf-Mhb" secondAttribute="bottom" id="fJ5-w7-M9x"/>
-                                    <constraint firstItem="BT9-jv-VGa" firstAttribute="top" secondItem="uEw-mf-Mhb" secondAttribute="top" id="qe3-GV-5mr"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="buttons" destination="BT9-jv-VGa" collectionClass="NSMutableArray" id="Hkn-Bv-eOd"/>
-                                    <outletCollection property="buttons" destination="uEw-mf-Mhb" collectionClass="NSMutableArray" id="e84-9e-xuG"/>
-                                </connections>
-                            </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hfo-EX-QDw">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="IEI-q4-v6Y"/>
+                                    <constraint firstAttribute="height" constant="200" id="IEI-q4-v6Y"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="BQ9-vc-zcH" id="Q2S-w3-qMj"/>
                                 </connections>
                             </mapView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NbV-Pk-lUF">
+                                <rect key="frame" x="16" y="8" width="568" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="dXc-En-fae"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hHC-9V-Zfq">
+                                    <size key="itemSize" width="40" height="40"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TeamCell" id="EGY-0a-d0V" customClass="TeamCollectionViewCell" customModule="SportsYak" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RQY-wf-ODU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="RQY-wf-ODU" firstAttribute="leading" secondItem="EGY-0a-d0V" secondAttribute="leading" id="0lF-VM-YDs"/>
+                                            <constraint firstAttribute="trailing" secondItem="RQY-wf-ODU" secondAttribute="trailing" id="1Vc-Ea-4mN"/>
+                                            <constraint firstAttribute="bottom" secondItem="RQY-wf-ODU" secondAttribute="bottom" id="WSh-pm-dkF"/>
+                                            <constraint firstItem="RQY-wf-ODU" firstAttribute="top" secondItem="EGY-0a-d0V" secondAttribute="top" id="dVT-Ax-70P"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="teamImageView" destination="RQY-wf-ODU" id="ffy-e2-d7y"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BQ9-vc-zcH" id="uLW-vB-sFM"/>
+                                    <outlet property="delegate" destination="BQ9-vc-zcH" id="Zgx-4s-dmP"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="P4g-OS-ylk" secondAttribute="bottom" id="0Xl-ks-QFQ"/>
-                            <constraint firstItem="P4g-OS-ylk" firstAttribute="top" secondItem="1a4-ob-y4a" secondAttribute="bottom" id="2Oy-cr-wub"/>
                             <constraint firstAttribute="trailing" secondItem="Hfo-EX-QDw" secondAttribute="trailing" id="2vT-4U-4lP"/>
                             <constraint firstItem="Hfo-EX-QDw" firstAttribute="top" secondItem="hYA-gm-dDv" secondAttribute="top" id="4Vj-cC-MfZ"/>
+                            <constraint firstAttribute="centerX" secondItem="NbV-Pk-lUF" secondAttribute="centerX" id="72j-Ak-nlR"/>
                             <constraint firstItem="P4g-OS-ylk" firstAttribute="leading" secondItem="hYA-gm-dDv" secondAttribute="leading" id="FCU-0w-Tje"/>
+                            <constraint firstItem="NbV-Pk-lUF" firstAttribute="top" secondItem="hYA-gm-dDv" secondAttribute="top" constant="8" id="MpA-Zq-hoF"/>
                             <constraint firstAttribute="trailing" secondItem="P4g-OS-ylk" secondAttribute="trailing" id="ULQ-h3-hN1"/>
-                            <constraint firstItem="1a4-ob-y4a" firstAttribute="leading" secondItem="hYA-gm-dDv" secondAttribute="leading" id="VbY-2j-b33"/>
-                            <constraint firstItem="1a4-ob-y4a" firstAttribute="top" secondItem="Hfo-EX-QDw" secondAttribute="bottom" id="liq-RF-6Y2"/>
-                            <constraint firstAttribute="trailing" secondItem="1a4-ob-y4a" secondAttribute="trailing" id="qfv-7i-dbb"/>
+                            <constraint firstItem="NbV-Pk-lUF" firstAttribute="leading" secondItem="hYA-gm-dDv" secondAttribute="leading" constant="16" id="b2K-Xi-p7c"/>
+                            <constraint firstItem="P4g-OS-ylk" firstAttribute="top" secondItem="Hfo-EX-QDw" secondAttribute="bottom" id="edM-xN-SFw"/>
                             <constraint firstItem="Hfo-EX-QDw" firstAttribute="leading" secondItem="hYA-gm-dDv" secondAttribute="leading" id="skj-XV-FM8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Me" id="143-Df-45N"/>
+                    <navigationItem key="navigationItem" id="143-Df-45N">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="tp0-lh-OQy">
+                            <rect key="frame" x="205" y="7" width="191" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="Notifications"/>
+                                <segment title="My Stuff"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentedControlChanged:" destination="BQ9-vc-zcH" eventType="valueChanged" id="93g-Px-ynI"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="Hfo-EX-QDw" id="icd-Oi-4gB"/>
                         <outlet property="tableView" destination="P4g-OS-ylk" id="ycN-bD-jwP"/>
@@ -1306,7 +1329,7 @@
                     <navigationItem key="navigationItem" id="2qy-1h-9D6">
                         <nil key="title"/>
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="IVX-pF-rZk">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                            <rect key="frame" x="238" y="7" width="124" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
                                 <segment title="New"/>

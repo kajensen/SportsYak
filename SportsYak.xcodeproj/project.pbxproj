@@ -22,6 +22,9 @@
 		901358BE1B752B7800C559BF /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901358BD1B752B7800C559BF /* CommentTableViewCell.swift */; };
 		901358C01B752B9300C559BF /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901358BF1B752B9300C559BF /* NotificationTableViewCell.swift */; };
 		901358C21B75313200C559BF /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901358C11B75313200C559BF /* ComposeViewController.swift */; };
+		90B10B491B8BA1E800A56CF0 /* LFTPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B481B8BA1E800A56CF0 /* LFTPulseAnimation.swift */; };
+		90B10B4B1B8BA5DE00A56CF0 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B4A1B8BA5DE00A56CF0 /* Async.swift */; };
+		90B10B4F1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B4E1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift */; };
 		90F3CEDE1B7533870051FED4 /* PFMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F3CEDD1B7533870051FED4 /* PFMember.swift */; };
 		90F3CEE01B7535310051FED4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F3CEDF1B7535310051FED4 /* MapKit.framework */; };
 		90F3CEEA1B7536C00051FED4 /* PFNFLTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F3CEE91B7536C00051FED4 /* PFNFLTeam.swift */; };
@@ -41,6 +44,7 @@
 		90FE8F3C1B8A3ADF0033AE9A /* KarmaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE8F3B1B8A3ADF0033AE9A /* KarmaViewController.swift */; };
 		90FE8F3E1B8A65330033AE9A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE8F3D1B8A65330033AE9A /* Constants.swift */; };
 		90FE8F401B8A69900033AE9A /* HideBarsOnSwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE8F3F1B8A69900033AE9A /* HideBarsOnSwipeViewController.swift */; };
+		90FE8F421B8AA5A00033AE9A /* PFNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90FE8F411B8AA5A00033AE9A /* PFNotification.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +77,9 @@
 		901358BD1B752B7800C559BF /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		901358BF1B752B9300C559BF /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		901358C11B75313200C559BF /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
+		90B10B481B8BA1E800A56CF0 /* LFTPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFTPulseAnimation.swift; sourceTree = "<group>"; };
+		90B10B4A1B8BA5DE00A56CF0 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
+		90B10B4E1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamCollectionViewCell.swift; sourceTree = "<group>"; };
 		90F3CEDD1B7533870051FED4 /* PFMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFMember.swift; sourceTree = "<group>"; };
 		90F3CEDF1B7535310051FED4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		90F3CEE11B7535350051FED4 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "Pods/../build/Debug-iphoneos/Bolts.framework"; sourceTree = "<group>"; };
@@ -98,6 +105,7 @@
 		90FE8F3B1B8A3ADF0033AE9A /* KarmaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KarmaViewController.swift; sourceTree = "<group>"; };
 		90FE8F3D1B8A65330033AE9A /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		90FE8F3F1B8A69900033AE9A /* HideBarsOnSwipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HideBarsOnSwipeViewController.swift; sourceTree = "<group>"; };
+		90FE8F411B8AA5A00033AE9A /* PFNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFNotification.swift; sourceTree = "<group>"; };
 		9E5FC210B23AEB34F1001225 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		C5A7E4CFF876A7DE88D89C1A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -194,6 +202,7 @@
 		9013588C1B751CCF00C559BF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				90B10B4A1B8BA5DE00A56CF0 /* Async.swift */,
 				90F3CF021B75C0480051FED4 /* NSDateTimeAgo.bundle */,
 				90F3CEFA1B7591020051FED4 /* UIPlaceHolderTextView.h */,
 				90F3CEFB1B7591020051FED4 /* UIPlaceHolderTextView.m */,
@@ -229,6 +238,7 @@
 				901358BD1B752B7800C559BF /* CommentTableViewCell.swift */,
 				901358BF1B752B9300C559BF /* NotificationTableViewCell.swift */,
 				90F3CEF11B754DFD0051FED4 /* TeamTableViewCell.swift */,
+				90B10B4E1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -242,6 +252,7 @@
 				90F3CEED1B7537020051FED4 /* PFComment.swift */,
 				90F3CEF51B7564A30051FED4 /* PFEvent.swift */,
 				90FE8F351B8A23A90033AE9A /* PFTeam.swift */,
+				90FE8F411B8AA5A00033AE9A /* PFNotification.swift */,
 			);
 			name = PFObjects;
 			sourceTree = "<group>";
@@ -249,6 +260,7 @@
 		90F3CEFD1B75A8A90051FED4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				90B10B481B8BA1E800A56CF0 /* LFTPulseAnimation.swift */,
 				90F3CEFE1B75A8C40051FED4 /* ButtonGroupUnderlineView.swift */,
 			);
 			name = Views;
@@ -306,6 +318,7 @@
 				TargetAttributes = {
 					901358881B751CCF00C559BF = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = JSQ8N76B4C;
 					};
 					9013589F1B751CCF00C559BF = {
 						CreatedOnToolsVersion = 6.4;
@@ -406,6 +419,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90FE8F421B8AA5A00033AE9A /* PFNotification.swift in Sources */,
+				90B10B4F1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift in Sources */,
 				901358C01B752B9300C559BF /* NotificationTableViewCell.swift in Sources */,
 				901358BC1B752B6C00C559BF /* PostTableViewCell.swift in Sources */,
 				901358B91B752B1400C559BF /* PostViewController.swift in Sources */,
@@ -416,6 +431,7 @@
 				90FE8F3E1B8A65330033AE9A /* Constants.swift in Sources */,
 				90FE8F3C1B8A3ADF0033AE9A /* KarmaViewController.swift in Sources */,
 				901358BE1B752B7800C559BF /* CommentTableViewCell.swift in Sources */,
+				90B10B491B8BA1E800A56CF0 /* LFTPulseAnimation.swift in Sources */,
 				90FE8F401B8A69900033AE9A /* HideBarsOnSwipeViewController.swift in Sources */,
 				90F3CEFC1B7591020051FED4 /* UIPlaceHolderTextView.m in Sources */,
 				90F3CEF01B7539170051FED4 /* SharedLocationManager.swift in Sources */,
@@ -432,6 +448,7 @@
 				90F3CEFF1B75A8C40051FED4 /* ButtonGroupUnderlineView.swift in Sources */,
 				901358B51B75276500C559BF /* MeViewController.swift in Sources */,
 				90F3CEF61B7564A30051FED4 /* PFEvent.swift in Sources */,
+				90B10B4B1B8BA5DE00A56CF0 /* Async.swift in Sources */,
 				901358B31B75275900C559BF /* PeekViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -563,6 +580,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -581,6 +599,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Arbor Apps LLC (JSQ8N76B4C)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos",
@@ -588,6 +607,7 @@
 				INFOPLIST_FILE = SportsYak/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7089f931-4c95-4142-89f8-abf1df07e9e1";
 				SWIFT_OBJC_BRIDGING_HEADER = "SportsYak/SportsYak-Bridging-Header.h";
 			};
 			name = Release;

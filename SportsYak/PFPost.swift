@@ -21,7 +21,7 @@ enum PostSort: Int {
     case Hot
 }
 
-let FIVE_HOURS : NSTimeInterval = 18000
+let TWO_DAYS : NSTimeInterval = 172800
 
 class PFPost: PFObject, PFSubclassing {
     
@@ -151,7 +151,7 @@ class PFPost: PFObject, PFSubclassing {
                     query!.orderByDescending("votes")
                 }
                 query!.limit = 100
-                query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -FIVE_HOURS))
+                query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -TWO_DAYS))
                 return query
             }
         }
@@ -172,7 +172,7 @@ class PFPost: PFObject, PFSubclassing {
                     query!.orderByDescending("votes")
                 }
                 query!.limit = 100
-                query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -FIVE_HOURS))
+                query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -TWO_DAYS))
                 return query
             }
         }
@@ -198,7 +198,7 @@ class PFPost: PFObject, PFSubclassing {
                 query!.orderByDescending("votes")
             }
             query!.limit = 100
-            query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -FIVE_HOURS))
+            query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -TWO_DAYS))
             query!.whereKey("teamId", equalTo: teamId)
             return query
         }

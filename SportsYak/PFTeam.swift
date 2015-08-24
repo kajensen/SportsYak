@@ -21,6 +21,14 @@ enum TeamType: Int {
             return "NFLTeam"
         }
     }
+    var imageIdentifier : String {
+        switch self {
+        case .NFL:
+            return "NFLTeam"
+        default:
+            return ""
+        }
+    }
 }
 
 class PFTeam: PFObject {
@@ -28,5 +36,8 @@ class PFTeam: PFObject {
     @NSManaged var name: PFMember!
     @NSManaged var location: PFGeoPoint!
     @NSManaged var locationName: String!
+    @NSManaged var teamType: Int
+    @NSManaged var colorMainHex: String!
+    @NSManaged var colorSecondaryHex: String!
     
 }
