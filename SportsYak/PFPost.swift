@@ -206,6 +206,14 @@ class PFPost: PFObject, PFSubclassing {
         return nil
     }
     
+    class func queryForUserPosts(user: PFMember) -> PFQuery? {
+        var query = PFPost.query()
+        query!.limit = 100
+        query!.orderByDescending("createdAt")
+        query!.whereKey("user", equalTo: user)
+        return query
+    }
+    
     func replyString() -> String {
         if (self.comments.count == 0) {
             return ""

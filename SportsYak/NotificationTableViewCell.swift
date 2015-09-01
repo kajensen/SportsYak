@@ -31,12 +31,13 @@ class NotificationTableViewCell: UITableViewCell {
     func configureWithNotification(notification: PFNotification) {
         self.titleLabel.text = notification.message
         
-        
-        if let post = notification.post {
-            self.configureWithPost(post)
-        }
-        else if let comment = notification.comment {
+        if let comment = notification.comment {
             self.configureWithPost(comment.post)
+            self.notificationImageView.image = UIImage(named: "Response-100")
+        }
+        else if let post = notification.post {
+            self.configureWithPost(post)
+            self.notificationImageView.image = UIImage(named: "Up Circled-100")
         }
         else {
             println("no post or comment.")

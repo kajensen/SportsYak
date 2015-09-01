@@ -11,7 +11,8 @@ import Parse
 
 class PFMember: PFUser, PFSubclassing {
     
-    @NSManaged var karma: Int
+    @NSManaged var contentKarma: Int
+    @NSManaged var voteKarma: Int
     @NSManaged var url: String!
     @NSManaged var location: PFGeoPoint!
     @NSManaged var nflTeam: PFNFLTeam!
@@ -19,10 +20,29 @@ class PFMember: PFUser, PFSubclassing {
     @NSManaged var mutedUserIds: [String]
 
     func setup() {
-        self.karma = 0
+        self.contentKarma = 0
+        self.voteKarma = 0
         self.mutedUserIds = [String]()
     }
     
+    func addVoteKarma(points : Int) {
+        self.voteKarma += points
+        NSLog("Updating User VoteKarma to (\(points))")
+        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.KARMA_UPDATED, object: nil)
+    }
+
+    func removeVoteKarma(points : Int) {
+        self.voteKarma -= points
+        NSLog("Updating User VoteKarma to (\(points))")
+        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.KARMA_UPDATED, object: nil)
+    }
+    
+    func resetContentKarma(points : Int) {
+        self.contentKarma = points
+        NSLog("Updating User ContentKarma to (\(points))")
+        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.KARMA_UPDATED, object: nil)
+    }
+
     func teams() -> [PFTeam] {
         var teams = [PFTeam]()
         if (showNFL && nflTeam != nil) {

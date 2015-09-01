@@ -123,5 +123,13 @@ class PFComment: PFObject, PFSubclassing {
         }
         return nil
     }
+    
+    class func queryForUserComments(user: PFMember) -> PFQuery? {
+        var query = PFComment.query()
+        query!.limit = 100
+        query!.orderByDescending("createdAt")
+        query!.whereKey("user", equalTo: user)
+        return query
+    }
 
 }

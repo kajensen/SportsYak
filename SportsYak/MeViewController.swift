@@ -20,8 +20,8 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
     @IBOutlet var tableView: UITableView!
     @IBOutlet var mapView: MKMapView!
     var notifications = [PFNotification]()
-    var posts : [PFObject]?
-    var comments : [PFObject]?
+    var posts : [PFPost]?
+    var comments : [PFComment]?
     var myStuff = [PFObject]()
     var meType = MeType.Notifications
     var hasShownPulses = false
@@ -30,6 +30,11 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
         super.viewDidLoad()
         self.setupView()
         self.loadData(false)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
     }
     
     override func viewDidLayoutSubviews() {
@@ -137,7 +142,19 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
     func setupMyStuff() {
         if ((self.posts != nil) && (self.comments != nil)) {
             var myStuff = self.posts!
-            myStuff += self.comments!
+            for comment in self.comments! {
+                if let post = comment.post {
+                    var shouldAdd = true
+                    for p in self.posts! {
+                        if (p.objectId == post.objectId) {
+                            shouldAdd = false
+                        }
+                    }
+                    if (shouldAdd) { //don't add duplicates for multiple comments!
+                        myStuff.append(post)
+                    }
+                }
+            }
             var data = myStuff.sorted { (lhs: PFObject, rhs: PFObject) -> Bool in
                 return rhs.createdAt!.compare(lhs.createdAt!) == .OrderedAscending
                 }.map { $0 as PFObject }

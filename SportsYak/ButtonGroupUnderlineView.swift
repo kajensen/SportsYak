@@ -56,7 +56,7 @@ class ButtonGroupUnderlineView: UIView {
         if (self.underline == nil) {
             if let button = buttons.first {
                 var frame = button.frame
-                frame.origin.y = frame.size.height + underlineThickness
+                frame.origin.y = frame.size.height + 4 + underlineThickness
                 frame.size.height = underlineThickness
                 frame.size.width = 0 //animate out
                 self.underline = UIView(frame: frame)

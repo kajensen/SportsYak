@@ -10,10 +10,33 @@ import UIKit
 
 class KarmaViewController: UIViewController {
 
+    @IBOutlet var karmaView: UIView!
+    @IBOutlet var karmaLabel: UILabel!
+    @IBOutlet var scrollView: UIScrollView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.karmaView.layer.cornerRadius = self.karmaView.frame.size.width/2.0
+        self.karmaView.layer.masksToBounds = true
+        
+        if let user = PFMember.currentUser() {
+            self.karmaLabel.text = "\(user.contentKarma+user.voteKarma)"
+        }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.scrollView.layoutSubviews()
+        
+        let csz = self.scrollView.contentSize
+        let bsz = self.scrollView.bounds.size
+        
+        UIView.animateWithDuration(5.0, animations: { () -> Void in
+            let contentOffset = CGPointMake(self.scrollView.contentOffset.x,
+                csz.height - bsz.height)
+            self.scrollView.contentOffset = contentOffset
+        })
     }
 
     @IBAction func close(sender: AnyObject) {
