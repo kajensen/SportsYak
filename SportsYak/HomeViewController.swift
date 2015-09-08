@@ -49,19 +49,17 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
     
     func loadData(forceDownload : Bool) {
         if let user = PFMember.currentUser() {
-            var query : PFQuery?
             if (self.postType == PostType.Nearby) {
                 if (self.postSort == PostSort.Hot && self.postsNearbyH.count > 0  && !forceDownload) {
-                    self.setupPosts(self.postsNearbyH)
+                    self.loadPosts(self.postsNearbyH)
                 }
                 else if (self.postSort == PostSort.New && self.postsNearbyN.count > 0 && !forceDownload) {
-                    self.setupPosts(self.postsNearbyN)
+                    self.loadPosts(self.postsNearbyN)
                 }
                 else {
                     var savedSort = self.postSort
-                    query = PFPost.queryWithNearby(self.postSort)
-                    if (query != nil) {
-                        query!.findObjectsInBackgroundWithBlock {
+                    if let query = PFPost.queryWithNearby(self.postSort) {
+                        query.findObjectsInBackgroundWithBlock {
                             (objects: [AnyObject]?, error: NSError?) -> Void in
                             
                             if error == nil {
@@ -72,32 +70,32 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                                     }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsNearbyH = objects
-                                        self.setupPosts(self.postsNearbyH)
+                                        self.loadPosts(self.postsNearbyH)
                                     }
                                     else {
                                         self.postsNearbyN = objects
-                                        self.setupPosts(self.postsNearbyN)
+                                        self.loadPosts(self.postsNearbyN)
                                     }
                                 }
                             } else {
                                 println("Error: \(error!) \(error!.userInfo!)")
                             }
                         }
+                        self.tableView.hidden = true
                     }
                 }
             }
             else {
                 if (self.postSort == PostSort.Hot && self.postsMySquadsH.count > 0 && !forceDownload) {
-                    self.setupPosts(self.postsMySquadsH)
+                    self.loadPosts(self.postsMySquadsH)
                 }
                 else if (self.postSort == PostSort.New && self.postsMySquadsN.count > 0 && !forceDownload) {
-                    self.setupPosts(self.postsMySquadsN)
+                    self.loadPosts(self.postsMySquadsN)
                 }
                 else {
                     var savedSort = self.postSort
-                    query = PFPost.queryWithMyTeams(self.postSort)
-                    if (query != nil) {
-                        query!.findObjectsInBackgroundWithBlock {
+                    if let query = PFPost.queryWithMyTeams(self.postSort) {
+                        query.findObjectsInBackgroundWithBlock {
                             (objects: [AnyObject]?, error: NSError?) -> Void in
                             
                             if error == nil {
@@ -108,27 +106,29 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                                     }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsMySquadsH = objects
-                                        self.setupPosts(self.postsMySquadsH)
+                                        self.loadPosts(self.postsMySquadsH)
                                     }
                                     else {
                                         self.postsMySquadsN = objects
-                                        self.setupPosts(self.postsMySquadsN)
+                                        self.loadPosts(self.postsMySquadsN)
                                     }
                                 }
                             } else {
                                 println("Error: \(error!) \(error!.userInfo!)")
                             }
                         }
+                        self.tableView.hidden = true
                     }
                 }
             }
         }
     }
     
-    func setupPosts(posts : [PFPost]) {
+    func loadPosts(posts : [PFPost]) {
         if (self.posts != posts) {
             self.posts = posts
             self.tableView.reloadData()
+            self.tableView.hidden = false
         }
     }
 
@@ -163,7 +163,11 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
         let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostTableViewCell
         cell.delegate = self
         let post = self.posts[indexPath.row]
-        cell.configureWithPost(post)
+        var readonly = true
+        if let user = PFMember.currentUser() {
+            readonly = !user.hasTeamId(post.teamId)
+        }
+        cell.configureWithPost(post, readonly: readonly)
         
         return cell
     }

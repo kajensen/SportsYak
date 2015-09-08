@@ -60,6 +60,15 @@ class PFMember: PFUser, PFSubclassing {
         }
         return teamIds
     }
+    
+    func hasTeamId(teamId : String) -> Bool {
+        for tId in self.teamIds() {
+            if (teamId == tId) {
+                return true
+            }
+        }
+        return false
+    }
 
     func teamForType(type : TeamType) -> PFTeam? {
         switch type {
@@ -103,5 +112,13 @@ class PFMember: PFUser, PFSubclassing {
             query!.includeKey("nflTeam")
         }
         return query
+    }
+    
+    func muteUser(user : PFMember) {
+        if (user.objectId != nil) {
+            if (find(self.mutedUserIds, user.objectId!) == nil) {
+                self.mutedUserIds.append(user.objectId!);
+            }
+        }
     }
 }

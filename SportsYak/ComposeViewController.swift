@@ -75,6 +75,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     func setupPicker() {
         self.teamPickerView.delegate = self;
         self.teamPickerView.dataSource = self;
+        self.teamPickerView.font = UIFont(name: "DIN Alternate", size: 15)!
+        self.teamPickerView.highlightedFont = UIFont(name: "DINAlternate-Bold", size: 15)!
         if let user = PFMember.currentUser() {
             self.teams = user.teams()
         }
@@ -106,7 +108,18 @@ class ComposeViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.textView.becomeFirstResponder()
+        if (self.teams.count > 0) {
+            self.textView.becomeFirstResponder()
+        }
+        else {
+            let alertController = UIAlertController(title: "No teams", message: "You need at least one team before you can post. Go to the 'more' tab", preferredStyle: UIAlertControllerStyle.Alert)
+            let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            })
+            alertController.addAction(okAction)
+            
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {

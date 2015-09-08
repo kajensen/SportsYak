@@ -1,0 +1,28 @@
+PODS:
+  - AKPickerView (0.2.6)
+  - Bolts/Tasks (1.2.0)
+  - GoogleAnalytics (3.13.0)
+  - Instabug (4.1.4)
+  - Parse (1.7.5.3):
+    - Bolts/Tasks (>= 1.2.0)
+  - RKDropdownAlert (0.3.0)
+  - SVProgressHUD (1.1.3)
+
+DEPENDENCIES:
+  - AKPickerView
+  - GoogleAnalytics
+  - Instabug
+  - Parse
+  - RKDropdownAlert
+  - SVProgressHUD
+
+SPEC CHECKSUMS:
+  AKPickerView: e31dcb9572c04d8439512315798862d9eb84b18f
+  Bolts: d176cb1e0012175589e389a9db49b85e27787576
+  GoogleAnalytics: fcf1f1cad57ae1a9a53520018f0f680ceeeb8b49
+  Instabug: de19c1b0f89c4e5deda6dd7f1dc3515e54238b08
+  Parse: 373adbb1ad2e34d383542c3b28f678c49ebe4881
+  RKDropdownAlert: f4b3364c251829ad439dc666836a1f2dad26f4c7
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+
+COCOAPODS: 0.38.2

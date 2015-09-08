@@ -169,7 +169,11 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostTableViewCell
         cell.delegate = self
         let post = self.posts[indexPath.row]
-        cell.configureWithPost(post)
+        var readonly = true
+        if let user = PFMember.currentUser() {
+            readonly = !user.hasTeamId(post.teamId)
+        }
+        cell.configureWithPost(post, readonly: readonly)
         
         return cell
     }

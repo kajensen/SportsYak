@@ -33,10 +33,9 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func loadData() {
         if let user = PFMember.currentUser() {
-            var query = PFEvent.query()
-            if query != nil {
+            if let query = PFEvent.query() {
                 println("fetching events")
-                query!.findObjectsInBackgroundWithBlock {
+                query.findObjectsInBackgroundWithBlock {
                     (objects: [AnyObject]?, error: NSError?) -> Void in
                     
                     if error == nil {
@@ -47,11 +46,13 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
                             }
                             self.events = objects
                             self.tableView.reloadData()
+                            self.tableView.hidden = false
                         }
                     } else {
                         println("Error: \(error!) \(error!.userInfo!)")
                     }
                 }
+                self.tableView.hidden = true
             }
         }
     }
@@ -70,6 +71,12 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let cell = tableView.dequeueReusableCellWithIdentifier("EventCell", forIndexPath: indexPath) as! UITableViewCell
         let event = self.events[indexPath.row]
         cell.textLabel!.text = "\(event.teamOneName) vs \(event.teamTwoName)"
+        if (event.live) {
+            cell.imageView?.image = UIImage(named: "Filled Circle-100")
+        }
+        else {
+            cell.imageView?.image = nil
+        }
         
         return cell
     }

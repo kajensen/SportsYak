@@ -10,7 +10,6 @@
 		6B02165195077B7F6863ECFA /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 495AA98E78C3AD1F815CCF0A /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		9013588F1B751CCF00C559BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9013588E1B751CCF00C559BF /* AppDelegate.swift */; };
 		901358961B751CCF00C559BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 901358941B751CCF00C559BF /* Main.storyboard */; };
-		901358981B751CCF00C559BF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 901358971B751CCF00C559BF /* Images.xcassets */; };
 		9013589B1B751CCF00C559BF /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 901358991B751CCF00C559BF /* LaunchScreen.xib */; };
 		901358A71B751CCF00C559BF /* SportsYakTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901358A61B751CCF00C559BF /* SportsYakTests.swift */; };
 		901358B11B75274A00C559BF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901358B01B75274A00C559BF /* HomeViewController.swift */; };
@@ -22,8 +21,11 @@
 		901358BE1B752B7800C559BF /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901358BD1B752B7800C559BF /* CommentTableViewCell.swift */; };
 		901358C01B752B9300C559BF /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901358BF1B752B9300C559BF /* NotificationTableViewCell.swift */; };
 		901358C21B75313200C559BF /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901358C11B75313200C559BF /* ComposeViewController.swift */; };
+		9037D5C71B98A00D0039851B /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037D5C61B98A00D0039851B /* SplashViewController.swift */; };
 		904DB8D91B9544F9006E4F00 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 904DB8D71B9544F9006E4F00 /* CoreData.xcdatamodeld */; };
 		904DB8E11B954AE0006E4F00 /* ContentKarma.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904DB8E01B954AE0006E4F00 /* ContentKarma.swift */; };
+		906C19731B9E7F3F002254CC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 906C19721B9E7F3F002254CC /* Images.xcassets */; };
+		906C19751B9E98B5002254CC /* PFFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906C19741B9E98B5002254CC /* PFFlag.swift */; };
 		90B10B491B8BA1E800A56CF0 /* LFTPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B481B8BA1E800A56CF0 /* LFTPulseAnimation.swift */; };
 		90B10B4B1B8BA5DE00A56CF0 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B4A1B8BA5DE00A56CF0 /* Async.swift */; };
 		90B10B4F1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B4E1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift */; };
@@ -67,7 +69,6 @@
 		9013588D1B751CCF00C559BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9013588E1B751CCF00C559BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		901358951B751CCF00C559BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		901358971B751CCF00C559BF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9013589A1B751CCF00C559BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		901358A01B751CCF00C559BF /* SportsYakTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SportsYakTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		901358A51B751CCF00C559BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,8 +82,11 @@
 		901358BD1B752B7800C559BF /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		901358BF1B752B9300C559BF /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		901358C11B75313200C559BF /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
+		9037D5C61B98A00D0039851B /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		904DB8D81B9544F9006E4F00 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		904DB8E01B954AE0006E4F00 /* ContentKarma.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentKarma.swift; sourceTree = "<group>"; };
+		906C19721B9E7F3F002254CC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		906C19741B9E98B5002254CC /* PFFlag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFFlag.swift; sourceTree = "<group>"; };
 		90B10B481B8BA1E800A56CF0 /* LFTPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFTPulseAnimation.swift; sourceTree = "<group>"; };
 		90B10B4A1B8BA5DE00A56CF0 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		90B10B4E1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -184,13 +188,14 @@
 		9013588B1B751CCF00C559BF /* SportsYak */ = {
 			isa = PBXGroup;
 			children = (
+				906C19721B9E7F3F002254CC /* Images.xcassets */,
 				904DB8E01B954AE0006E4F00 /* ContentKarma.swift */,
+				904DB8D71B9544F9006E4F00 /* CoreData.xcdatamodeld */,
 				90F3CEFD1B75A8A90051FED4 /* Views */,
 				90F3CEDC1B75335C0051FED4 /* PFObjects */,
 				9013588E1B751CCF00C559BF /* AppDelegate.swift */,
 				90F3CEEF1B7539170051FED4 /* SharedLocationManager.swift */,
 				901358941B751CCF00C559BF /* Main.storyboard */,
-				901358971B751CCF00C559BF /* Images.xcassets */,
 				901358991B751CCF00C559BF /* LaunchScreen.xib */,
 				9013588C1B751CCF00C559BF /* Supporting Files */,
 				901358BA1B752B4900C559BF /* Cells */,
@@ -206,7 +211,7 @@
 				90FE8F3B1B8A3ADF0033AE9A /* KarmaViewController.swift */,
 				90FE8F3F1B8A69900033AE9A /* HideBarsOnSwipeViewController.swift */,
 				90F3A2C71B9540A900254D5F /* KarmaTabBarController.swift */,
-				904DB8D71B9544F9006E4F00 /* CoreData.xcdatamodeld */,
+				9037D5C61B98A00D0039851B /* SplashViewController.swift */,
 			);
 			path = SportsYak;
 			sourceTree = "<group>";
@@ -267,6 +272,7 @@
 				90F3CEF51B7564A30051FED4 /* PFEvent.swift */,
 				90FE8F351B8A23A90033AE9A /* PFTeam.swift */,
 				90FE8F411B8AA5A00033AE9A /* PFNotification.swift */,
+				906C19741B9E98B5002254CC /* PFFlag.swift */,
 			);
 			name = PFObjects;
 			sourceTree = "<group>";
@@ -365,9 +371,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				901358961B751CCF00C559BF /* Main.storyboard in Resources */,
+				906C19731B9E7F3F002254CC /* Images.xcassets in Resources */,
 				90F3CF031B75C0480051FED4 /* NSDateTimeAgo.bundle in Resources */,
 				9013589B1B751CCF00C559BF /* LaunchScreen.xib in Resources */,
-				901358981B751CCF00C559BF /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,6 +442,7 @@
 				90FE8F421B8AA5A00033AE9A /* PFNotification.swift in Sources */,
 				90B10B4F1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift in Sources */,
 				901358C01B752B9300C559BF /* NotificationTableViewCell.swift in Sources */,
+				9037D5C71B98A00D0039851B /* SplashViewController.swift in Sources */,
 				901358BC1B752B6C00C559BF /* PostTableViewCell.swift in Sources */,
 				901358B91B752B1400C559BF /* PostViewController.swift in Sources */,
 				90F3A2C81B9540A900254D5F /* KarmaTabBarController.swift in Sources */,
@@ -458,6 +465,7 @@
 				904DB8D91B9544F9006E4F00 /* CoreData.xcdatamodeld in Sources */,
 				901358B11B75274A00C559BF /* HomeViewController.swift in Sources */,
 				90F3CEEE1B7537020051FED4 /* PFComment.swift in Sources */,
+				906C19751B9E98B5002254CC /* PFFlag.swift in Sources */,
 				90FE8F3A1B8A3A2D0033AE9A /* KarmaNavigationController.swift in Sources */,
 				90F3CEEC1B7536F80051FED4 /* PFPost.swift in Sources */,
 				90F3CEF21B754DFD0051FED4 /* TeamTableViewCell.swift in Sources */,

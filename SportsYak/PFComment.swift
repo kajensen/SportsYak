@@ -22,9 +22,11 @@ class PFComment: PFObject, PFSubclassing {
     @NSManaged var votes: Int
     @NSManaged var upVotes: [String]
     @NSManaged var downVotes: [String]
-    @NSManaged var flags: [String]
+    @NSManaged var flags: Int
+    @NSManaged var colorIndex: Int
+    @NSManaged var imageIndex: Int
     
-    convenience init(post: PFPost, text : String) {
+    convenience init(post: PFPost, text : String, colorIndex : Int, imageIndex : Int) {
         self.init()
         if let user = PFMember.currentUser() {
             self.user = user
@@ -37,7 +39,9 @@ class PFComment: PFObject, PFSubclassing {
         self.votes = 0
         self.upVotes = [String]()
         self.downVotes = [String]()
-        self.flags = [String]()
+        self.flags = 0
+        self.colorIndex = colorIndex
+        self.imageIndex = imageIndex
     }
     
     func upVote() {
@@ -117,7 +121,7 @@ class PFComment: PFObject, PFSubclassing {
                 query2.whereKey("objectId", containedIn: post.comments)
                 
                 let query = PFQuery.orQueryWithSubqueries([query1, query2])
-                query.orderByDescending("createdAt")
+                query.orderByAscending("createdAt")
                 return query
             }
         }
@@ -130,6 +134,33 @@ class PFComment: PFObject, PFSubclassing {
         query!.orderByDescending("createdAt")
         query!.whereKey("user", equalTo: user)
         return query
+    }
+    
+    func flag(flagType : FlagType) {
+        let flag = PFFlag(post: nil, comment: self, flagType: flagType)
+        flag.saveInBackground()
+        self.flags += 1
+        self.saveInBackground()
+    }
+    
+    func mute() {
+        if let user = PFMember.currentUser() {
+            if (self.user != nil && self.user.objectId != user.objectId) {
+                user.muteUser(self.user);
+            }
+        }
+    }
+    
+    func shouldShow() -> Bool {
+        var shouldShow = true
+        if let user = PFMember.currentUser() {
+            if (self.user.objectId != nil) {
+                if (find(user.mutedUserIds, self.user.objectId!) != nil) {
+                    shouldShow = false
+                }
+            }
+        }
+        return shouldShow
     }
 
 }

@@ -28,6 +28,7 @@ class CommentTableViewCell: UITableViewCell {
     @IBOutlet var upVoteButton: UIButton!
     @IBOutlet var downVoteButton: UIButton!
     @IBOutlet var userImageView: UIImageView!
+    @IBOutlet var userImageBackgroundView: UIView!
     
     var delegate: CommentTableViewCellDelegate?
     var comment: PFComment!
@@ -43,13 +44,24 @@ class CommentTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureWithComment(comment:PFComment) {
+    func configureWithComment(comment:PFComment, readonly: Bool) {
         self.comment = comment
-        self.textView.text = comment.text
+        if comment.shouldShow() {
+            self.textView.text = comment.text
+        }
+        else {
+            self.textView.text = "[comment muted] you have previously muted this user"
+        }
         self.timeLabel.text = comment.createdAt?.timeAgoSimple
         self.voteLabel.text = "\(comment.upVotes.count - comment.downVotes.count)"
         self.upVoteButton.selected = false
         self.downVoteButton.selected = false
+        self.upVoteButton.enabled = !readonly
+        self.downVoteButton.enabled = !readonly
+        self.userImageView.image = Constants.userImage(comment.imageIndex)
+        self.userImageBackgroundView.backgroundColor = Constants.userColor(comment.colorIndex)
+        self.userImageBackgroundView.layer.cornerRadius = self.userImageBackgroundView.frame.size.width/2.0
+        self.userImageBackgroundView.layer.masksToBounds = false
         if let user = PFMember.currentUser() {
             if let userId = user.objectId {
                 if contains(comment.upVotes, userId) {

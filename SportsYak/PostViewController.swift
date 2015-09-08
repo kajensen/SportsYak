@@ -19,7 +19,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var voteLabel: UILabel!
 
     @IBOutlet var sendButton: UIButton?
-    @IBOutlet var commentTextView: UITextView?
+    @IBOutlet var commentTextView: UIPlaceHolderTextView!
     var comments = [PFComment]()
     var post : PFPost!
     
@@ -28,9 +28,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet var textViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
+    var readonly = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setupReadOnly()
         self.setupView()
         self.loadData()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
@@ -64,13 +67,34 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
     
+    func setupReadOnly() {
+        if let user = PFMember.currentUser() {
+            let teams = user.teamIds()
+            for team in teams {
+                if team == self.post.teamId {
+                    self.readonly = false
+                }
+            }
+        }
+    }
+    
     func setupView() {
-        self.titleLabel.text = post.title
-        self.textView.text = post.text
+        if post.shouldShow() {
+            self.titleLabel.text = post.title
+            self.textView.text = post.text
+        }
+        else {
+            self.titleLabel.text = "[post muted]"
+            self.textView.text = "you have previously muted this user"
+        }
         self.timeLabel.text = post.createdAt?.timeAgoSimple
         self.replyLabel.text = post.replyString()
-        
         self.commentTextView?.text = ""
+        self.commentTextView?.placeholder = "Talk back"
+        self.commentTextView?.editable = !readonly
+        
+        self.navigationItem.rightBarButtonItem?.enabled = !readonly
+
         self.setupVotes()
     }
     
@@ -89,6 +113,10 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
             }
         }
+        
+        self.upVoteButton.enabled = !readonly
+        self.downVoteButton.enabled = !readonly
+
     }
     
     func checkSendEnablility() {
@@ -111,12 +139,14 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                             }
                             self.comments = objects
                             self.tableView.reloadData()
+                            self.tableView.hidden = false
                         }
                     } else {
                         // Log details of the failure
                         println("Error: \(error!) \(error!.userInfo!)")
                     }
                 }
+                self.tableView.hidden = true
             }
         }
     }
@@ -151,10 +181,30 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CommentCell", forIndexPath: indexPath) as! CommentTableViewCell
         let comment = self.comments[indexPath.row]
-        cell.configureWithComment(comment)
+        cell.configureWithComment(comment, readonly: readonly)
         cell.delegate = self
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let comment = self.comments[indexPath.row]
+        let cell = tableView.cellForRowAtIndexPath(indexPath)!
+        let alertController = UIAlertController(title: "", message: comment.text, preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let shareAction = UIAlertAction(title: "Share", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+            self.shareContent(nil, comment: comment, sender:cell)
+        }
+        let flagAction = UIAlertAction(title: "Flag", style: UIAlertActionStyle.Destructive) { (alertAction) -> Void in
+            self.flagContent(nil, comment: comment)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(shareAction)
+        alertController.addAction(flagAction)
+        alertController.addAction(cancelAction)
+        
+        alertController.popoverPresentationController?.sourceView = cell.viewForBaselineLayout()!
+
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     func commentTableViewCellSelectButton(cell: CommentTableViewCell, comment: PFComment, actionType: CommentActionType) {
@@ -210,7 +260,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var fixedWidth = self.view.frame.size.width - 70 //width of textview : 3*8 padding, 46 send button
         var standardHeight : CGFloat = 34 //base height of textview
         var textView = UITextView()
-        textView.font = UIFont.systemFontOfSize(14)
+        textView.font = UIFont(name: "DIN Alternate", size:14)
         textView.text = self.commentTextView?.text
         textView.scrollEnabled = false
         var expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
@@ -221,8 +271,140 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         var height = 50 - standardHeight + newHeight //50 is base constraint
         return height
     }
+
+    @IBAction func share(sender: AnyObject) {
+        self.shareContent(self.post, comment: nil, sender: sender)
+    }
+    
+    func shareContent(post: PFPost?, comment: PFComment?, sender: AnyObject) {
+        var text = ""
+        if (post != nil) {
+            text = "\(post!.title) \(post!.text)"
+        }
+        else if (comment != nil) {
+            text = "\(comment!.text)"
+        }
+        let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        
+        if let button = sender as? UIButton {
+            activityViewController.popoverPresentationController?.sourceView = button.viewForBaselineLayout()!
+        }
+        else if let cell = sender as? UITableViewCell {
+            activityViewController.popoverPresentationController?.sourceView = cell.viewForBaselineLayout()!
+        }
+        /*controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
+        UIActivityTypePrint,
+        UIActivityTypeCopyToPasteboard,
+        UIActivityTypeAssignToContact,
+        UIActivityTypeAddToReadingList,
+        UIActivityTypePostToFlickr,
+        UIActivityTypePostToVimeo,
+        UIActivityTypePostToTencentWeibo,
+        UIActivityTypeAirDrop];*/
+        
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+    }
     
     @IBAction func flag(sender: AnyObject) {
+        self.flagContent(self.post, comment: nil)
+    }
+    
+    func flagContent(post: PFPost?, comment: PFComment?) {
+        let alertController = UIAlertController(title: "What's happening?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        let offensiveAction = UIAlertAction(title: "Offensive content", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+            if (post != nil) {
+                post!.flag(FlagType.Offensive)
+            }
+            else if (comment != nil) {
+                comment!.flag(FlagType.Offensive)
+            }
+            self.mute(post, comment: comment)
+        }
+        let personalAction = UIAlertAction(title: "Personal attack", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+            if (post != nil) {
+                post!.flag(FlagType.Personal)
+            }
+            else if (comment != nil) {
+                comment!.flag(FlagType.Personal)
+            }
+            self.mute(post, comment: comment)
+        }
+        let spamAction = UIAlertAction(title: "Spam", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+            if (post != nil) {
+                post!.flag(FlagType.Spam)
+            }
+            else if (comment != nil) {
+                comment!.flag(FlagType.Spam)
+            }
+            self.mute(post, comment: comment)
+        }
+        let otherAction = UIAlertAction(title: "Other", style: UIAlertActionStyle.Default) { (alertAction) -> Void in
+            if (post != nil) {
+                post!.flag(FlagType.Other)
+            }
+            else if (comment != nil) {
+                comment!.flag(FlagType.Other)
+            }
+            self.mute(post, comment: comment)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(offensiveAction)
+        alertController.addAction(personalAction)
+        alertController.addAction(spamAction)
+        alertController.addAction(otherAction)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func mute(post: PFPost?, comment: PFComment?)  {
+        let alertController = UIAlertController(title: "Do you want to mute this user?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        let muteAction = UIAlertAction(title: "Mute", style: UIAlertActionStyle.Destructive) { (alertAction) -> Void in
+            if (post != nil) {
+                post!.mute()
+            }
+            else if (comment != nil) {
+                comment!.mute()
+            }
+            self.tableView.reloadData()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        alertController.addAction(muteAction)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func colorIndex() -> Int {
+        if let user = PFMember.currentUser() {
+            if (self.post.user.objectId != user.objectId) {
+                for comment in self.comments {
+                    if (comment.user.objectId == user.objectId) {
+                        return comment.colorIndex
+                    }
+                }
+            }
+            else {
+                return -1
+            }
+        }
+        return Constants.randomColorIndex()
+    }
+    
+    func imageIndex() -> Int {
+        if let user = PFMember.currentUser() {
+            if (self.post.user.objectId != user.objectId) {
+                for comment in self.comments {
+                    if (comment.user.objectId == user.objectId) {
+                        return comment.imageIndex
+                    }
+                }
+            }
+            else {
+                return -1
+            }
+        }
+        return Constants.randomImageIndex()
     }
 
     @IBAction func send(sender: AnyObject) {
@@ -231,8 +413,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             text = self.commentTextView!.text
         }
         
-        let comment = PFComment(post: self.post, text: text)
-        if comment.user != nil && comment.location != nil {
+        let comment = PFComment(post: self.post, text: text, colorIndex: self.colorIndex(), imageIndex: self.imageIndex())
+        if (comment.user != nil && comment.location != nil) {
             comment.saveInBackgroundWithBlock({ (success, error) -> Void in
                 if (!contains(self.comments, comment)) {
                     self.comments.append(comment)
@@ -260,9 +442,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.post.downVote()
         self.setupVotes()
     }
-    
-    @IBAction func share(sender: AnyObject) {
-    }
+
     /*
     // MARK: - Navigation
 

@@ -42,10 +42,16 @@ class PostTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configureWithPost(post:PFPost) {
+    func configureWithPost(post:PFPost, readonly: Bool) {
         self.post = post
-        self.titleLabel.text = post.title
-        self.textView.text = post.text
+        if post.shouldShow() {
+            self.titleLabel.text = post.title
+            self.textView.text = post.text
+        }
+        else {
+            self.titleLabel.text = "[post muted]"
+            self.textView.text = "you have previously muted this user"
+        }
         self.timeLabel.text = post.createdAt?.timeAgoSimple
         self.replyLabel.text = post.replyString()
         self.voteLabel.text = "\(post.upVotes.count - post.downVotes.count)"

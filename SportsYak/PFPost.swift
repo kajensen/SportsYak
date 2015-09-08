@@ -21,7 +21,7 @@ enum PostSort: Int {
     case Hot
 }
 
-let TWO_DAYS : NSTimeInterval = 172800
+let SIX_DAYS : NSTimeInterval = 518400
 
 class PFPost: PFObject, PFSubclassing {
     
@@ -38,7 +38,7 @@ class PFPost: PFObject, PFSubclassing {
     @NSManaged var upVotes: [String]
     @NSManaged var downVotes: [String]
     @NSManaged var comments: [PFComment]
-    @NSManaged var flags: [String]
+    @NSManaged var flags: Int
 
     override init() {
         super.init()
@@ -64,6 +64,7 @@ class PFPost: PFObject, PFSubclassing {
         self.upVotes = [String]()
         self.downVotes = [String]()
         self.comments = [PFComment]()
+        self.flags = 0
     }
     
     func upVote() {
@@ -151,7 +152,7 @@ class PFPost: PFObject, PFSubclassing {
                     query!.orderByDescending("votes")
                 }
                 query!.limit = 100
-                query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -TWO_DAYS))
+                query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -SIX_DAYS))
                 return query
             }
         }
@@ -172,7 +173,7 @@ class PFPost: PFObject, PFSubclassing {
                     query!.orderByDescending("votes")
                 }
                 query!.limit = 100
-                query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -TWO_DAYS))
+                query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -SIX_DAYS))
                 return query
             }
         }
@@ -198,7 +199,7 @@ class PFPost: PFObject, PFSubclassing {
                 query!.orderByDescending("votes")
             }
             query!.limit = 100
-            query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -TWO_DAYS))
+            query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -SIX_DAYS))
             query!.whereKey("teamId", equalTo: teamId)
             return query
         }
@@ -212,6 +213,33 @@ class PFPost: PFObject, PFSubclassing {
         query!.orderByDescending("createdAt")
         query!.whereKey("user", equalTo: user)
         return query
+    }
+    
+    func flag(flagType : FlagType) {
+        let flag = PFFlag(post: self, comment: nil, flagType: flagType)
+        flag.saveInBackground()
+        self.flags += 1
+        self.saveInBackground()
+    }
+    
+    func mute() {
+        if let user = PFMember.currentUser() {
+            if (self.user != nil && self.user.objectId != user.objectId) {
+                user.muteUser(self.user);
+            }
+        }
+    }
+    
+    func shouldShow() -> Bool {
+        var shouldShow = true
+        if let user = PFMember.currentUser() {
+            if (self.user.objectId != nil) {
+                if (find(user.mutedUserIds, self.user.objectId!) != nil) {
+                    shouldShow = false
+                }
+            }
+        }
+        return shouldShow
     }
     
     func replyString() -> String {

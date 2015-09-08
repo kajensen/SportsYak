@@ -133,6 +133,7 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 }
                             }
                         }
+                        self.tableView.hidden = true
                     }
                 }
             }
@@ -166,6 +167,7 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
         if (self.myStuff != data) {
             self.myStuff = data
             self.tableView.reloadData()
+            self.tableView.hidden = false
         }
     }
     
@@ -235,7 +237,11 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
         }
         else if let post = self.myStuff[indexPath.row] as? PFPost {
             let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostTableViewCell
-            cell.configureWithPost(post)
+            var readonly = true
+            if let user = PFMember.currentUser() {
+                readonly = !user.hasTeamId(post.teamId)
+            }
+            cell.configureWithPost(post, readonly: readonly)
             cell.delegate = self
             
             return cell
@@ -243,7 +249,11 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
         else if let comment = self.myStuff[indexPath.row] as? PFComment {
             let post = comment.post
             let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! PostTableViewCell
-            cell.configureWithPost(post)
+            var readonly = true
+            if let user = PFMember.currentUser() {
+                readonly = !user.hasTeamId(post.teamId)
+            }
+            cell.configureWithPost(post, readonly: readonly)
             cell.delegate = self
             
             return cell
