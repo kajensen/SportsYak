@@ -62,8 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if let tabItemFont = UIFont(name: "Din Alternate", size: 10) {
             UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName:tabItemFont], forState: UIControlState.Normal)
         }
-        if let navigationBarFont = UIFont(name: "Din Alternate", size: 20) {
-            //UINavigationBar.appearance().setTitleTextAttributes([NSFontAttributeName:navigationBarFont,NSForegroundColorAttributeName:Constants.GLOBAL_TINT_SECONDARY], forState: UIControlState.Normal)
+        if let navigationBarFont = UIFont(name: "DinAlternate-Bold", size: 20) {
+            UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName:navigationBarFont,NSForegroundColorAttributeName:UIColor.whiteColor()]
         }
         if let barButtonFont = UIFont(name: "Din Alternate", size: 18) {
             UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName:barButtonFont,NSForegroundColorAttributeName:Constants.GLOBAL_TINT], forState: UIControlState.Normal)
@@ -71,7 +71,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if let segmentedControlFont = UIFont(name: "Din Alternate", size: 12) {
             UISegmentedControl.appearance().setTitleTextAttributes([NSFontAttributeName:segmentedControlFont], forState: UIControlState.Normal)
         }
-        
+        UIView.my_appearanceWhenContainedIn(UIAlertController).tintColor = Constants.GLOBAL_TINT
+
         return true
     }
     

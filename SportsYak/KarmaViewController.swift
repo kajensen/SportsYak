@@ -13,6 +13,7 @@ class KarmaViewController: UIViewController {
     @IBOutlet var karmaView: UIView!
     @IBOutlet var karmaLabel: UILabel!
     @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var shareView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,9 @@ class KarmaViewController: UIViewController {
         if let user = PFMember.currentUser() {
             self.karmaLabel.text = "\(user.contentKarma+user.voteKarma)"
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: "share:")
+        self.shareView.addGestureRecognizer(tapGesture)
     }
     
     override func viewDidLayoutSubviews() {
@@ -41,6 +45,25 @@ class KarmaViewController: UIViewController {
 
     @IBAction func close(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func share(sender: AnyObject) {
+        var text = "Share gameday with your squads. Talk smack, embrace victory, join your sports community with SportsYak @sportsyak."
+
+        let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.shareView
+
+        /*controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
+        UIActivityTypePrint,
+        UIActivityTypeCopyToPasteboard,
+        UIActivityTypeAssignToContact,
+        UIActivityTypeAddToReadingList,
+        UIActivityTypePostToFlickr,
+        UIActivityTypePostToVimeo,
+        UIActivityTypePostToTencentWeibo,
+        UIActivityTypeAirDrop];*/
+        
+        self.presentViewController(activityViewController, animated: true, completion: nil)
     }
     
     override func didReceiveMemoryWarning() {

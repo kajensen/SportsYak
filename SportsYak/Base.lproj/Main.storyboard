@@ -62,11 +62,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="c2o-ef-LyL" secondAttribute="centerX" id="2nv-bI-ugT"/>
+                            <constraint firstAttribute="centerY" secondItem="cic-fF-7hF" secondAttribute="centerY" constant="70" id="GLi-yV-chd"/>
                             <constraint firstItem="c2o-ef-LyL" firstAttribute="top" secondItem="9Jm-8L-hgI" secondAttribute="bottom" constant="8" id="JRH-r1-NgN"/>
                             <constraint firstAttribute="bottom" secondItem="thf-qH-9qc" secondAttribute="bottom" id="O1H-Jy-tRm"/>
                             <constraint firstAttribute="centerX" secondItem="9Jm-8L-hgI" secondAttribute="centerX" id="OS4-0d-8dE"/>
                             <constraint firstAttribute="bottom" secondItem="c2o-ef-LyL" secondAttribute="bottom" constant="20" symbolic="YES" id="edo-a9-vvj"/>
-                            <constraint firstAttribute="centerY" secondItem="cic-fF-7hF" secondAttribute="centerY" constant="70" id="l4h-p0-aue"/>
                             <constraint firstAttribute="trailing" secondItem="thf-qH-9qc" secondAttribute="trailing" id="pFs-nh-0Jc"/>
                             <constraint firstItem="thf-qH-9qc" firstAttribute="leading" secondItem="nlf-uP-KLr" secondAttribute="leading" id="vY3-uB-7Jz"/>
                             <constraint firstAttribute="centerX" secondItem="cic-fF-7hF" secondAttribute="centerX" id="xZZ-HV-yrc"/>
@@ -334,6 +334,7 @@
                         <outlet property="karmaLabel" destination="jH8-1v-u53" id="OcO-dr-Ope"/>
                         <outlet property="karmaView" destination="YIb-63-Q5J" id="9TP-40-3X2"/>
                         <outlet property="scrollView" destination="WEH-Bc-kxF" id="iBy-PZ-YJf"/>
+                        <outlet property="shareView" destination="dY2-mp-xUC" id="l7n-89-hM4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rcr-MZ-40f" userLabel="First Responder" sceneMemberID="firstResponder"/>

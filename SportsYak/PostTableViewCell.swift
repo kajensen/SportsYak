@@ -69,6 +69,8 @@ class PostTableViewCell: UITableViewCell {
                 }
             }
         }
+        self.upVoteButton.enabled = !readonly
+        self.downVoteButton.enabled = !readonly
     }
 
     @IBAction func downVote(sender: AnyObject) {

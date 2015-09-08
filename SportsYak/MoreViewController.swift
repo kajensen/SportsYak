@@ -37,6 +37,12 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if (section == 0){
             return TeamType.count.rawValue
         }
+        else if (section == 1) {
+            return 4
+        }
+        else if (section == 2) {
+            return 4
+        }
         return 0
     }
 
@@ -60,11 +66,61 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
         else {
             let cell = tableView.dequeueReusableCellWithIdentifier("InfoCell", forIndexPath: indexPath) as! UITableViewCell
             
-            // Configure the cell...
+            if (indexPath.section == 0) {
+                if (indexPath.row == 0) {
+                    cell.textLabel?.text = "Share Sports Yak"
+                }
+                else if (indexPath.row == 1) {
+                    cell.textLabel?.text = "Rate Sports Yak"
+                }
+                else if (indexPath.row == 2) {
+                    cell.textLabel?.text = "Follow Us on Twitter"
+                }
+                else if (indexPath.row == 3) {
+                    cell.textLabel?.text = "Like Us on Facebook"
+                }
+            }
+            else if (indexPath.section == 1) {
+                if (indexPath.row == 0) {
+                    cell.textLabel?.text = "Getting Help/Contact Us"
+                }
+                else if (indexPath.row == 1) {
+                    cell.textLabel?.text = "Rules and Info"
+                }
+                else if (indexPath.row == 2) {
+                    cell.textLabel?.text = "Terms of Service"
+                }
+                else if (indexPath.row == 3) {
+                    cell.textLabel?.text = "Privacy Policy"
+                }
+            }
             
             return cell
         }
 
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) { // SHARE
+            }
+            else if (indexPath.row == 1) { // RATE
+            }
+            else if (indexPath.row == 2) { // TWITTER
+            }
+            else if (indexPath.row == 3) { // FACEBOOK
+            }
+        }
+        else if (indexPath.section == 1) {
+            if (indexPath.row == 0) { // HELP
+            }
+            else if (indexPath.row == 1) { // RULES
+            }
+            else if (indexPath.row == 2) { // TERMS
+            }
+            else if (indexPath.row == 3) { // POLICY
+            }
+        }
     }
 
     func teamTableViewCellSwitched(cell: TeamTableViewCell, tSwitch: UISwitch!) {

@@ -26,6 +26,7 @@
 		904DB8E11B954AE0006E4F00 /* ContentKarma.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904DB8E01B954AE0006E4F00 /* ContentKarma.swift */; };
 		906C19731B9E7F3F002254CC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 906C19721B9E7F3F002254CC /* Images.xcassets */; };
 		906C19751B9E98B5002254CC /* PFFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906C19741B9E98B5002254CC /* PFFlag.swift */; };
+		906C19781B9EBAD2002254CC /* UIView+Swift.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C19771B9EBAD2002254CC /* UIView+Swift.m */; };
 		90B10B491B8BA1E800A56CF0 /* LFTPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B481B8BA1E800A56CF0 /* LFTPulseAnimation.swift */; };
 		90B10B4B1B8BA5DE00A56CF0 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B4A1B8BA5DE00A56CF0 /* Async.swift */; };
 		90B10B4F1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B4E1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift */; };
@@ -87,6 +88,8 @@
 		904DB8E01B954AE0006E4F00 /* ContentKarma.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentKarma.swift; sourceTree = "<group>"; };
 		906C19721B9E7F3F002254CC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		906C19741B9E98B5002254CC /* PFFlag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFFlag.swift; sourceTree = "<group>"; };
+		906C19761B9EBAD2002254CC /* UIView+Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Swift.h"; sourceTree = "<group>"; };
+		906C19771B9EBAD2002254CC /* UIView+Swift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Swift.m"; sourceTree = "<group>"; };
 		90B10B481B8BA1E800A56CF0 /* LFTPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFTPulseAnimation.swift; sourceTree = "<group>"; };
 		90B10B4A1B8BA5DE00A56CF0 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		90B10B4E1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -219,6 +222,8 @@
 		9013588C1B751CCF00C559BF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				906C19761B9EBAD2002254CC /* UIView+Swift.h */,
+				906C19771B9EBAD2002254CC /* UIView+Swift.m */,
 				90F3A2C41B953BC000254D5F /* UICountingLabel.h */,
 				90F3A2C51B953BC000254D5F /* UICountingLabel.m */,
 				90B10B4A1B8BA5DE00A56CF0 /* Async.swift */,
@@ -447,6 +452,7 @@
 				901358B91B752B1400C559BF /* PostViewController.swift in Sources */,
 				90F3A2C81B9540A900254D5F /* KarmaTabBarController.swift in Sources */,
 				90F3CEEA1B7536C00051FED4 /* PFNFLTeam.swift in Sources */,
+				906C19781B9EBAD2002254CC /* UIView+Swift.m in Sources */,
 				901358B71B75277200C559BF /* MoreViewController.swift in Sources */,
 				90F3CEF81B7565EE0051FED4 /* EventViewController.swift in Sources */,
 				90F3CF011B75BF830051FED4 /* NSDate+Extension.swift in Sources */,
