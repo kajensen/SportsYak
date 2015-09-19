@@ -42,7 +42,7 @@ class ButtonGroupUnderlineView: UIView {
         self.init(frame:CGRectZero)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -77,7 +77,7 @@ class ButtonGroupUnderlineView: UIView {
 
         if (self.underline != nil) && (self.selectedButton != nil) {
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
-                    var width = self.selectedButton!.titleLabel!.frame.size.width
+                    let width = self.selectedButton!.titleLabel!.frame.size.width
                     self.underline!.frame.size.width = width
                     self.underline!.frame.origin.x = self.selectedButton!.frame.origin.x + (self.selectedButton!.frame.size.width/2.0) - (width/2.0)
                 })

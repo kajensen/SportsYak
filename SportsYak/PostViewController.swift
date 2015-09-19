@@ -105,10 +105,10 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if let userId = user.objectId {
                 self.upVoteButton.selected = false
                 self.downVoteButton.selected = false
-                if contains(self.post.upVotes, userId) {
+                if self.post.upVotes.contains(userId) {
                     self.upVoteButton.selected = true
                 }
-                else if contains(post.downVotes, userId) {
+                else if post.downVotes.contains(userId) {
                     self.downVoteButton.selected = true
                 }
             }
@@ -124,18 +124,18 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func loadData() {
-        if let user = PFMember.currentUser() {
+        if let _ = PFMember.currentUser() {
             if let query = PFComment.queryWithPost(self.post) {
                 query.findObjectsInBackgroundWithBlock {
                     (objects: [AnyObject]?, error: NSError?) -> Void in
                     
                     if error == nil {
                         // The find succeeded.
-                        println("Successfully retrieved \(objects!.count) comments.")
+                        print("Successfully retrieved \(objects!.count) comments.")
                         // Do something with the found objects
                         if let objects = objects as? [PFComment] {
                             for object in objects {
-                                println(object.objectId)
+                                print(object.objectId)
                             }
                             self.comments = objects
                             self.tableView.reloadData()
@@ -143,7 +143,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         }
                     } else {
                         // Log details of the failure
-                        println("Error: \(error!) \(error!.userInfo!)")
+                        print("Error: \(error!) \(error!.userInfo)")
                     }
                 }
                 self.tableView.hidden = true
@@ -162,19 +162,19 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var fixedWidth = tableView.contentSize.width - 44 //width of cell, minus 4 (left) 40 (right)
-        var standardHeight : CGFloat = 53 //base height of textview
-        var textView = UITextView()
+        let fixedWidth = tableView.contentSize.width - 44 //width of cell, minus 4 (left) 40 (right)
+        let standardHeight : CGFloat = 53 //base height of textview
+        let textView = UITextView()
         //textView.font = [UIFont fontWithName:@"Myriad Pro" size:13.0f];
         let comment = self.comments[indexPath.row]
         textView.text = comment.text
         textView.scrollEnabled = false
-        var expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
+        let expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
         var newHeight = expectedSize.height
         if (standardHeight > newHeight) {
             newHeight = standardHeight
         }
-        var height = tableView.rowHeight - standardHeight + newHeight
+        let height = tableView.rowHeight - standardHeight + newHeight
         return height
     }
     
@@ -202,7 +202,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         alertController.addAction(flagAction)
         alertController.addAction(cancelAction)
         
-        alertController.popoverPresentationController?.sourceView = cell.viewForBaselineLayout()!
+        alertController.popoverPresentationController?.sourceView = cell.viewForBaselineLayout()
 
         self.presentViewController(alertController, animated: true, completion: nil)
     }
@@ -239,7 +239,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         let currentString = textView.text as NSString
         let proposedNewString = currentString.stringByReplacingCharactersInRange(range, withString: text) as String
-        if (count(proposedNewString) < MAX_TEXT_LENGTH) {
+        if (proposedNewString.characters.count < MAX_TEXT_LENGTH) {
             //self.charactersLabel.text = "\(MAX_TEXT_LENGTH-count(proposedNewString))"
             updateTextViewSize()
             return true
@@ -248,7 +248,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func updateTextViewSize() {
-        var height = self.heightForTextView()
+        let height = self.heightForTextView()
         if height != self.textViewHeightConstraint.constant {
             UIView.animateWithDuration(0.3, animations: { () -> Void in
                 self.textViewHeightConstraint.constant = height
@@ -257,18 +257,18 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func heightForTextView() -> CGFloat {
-        var fixedWidth = self.view.frame.size.width - 70 //width of textview : 3*8 padding, 46 send button
-        var standardHeight : CGFloat = 34 //base height of textview
-        var textView = UITextView()
+        let fixedWidth = self.view.frame.size.width - 70 //width of textview : 3*8 padding, 46 send button
+        let standardHeight : CGFloat = 34 //base height of textview
+        let textView = UITextView()
         textView.font = UIFont(name: "DIN Alternate", size:14)
         textView.text = self.commentTextView?.text
         textView.scrollEnabled = false
-        var expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
+        let expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
         var newHeight = expectedSize.height
         if (standardHeight > newHeight) {
             newHeight = standardHeight
         }
-        var height = 50 - standardHeight + newHeight //50 is base constraint
+        let height = 50 - standardHeight + newHeight //50 is base constraint
         return height
     }
 
@@ -287,10 +287,10 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         
         if let button = sender as? UIButton {
-            activityViewController.popoverPresentationController?.sourceView = button.viewForBaselineLayout()!
+            activityViewController.popoverPresentationController?.sourceView = button.viewForBaselineLayout()
         }
         else if let cell = sender as? UITableViewCell {
-            activityViewController.popoverPresentationController?.sourceView = cell.viewForBaselineLayout()!
+            activityViewController.popoverPresentationController?.sourceView = cell.viewForBaselineLayout()
         }
         /*controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
         UIActivityTypePrint,
@@ -416,13 +416,13 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let comment = PFComment(post: self.post, text: text, colorIndex: self.colorIndex(), imageIndex: self.imageIndex())
         if (comment.user != nil && comment.location != nil) {
             comment.saveInBackgroundWithBlock({ (success, error) -> Void in
-                if (!contains(self.comments, comment)) {
+                if (!self.comments.contains(comment)) {
                     self.comments.append(comment)
                     self.tableView.reloadData()
                 }
                 PFCloud.callFunctionInBackground("addComment", withParameters: ["postObjectId":self.post.objectId!,"commentObjectId":comment.objectId!], block: { (obj, error) -> Void in
                     if (error == nil) {
-                        println("add comment \(comment.objectId!) for post \(self.post.objectId)")
+                        print("add comment \(comment.objectId!) for post \(self.post.objectId)")
                     }
                 })
             })

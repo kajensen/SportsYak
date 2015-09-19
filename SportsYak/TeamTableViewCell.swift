@@ -51,7 +51,7 @@ class TeamTableViewCell: UITableViewCell {
         case TeamType.NFL:
             title = "NFL posts"
         default:
-            println("uh oh, no type")
+            print("uh oh, no type")
         }
         self.titleLabel.text = title
         self.tSwitch.on = false

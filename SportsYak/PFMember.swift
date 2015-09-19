@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class PFMember: PFUser, PFSubclassing {
+class PFMember: PFUser {
     
     @NSManaged var contentKarma: Int
     @NSManaged var voteKarma: Int
@@ -75,7 +75,7 @@ class PFMember: PFUser, PFSubclassing {
             case TeamType.NFL:
                 return self.nflTeam
             default:
-                println("uh oh, no team")
+                print("uh oh, no team")
         }
         return nil
     }
@@ -107,7 +107,7 @@ class PFMember: PFUser, PFSubclassing {
     }
 
     class func queryWithIncludes() -> PFQuery? {
-        var query = PFMember.query()
+        let query = PFMember.query()
         if (query != nil) {
             query!.includeKey("nflTeam")
         }
@@ -116,7 +116,7 @@ class PFMember: PFUser, PFSubclassing {
     
     func muteUser(user : PFMember) {
         if (user.objectId != nil) {
-            if (find(self.mutedUserIds, user.objectId!) == nil) {
+            if (self.mutedUserIds.contains(user.objectId!)) {
                 self.mutedUserIds.append(user.objectId!);
             }
         }

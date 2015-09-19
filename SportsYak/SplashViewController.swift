@@ -53,7 +53,7 @@ class SplashViewController: UIViewController {
     
     func promptUpgrade() {
         if let appId = NSBundle.mainBundle().infoDictionary?["CFBundleIdentifier"] as? String {
-            var alertController = UIAlertController(title: "Invalid App Version", message: "Please upgrade the app.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: "Invalid App Version", message: "Please upgrade the app.", preferredStyle: UIAlertControllerStyle.Alert)
             let chooseAction = UIAlertAction(title: "App Store", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 let itunesLink = "http://itunes.apple.com/us/app/\(appId)"
                 UIApplication.sharedApplication().openURL(NSURL(string: itunesLink)!)

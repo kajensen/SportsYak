@@ -39,15 +39,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="thf-qH-9qc">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg2" translatesAutoresizingMaskIntoConstraints="NO" id="thf-qH-9qc">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0 (1)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2o-ef-LyL">
-                                <rect key="frame" x="285" y="566" width="30" height="14"/>
-                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="12"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="9Jm-8L-hgI">
                                 <rect key="frame" x="282" y="521" width="37" height="37"/>
                                 <color key="color" red="0.86274509799999999" green="0.6705882353" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,15 +52,21 @@
                                 <color key="textColor" red="0.86274509799999999" green="0.6705882353" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.0 (1)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2o-ef-LyL">
+                                <rect key="frame" x="285" y="259" width="30" height="14"/>
+                                <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="12"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="c2o-ef-LyL" secondAttribute="centerX" id="2nv-bI-ugT"/>
                             <constraint firstAttribute="centerY" secondItem="cic-fF-7hF" secondAttribute="centerY" constant="70" id="GLi-yV-chd"/>
-                            <constraint firstItem="c2o-ef-LyL" firstAttribute="top" secondItem="9Jm-8L-hgI" secondAttribute="bottom" constant="8" id="JRH-r1-NgN"/>
+                            <constraint firstItem="c2o-ef-LyL" firstAttribute="top" secondItem="cic-fF-7hF" secondAttribute="bottom" constant="8" id="O1A-IY-wSR"/>
                             <constraint firstAttribute="bottom" secondItem="thf-qH-9qc" secondAttribute="bottom" id="O1H-Jy-tRm"/>
                             <constraint firstAttribute="centerX" secondItem="9Jm-8L-hgI" secondAttribute="centerX" id="OS4-0d-8dE"/>
-                            <constraint firstAttribute="bottom" secondItem="c2o-ef-LyL" secondAttribute="bottom" constant="20" symbolic="YES" id="edo-a9-vvj"/>
+                            <constraint firstAttribute="bottom" secondItem="9Jm-8L-hgI" secondAttribute="bottom" constant="42" id="Wyc-Kx-gvR"/>
                             <constraint firstAttribute="trailing" secondItem="thf-qH-9qc" secondAttribute="trailing" id="pFs-nh-0Jc"/>
                             <constraint firstItem="thf-qH-9qc" firstAttribute="leading" secondItem="nlf-uP-KLr" secondAttribute="leading" id="vY3-uB-7Jz"/>
                             <constraint firstAttribute="centerX" secondItem="cic-fF-7hF" secondAttribute="centerX" id="xZZ-HV-yrc"/>
@@ -110,7 +110,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="1200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="wK2-l9-HXi">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg2" translatesAutoresizingMaskIntoConstraints="NO" id="wK2-l9-HXi">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="1200"/>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEH-Bc-kxF">
@@ -1805,7 +1805,7 @@
         <image name="More-100" width="33" height="33"/>
         <image name="Mountain-100" width="33" height="33"/>
         <image name="Quill With Ink-100" width="33" height="33"/>
-        <image name="bg" width="1024" height="1584"/>
+        <image name="bg2" width="773" height="437"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sMF-xB-spB"/>

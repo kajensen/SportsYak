@@ -70,31 +70,31 @@ class PFPost: PFObject, PFSubclassing {
     func upVote() {
         if let user = PFMember.currentUser() {
             if let userId = user.objectId {
-                if contains(self.upVotes, userId) {
+                if self.upVotes.contains(userId) {
                     PFCloud.callFunctionInBackground("removeUpVote", withParameters: ["userObjectId":userId,"postObjectId":self.objectId!], block: { (object, error) -> Void in
                         if (error == nil) {
-                            println("removed upvote for post \(self.objectId)")
+                            print("removed upvote for post \(self.objectId)")
                         }
                     })
-                    if let index = find(self.upVotes, userId) {
+                    if let index = self.upVotes.indexOf(userId) {
                         self.upVotes.removeAtIndex(index)
                     }
                     self.votes -= 1
                 }
                 else {
-                    var shouldRemove = contains(self.downVotes, userId)
+                    let shouldRemove = self.downVotes.contains(userId)
                     PFCloud.callFunctionInBackground("addUpVote", withParameters: ["userObjectId":userId,"postObjectId":self.objectId!,"shouldRemove":shouldRemove], block: { (object, error) -> Void in
                         if (error == nil) {
-                            println("added upvote for post \(self.objectId)")
+                            print("added upvote for post \(self.objectId)")
                         }
                     })
                     self.upVotes.append(userId)
                     if (shouldRemove) {
-                        if let index = find(self.downVotes, userId) {
+                        if let index = self.downVotes.indexOf(userId) {
                             self.downVotes.removeAtIndex(index)
                         }
                     }
-                    var votes = (shouldRemove ? 2 : 1)
+                    let votes = (shouldRemove ? 2 : 1)
                     self.votes += votes
                 }
             }
@@ -106,31 +106,31 @@ class PFPost: PFObject, PFSubclassing {
     func downVote() {
         if let user = PFMember.currentUser() {
             if let userId = user.objectId {
-                if contains(self.downVotes, userId) {
+                if self.downVotes.contains(userId) {
                     PFCloud.callFunctionInBackground("removeDownVote", withParameters: ["userObjectId":userId,"postObjectId":self.objectId!], block: { (object, error) -> Void in
                         if (error == nil) {
-                            println("removed downvote for post \(self.objectId)")
+                            print("removed downvote for post \(self.objectId)")
                         }
                     })
-                    if let index = find(self.downVotes, userId) {
+                    if let index = self.downVotes.indexOf(userId) {
                         self.downVotes.removeAtIndex(index)
                     }
                     self.votes -= 1
                 }
                 else {
-                    var shouldRemove = contains(self.upVotes, userId)
+                    let shouldRemove = self.upVotes.contains(userId)
                     PFCloud.callFunctionInBackground("addDownVote", withParameters: ["userObjectId":userId,"postObjectId":self.objectId!,"shouldRemove":shouldRemove], block: { (object, error) -> Void in
                         if (error == nil) {
-                            println("added downvote for post \(self.objectId)")
+                            print("added downvote for post \(self.objectId)")
                         }
                     })
                     self.downVotes.append(userId)
                     if (shouldRemove) {
-                        if let index = find(self.upVotes, userId) {
+                        if let index = self.upVotes.indexOf(userId) {
                             self.upVotes.removeAtIndex(index)
                         }
                     }
-                    var votes = (shouldRemove ? 2 : 1)
+                    let votes = (shouldRemove ? 2 : 1)
                     self.votes -= votes
                 }
             }            
@@ -141,8 +141,8 @@ class PFPost: PFObject, PFSubclassing {
         if let user = PFMember.currentUser() {
             let userTeams = user.teamIds()
             if (userTeams.count > 0) {
-                println("fetching posts for teams: \(userTeams)")
-                var query = PFPost.query()
+                print("fetching posts for teams: \(userTeams)")
+                let query = PFPost.query()
                 //query!.includeKey("comments")
                 query!.whereKey("teamId", containedIn: userTeams)
                 if (postSort == PostSort.New) {
@@ -162,8 +162,8 @@ class PFPost: PFObject, PFSubclassing {
     class func queryWithNearby(postSort : PostSort) -> PFQuery? {
         if let user = PFMember.currentUser() {
             if let location = user.location {
-                println("fetching nearby posts")
-                var query = PFPost.query()
+                print("fetching nearby posts")
+                let query = PFPost.query()
                 //query!.includeKey("comments")
                 query!.whereKey("location", nearGeoPoint: location, withinMiles: 10.0)
                 if (postSort == PostSort.New) {
@@ -182,8 +182,8 @@ class PFPost: PFObject, PFSubclassing {
 
     class func queryWithEvent(event : PFEvent, postType: PostType, postSort : PostSort) -> PFQuery? {
         if let type = TeamType(rawValue: event.teamType) {
-            let className = type.className
-            println("fetching event posts")
+            _ = type.className
+            print("fetching event posts")
             var teamId : String
             if (postType == PostType.TeamOne) {
                 teamId = event.teamOneId
@@ -191,7 +191,7 @@ class PFPost: PFObject, PFSubclassing {
             else {
                 teamId = event.teamTwoId
             }
-            var query = PFPost.query()
+            let query = PFPost.query()
             if (postSort == PostSort.New) {
                 query!.orderByDescending("createdAt")
             }
@@ -208,7 +208,7 @@ class PFPost: PFObject, PFSubclassing {
     }
     
     class func queryForUserPosts(user: PFMember) -> PFQuery? {
-        var query = PFPost.query()
+        let query = PFPost.query()
         query!.limit = 100
         query!.orderByDescending("createdAt")
         query!.whereKey("user", equalTo: user)
@@ -234,7 +234,7 @@ class PFPost: PFObject, PFSubclassing {
         var shouldShow = true
         if let user = PFMember.currentUser() {
             if (self.user.objectId != nil) {
-                if (find(user.mutedUserIds, self.user.objectId!) != nil) {
+                if (user.mutedUserIds.contains(self.user.objectId!)) {
                     shouldShow = false
                 }
             }

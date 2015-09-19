@@ -26,30 +26,30 @@ class SelectTeamViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     func loadData() {
-        if let user = PFMember.currentUser() {
+        if let _ = PFMember.currentUser() {
             var query : PFQuery?
             switch self.type {
                 case TeamType.NFL:
                     query = PFNFLTeam.query()!
                 default:
-                    println("uh oh, invalid type")
+                    print("uh oh, invalid type")
             }
             if query != nil {
-                println("fetching teams for type: \(self.type)")
+                print("fetching teams for type: \(self.type)")
                 query!.findObjectsInBackgroundWithBlock {
                     (objects: [AnyObject]?, error: NSError?) -> Void in
                     
                     if error == nil {
-                        println("Successfully retrieved \(objects!.count) teams.")
+                        print("Successfully retrieved \(objects!.count) teams.")
                         if let objects = objects as? [PFTeam] {
                             for object in objects {
-                                println(object.objectId)
+                                print(object.objectId)
                             }
                             self.teams = objects
                             self.tableView.reloadData()
                         }
                     } else {
-                        println("Error: \(error!) \(error!.userInfo!)")
+                        print("Error: \(error!) \(error!.userInfo)")
                     }
                 }
             }
@@ -67,7 +67,7 @@ class SelectTeamViewController: UIViewController, UITableViewDataSource, UITable
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TeamCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("TeamCell", forIndexPath: indexPath) 
         let team = self.teams[indexPath.row]
         if team.isDataAvailable() {
             cell.textLabel!.text = team.name
@@ -80,7 +80,7 @@ class SelectTeamViewController: UIViewController, UITableViewDataSource, UITable
         let team = self.teams[indexPath.row]
         if let user = PFMember.currentUser() {
             let title = team.name
-            var alertController = UIAlertController(title: title, message: "You can only choose your team once.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertController = UIAlertController(title: title, message: "You can only choose your team once.", preferredStyle: UIAlertControllerStyle.Alert)
             let chooseAction = UIAlertAction(title: "Select", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
                 user.addTeam(team)
                 user.saveInBackground()

@@ -40,7 +40,7 @@ class NotificationTableViewCell: UITableViewCell {
             self.notificationImageView.image = UIImage(named: "Up Circled-100")
         }
         else {
-            println("no post or comment.")
+            print("no post or comment.")
         }
 
     }

@@ -145,8 +145,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         }
         let currentString = textView.text as NSString
         let proposedNewString = currentString.stringByReplacingCharactersInRange(range, withString: text) as String
-        if (count(proposedNewString) < MAX_TEXT_LENGTH) {
-            self.charactersLabel.text = "\(MAX_TEXT_LENGTH-count(proposedNewString))"
+        if (proposedNewString.characters.count < MAX_TEXT_LENGTH) {
+            self.charactersLabel.text = "\(MAX_TEXT_LENGTH-proposedNewString.characters.count)"
             return true
         }
         return false
@@ -157,10 +157,10 @@ class ComposeViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        let currentString = textField.text as NSString
+        let currentString = textField.text! as NSString
         let proposedNewString = currentString.stringByReplacingCharactersInRange(range, withString: string)
-        if (count(proposedNewString) < MAX_TITLE_LENGTH) {
-            self.titleImageView.highlighted = count(proposedNewString) > 0
+        if (proposedNewString.characters.count < MAX_TITLE_LENGTH) {
+            self.titleImageView.highlighted = proposedNewString.characters.count > 0
             return true
         }
         return false
@@ -171,7 +171,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     @IBAction func send(sender: AnyObject) {
-        let post = PFPost(team: self.team, title: self.titleTextField.text, text: self.textView.text)
+        let post = PFPost(team: self.team, title: self.titleTextField.text!, text: self.textView.text)
         if post.user != nil && post.location != nil { // TODO doesn't need a team?
             post.saveInBackground()
             self.dismissViewControllerAnimated(true, completion: nil)

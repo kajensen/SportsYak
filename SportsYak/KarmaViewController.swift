@@ -48,7 +48,7 @@ class KarmaViewController: UIViewController {
     }
     
     @IBAction func share(sender: AnyObject) {
-        var text = "Share gameday with your squads. Talk smack, embrace victory, join your sports community with SportsYak @sportsyak."
+        let text = "Share gameday with your squads. Talk smack, embrace victory, join your sports community with SportsYak @sportsyak."
 
         let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.shareView

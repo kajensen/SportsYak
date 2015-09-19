@@ -55,8 +55,7 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
     
     func loadData(forceDownload: Bool) {
         if let user = PFMember.currentUser() {
-            if let userId = user.objectId {
-                var query : PFQuery?
+            if let _ = user.objectId {
                 if (self.meType == MeType.Notifications) {
                     if (self.notifications.count > 0 && !forceDownload) {
                         self.setupData(self.notifications)
@@ -72,16 +71,16 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 (objects: [AnyObject]?, error: NSError?) -> Void in
                                 
                                 if error == nil {
-                                    println("Successfully retrieved \(objects!.count) notifications.")
+                                    print("Successfully retrieved \(objects!.count) notifications.")
                                     if let objects = objects as? [PFNotification] {
                                         for object in objects {
-                                            println(object.objectId)
+                                            print(object.objectId)
                                         }
                                         self.notifications = objects
                                         self.setupData(self.notifications)
                                     }
                                 } else {
-                                    println("Error: \(error!) \(error!.userInfo!)")
+                                    print("Error: \(error!) \(error!.userInfo)")
                                 }
                             }
                         }
@@ -100,16 +99,16 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 (objects: [AnyObject]?, error: NSError?) -> Void in
                                 
                                 if error == nil {
-                                    println("Successfully retrieved \(objects!.count) comments.")
+                                    print("Successfully retrieved \(objects!.count) comments.")
                                     if let objects = objects as? [PFComment] {
                                         for object in objects {
-                                            println(object.objectId)
+                                            print(object.objectId)
                                         }
                                         self.comments = objects
                                         self.setupMyStuff()
                                     }
                                 } else {
-                                    println("Error: \(error!) \(error!.userInfo!)")
+                                    print("Error: \(error!) \(error!.userInfo)")
                                 }
                             }
                         }
@@ -120,16 +119,16 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 (objects: [AnyObject]?, error: NSError?) -> Void in
                                 
                                 if error == nil {
-                                    println("Successfully retrieved \(objects!.count) posts.")
+                                    print("Successfully retrieved \(objects!.count) posts.")
                                     if let objects = objects as? [PFPost] {
                                         for object in objects {
-                                            println(object.objectId)
+                                            print(object.objectId)
                                         }
                                         self.posts = objects
                                         self.setupMyStuff()
                                     }
                                 } else {
-                                    println("Error: \(error!) \(error!.userInfo!)")
+                                    print("Error: \(error!) \(error!.userInfo)")
                                 }
                             }
                         }
@@ -156,9 +155,9 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                     }
                 }
             }
-            var data = myStuff.sorted { (lhs: PFObject, rhs: PFObject) -> Bool in
-                return rhs.createdAt!.compare(lhs.createdAt!) == .OrderedAscending
-                }.map { $0 as PFObject }
+            let data = myStuff.sort({ (obj1: PFObject, obj2: PFObject) -> Bool in
+                return obj1.createdAt!.compare(obj2.createdAt!) == .OrderedAscending
+                })
             self.setupData(data)
         }
     }
@@ -200,7 +199,7 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if let notification = self.myStuff[indexPath.row] as? PFNotification {
+        if let _ = self.myStuff[indexPath.row] as? PFNotification {
             return 60
         }
         else if let post = self.myStuff[indexPath.row] as? PFPost {
@@ -213,18 +212,18 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
     }
     
     func heightForCellForPost(post : PFPost) -> CGFloat {
-        var fixedWidth = self.tableView.contentSize.width - 64 //width of cell, 8*3 padding 40 (vote view)
-        var standardHeight : CGFloat = 23 //base height of textview
-        var textView = UITextView()
+        let fixedWidth = self.tableView.contentSize.width - 64 //width of cell, 8*3 padding 40 (vote view)
+        let standardHeight : CGFloat = 23 //base height of textview
+        let textView = UITextView()
         //textView.font = [UIFont fontWithName:@"Myriad Pro" size:13.0f];
         textView.text = post.text
         textView.scrollEnabled = false
-        var expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
+        let expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
         var newHeight = expectedSize.height
         if (standardHeight > newHeight) {
             newHeight = standardHeight
         }
-        var height = self.tableView.rowHeight - standardHeight + newHeight
+        let height = self.tableView.rowHeight - standardHeight + newHeight
         return height
     }
 
@@ -305,6 +304,20 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
             self.view.layer.insertSublayer(pulseEffect, below: collectionView.layer)
             self.view.layer.insertSublayer(pulseEffect2, below: collectionView.layer)
             self.view.layer.insertSublayer(pulseEffect3, below: collectionView.layer)
+            
+            let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(1.5 * Double(NSEC_PER_SEC)))
+            dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+                let cvPoint = collectionView.convertPoint(cell.center, toView: self.view)
+                let pulseEffect = LFTPulseAnimation(repeatCount: Float.infinity, radius:10, position:cvPoint)
+                pulseEffect.backgroundColor = UIColor(hexString: team.colorSecondaryHex).CGColor
+                let pulseEffect2 = LFTPulseAnimation(repeatCount: Float.infinity, radius:20, position:cvPoint)
+                pulseEffect2.backgroundColor = UIColor(hexString: team.colorSecondaryHex).CGColor
+                let pulseEffect3 = LFTPulseAnimation(repeatCount: Float.infinity, radius:40, position:cvPoint)
+                pulseEffect3.backgroundColor = UIColor(hexString: team.colorSecondaryHex).CGColor
+                self.view.layer.insertSublayer(pulseEffect, below: collectionView.layer)
+                self.view.layer.insertSublayer(pulseEffect2, below: collectionView.layer)
+                self.view.layer.insertSublayer(pulseEffect3, below: collectionView.layer)
+            })
         }
         
         return cell

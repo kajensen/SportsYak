@@ -48,7 +48,7 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
     }
     
     func loadData(forceDownload : Bool) {
-        if let user = PFMember.currentUser() {
+        if let _ = PFMember.currentUser() {
             if (self.postType == PostType.Nearby) {
                 if (self.postSort == PostSort.Hot && self.postsNearbyH.count > 0  && !forceDownload) {
                     self.loadPosts(self.postsNearbyH)
@@ -57,16 +57,16 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                     self.loadPosts(self.postsNearbyN)
                 }
                 else {
-                    var savedSort = self.postSort
+                    let savedSort = self.postSort
                     if let query = PFPost.queryWithNearby(self.postSort) {
                         query.findObjectsInBackgroundWithBlock {
                             (objects: [AnyObject]?, error: NSError?) -> Void in
                             
                             if error == nil {
-                                println("Successfully retrieved \(objects!.count) nearby posts.")
+                                print("Successfully retrieved \(objects!.count) nearby posts.")
                                 if let objects = objects as? [PFPost] {
                                     for object in objects {
-                                        println(object.objectId)
+                                        print(object.objectId)
                                     }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsNearbyH = objects
@@ -78,7 +78,7 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                                     }
                                 }
                             } else {
-                                println("Error: \(error!) \(error!.userInfo!)")
+                                print("Error: \(error!) \(error!.userInfo)")
                             }
                         }
                         self.tableView.hidden = true
@@ -93,16 +93,16 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                     self.loadPosts(self.postsMySquadsN)
                 }
                 else {
-                    var savedSort = self.postSort
+                    let savedSort = self.postSort
                     if let query = PFPost.queryWithMyTeams(self.postSort) {
                         query.findObjectsInBackgroundWithBlock {
                             (objects: [AnyObject]?, error: NSError?) -> Void in
                             
                             if error == nil {
-                                println("Successfully retrieved \(objects!.count) my squad posts.")
+                                print("Successfully retrieved \(objects!.count) my squad posts.")
                                 if let objects = objects as? [PFPost] {
                                     for object in objects {
-                                        println(object.objectId)
+                                        print(object.objectId)
                                     }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsMySquadsH = objects
@@ -114,7 +114,7 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                                     }
                                 }
                             } else {
-                                println("Error: \(error!) \(error!.userInfo!)")
+                                print("Error: \(error!) \(error!.userInfo)")
                             }
                         }
                         self.tableView.hidden = true
@@ -143,19 +143,19 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var fixedWidth = tableView.contentSize.width - 64 //width of cell, 8*3 padding 40 (vote view)
-        var standardHeight : CGFloat = 23 //base height of textview
-        var textView = UITextView()
+        let fixedWidth = tableView.contentSize.width - 64 //width of cell, 8*3 padding 40 (vote view)
+        let standardHeight : CGFloat = 23 //base height of textview
+        let textView = UITextView()
         //textView.font = [UIFont fontWithName:@"Myriad Pro" size:13.0f];
         let post = self.posts[indexPath.row]
         textView.text = post.text
         textView.scrollEnabled = false
-        var expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
+        let expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
         var newHeight = expectedSize.height
         if (standardHeight > newHeight) {
             newHeight = standardHeight
         }
-        var height = tableView.rowHeight - standardHeight + newHeight
+        let height = tableView.rowHeight - standardHeight + newHeight
         return height
     }
 

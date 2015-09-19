@@ -21,7 +21,7 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if let selectedIndexPath = self.tableView.indexPathForSelectedRow() {
+        if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: false)
         }
     }
@@ -32,24 +32,24 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func loadData() {
-        if let user = PFMember.currentUser() {
+        if let _ = PFMember.currentUser() {
             if let query = PFEvent.query() {
-                println("fetching events")
+                print("fetching events")
                 query.findObjectsInBackgroundWithBlock {
                     (objects: [AnyObject]?, error: NSError?) -> Void in
                     
                     if error == nil {
-                        println("Successfully retrieved \(objects!.count) events.")
+                        print("Successfully retrieved \(objects!.count) events.")
                         if let objects = objects as? [PFEvent] {
                             for object in objects {
-                                println(object.objectId)
+                                print(object.objectId)
                             }
                             self.events = objects
                             self.tableView.reloadData()
                             self.tableView.hidden = false
                         }
                     } else {
-                        println("Error: \(error!) \(error!.userInfo!)")
+                        print("Error: \(error!) \(error!.userInfo)")
                     }
                 }
                 self.tableView.hidden = true
@@ -68,7 +68,7 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("EventCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("EventCell", forIndexPath: indexPath) 
         let event = self.events[indexPath.row]
         cell.textLabel!.text = "\(event.teamOneName) vs \(event.teamTwoName)"
         if (event.live) {

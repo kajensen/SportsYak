@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             clientKey: "wV3wBuIFJN8sCI0AdjiA9vvMkU9Ms2J9oCXNs6W0")
         
         PFUser.enableAutomaticUser()
-        println("launching with user \(PFMember.currentUser())")
+        print("launching with user \(PFMember.currentUser())")
 
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         refreshUser()
         
-        let userNotificationTypes = (UIUserNotificationType.Alert |  UIUserNotificationType.Badge |  UIUserNotificationType.Sound);
+        let userNotificationTypes: UIUserNotificationType = ([UIUserNotificationType.Alert, UIUserNotificationType.Badge, UIUserNotificationType.Sound]);
         let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
@@ -76,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         return true
     }
     
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if (status == CLAuthorizationStatus.AuthorizedWhenInUse) {
             updateLocation()
         }
@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func updateLocation() {
         if let user = PFMember.currentUser() {
             if let location = SharedLocationManager.sharedInstance.location {
-                println("saving location \(location)")
+                print("saving location \(location)")
                 user.location = PFGeoPoint(location: location)
                 user.saveInBackground()
             }
@@ -104,11 +104,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     query.getFirstObjectInBackgroundWithBlock({ (object : PFObject?, error: NSError?) -> Void in
                         if error == nil {
                             if let fetchedUser = object as? PFMember {
-                                println("refreshed user")
+                                print("refreshed user")
                                 user.nflTeam = fetchedUser.nflTeam
                             }
                         } else {
-                            println("Error: \(error!) \(error!.userInfo!)")
+                            print("Error: \(error!) \(error!.userInfo)")
                         }
                     })
                 }
@@ -150,7 +150,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     (objects: [AnyObject]?, error: NSError?) -> Void in
                     self.hasFetchedUserPosts = true
                     if error == nil {
-                        println("Successfully retrieved \(objects!.count) user posts.")
+                        print("Successfully retrieved \(objects!.count) user posts.")
                         if let objects = objects as? [PFPost] {
                             for object in objects {
                                 if let objectId = object.objectId {
@@ -159,7 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                             }
                         }
                     } else {
-                        println("Error: \(error!) \(error!.userInfo!)")
+                        print("Error: \(error!) \(error!.userInfo)")
                     }
                     self.updateContentKarma()
                 }
@@ -169,7 +169,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     (objects: [AnyObject]?, error: NSError?) -> Void in
                     self.hasFetchedUserComments = true
                     if error == nil {
-                        println("Successfully retrieved \(objects!.count) user comments.")
+                        print("Successfully retrieved \(objects!.count) user comments.")
                         if let objects = objects as? [PFComment] {
                             for object in objects {
                                 if let objectId = object.objectId {
@@ -178,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                             }
                         }
                     } else {
-                        println("Error: \(error!) \(error!.userInfo!)")
+                        print("Error: \(error!) \(error!.userInfo)")
                     }
                     self.updateContentKarma()
                 }
@@ -196,7 +196,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "io.arborapps.SportsYakCoreData" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
+        return urls[urls.count-1] 
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -212,7 +212,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SportsYakCoreData.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+        } catch var error1 as NSError {
+            error = error1
             coordinator = nil
             // Report any error we got.
             var dict = [String: AnyObject]()
@@ -224,6 +227,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
+        } catch {
+            fatalError()
         }
         
         return coordinator
@@ -245,11 +250,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func saveContext () {
         if let moc = self.managedObjectContext {
             var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error1 as NSError {
+                    error = error1
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    NSLog("Unresolved error \(error), \(error!.userInfo)")
+                    abort()
+                }
             }
         }
     }
@@ -258,14 +268,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func setContentKarma(objectId: String, votes: Int) {
         
-        var error: NSError? = nil
-        var fReq: NSFetchRequest = NSFetchRequest(entityName: "ContentKarma")
+        let fReq: NSFetchRequest = NSFetchRequest(entityName: "ContentKarma")
         
         fReq.predicate = NSPredicate(format:"objectId == \(objectId) ")
         fReq.returnsObjectsAsFaults = false
         
         if let moc = self.managedObjectContext {
-            if let result = moc.executeFetchRequest(fReq, error:&error) {
+            do {
+                let result = try moc.executeFetchRequest(fReq)
                 if let contentKarma = result.first as? ContentKarma {
                     if (contentKarma.votes != votes) {
                         NSLog("Updated New ContentKarma for \(objectId) (\(votes))")
@@ -275,12 +285,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     
                 }
                 else {
-                    var contentKarma: ContentKarma = NSEntityDescription.insertNewObjectForEntityForName("ContentKarma", inManagedObjectContext: moc) as! ContentKarma
+                    let contentKarma: ContentKarma = NSEntityDescription.insertNewObjectForEntityForName("ContentKarma", inManagedObjectContext: moc) as! ContentKarma
                     contentKarma.objectId = objectId
                     contentKarma.votes = votes
                     NSLog("Inserted New ContentKarma for \(objectId) (\(votes))")
                     self.saveContext()
                 }
+            } catch _ as NSError {
             }
         }
 
@@ -288,12 +299,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func updateContentKarma() {
         if (self.hasFetchedUserComments && self.hasFetchedUserPosts) {
-            var error: NSError? = nil
-            var fReq: NSFetchRequest = NSFetchRequest(entityName: "ContentKarma")
+            let fReq: NSFetchRequest = NSFetchRequest(entityName: "ContentKarma")
             fReq.returnsObjectsAsFaults = false
             
             if let moc = self.managedObjectContext {
-                if let result = moc.executeFetchRequest(fReq, error:&error) {
+                do {
+                    let result = try moc.executeFetchRequest(fReq)
                     var votes = 0
                     for contentKarma : ContentKarma in result as! [ContentKarma] {
                         votes += contentKarma.votes
@@ -302,6 +313,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     if let user = PFMember.currentUser() {
                         user.resetContentKarma(votes)
                     }
+                } catch _ as NSError {
                 }
             }
         }

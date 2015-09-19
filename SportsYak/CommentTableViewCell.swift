@@ -64,10 +64,10 @@ class CommentTableViewCell: UITableViewCell {
         self.userImageBackgroundView.layer.masksToBounds = false
         if let user = PFMember.currentUser() {
             if let userId = user.objectId {
-                if contains(comment.upVotes, userId) {
+                if comment.upVotes.contains(userId) {
                     self.upVoteButton.selected = true
                 }
-                else if contains(comment.downVotes, userId) {
+                else if comment.downVotes.contains(userId) {
                     self.downVoteButton.selected = true
                 }
             }

@@ -64,17 +64,17 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
                     self.setupPosts(self.postsTeamOneN)
                 }
                 else {
-                    var savedSort = self.postSort
+                    let savedSort = self.postSort
                     query = PFPost.queryWithEvent(self.event, postType: self.postType, postSort: self.postSort)
                     if (query != nil) {
                         query!.findObjectsInBackgroundWithBlock {
                             (objects: [AnyObject]?, error: NSError?) -> Void in
                             
                             if error == nil {
-                                println("Successfully retrieved \(objects!.count) team one \(self.event.teamOneId) posts.")
+                                print("Successfully retrieved \(objects!.count) team one \(self.event.teamOneId) posts.")
                                 if let objects = objects as? [PFPost] {
                                     for object in objects {
-                                        println(object.objectId)
+                                        print(object.objectId)
                                     }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsTeamOneH = objects
@@ -86,7 +86,7 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
                                     }
                                 }
                             } else {
-                                println("Error: \(error!) \(error!.userInfo!)")
+                                print("Error: \(error!) \(error!.userInfo)")
                             }
                         }
                     }
@@ -100,17 +100,17 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
                     self.setupPosts(self.postsTeamTwoN)
                 }
                 else {
-                    var savedSort = self.postSort
+                    let savedSort = self.postSort
                     query = PFPost.queryWithEvent(self.event, postType: self.postType, postSort: self.postSort)
                     if (query != nil) {
                         query!.findObjectsInBackgroundWithBlock {
                             (objects: [AnyObject]?, error: NSError?) -> Void in
                             
                             if error == nil {
-                                println("Successfully retrieved \(objects!.count) team two \(self.event.teamTwoId) posts.")
+                                print("Successfully retrieved \(objects!.count) team two \(self.event.teamTwoId) posts.")
                                 if let objects = objects as? [PFPost] {
                                     for object in objects {
-                                        println(object.objectId)
+                                        print(object.objectId)
                                     }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsTeamTwoH = objects
@@ -122,7 +122,7 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
                                     }
                                 }
                             } else {
-                                println("Error: \(error!) \(error!.userInfo!)")
+                                print("Error: \(error!) \(error!.userInfo)")
                             }
                         }
                     }
@@ -149,19 +149,19 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        var fixedWidth = tableView.contentSize.width - 64 //width of cell, 8*3 padding 40 (vote view)
-        var standardHeight : CGFloat = 23 //base height of textview
-        var textView = UITextView()
+        let fixedWidth = tableView.contentSize.width - 64 //width of cell, 8*3 padding 40 (vote view)
+        let standardHeight : CGFloat = 23 //base height of textview
+        let textView = UITextView()
         //textView.font = [UIFont fontWithName:@"Myriad Pro" size:13.0f];
         let post = self.posts[indexPath.row]
         textView.text = post.text
         textView.scrollEnabled = false
-        var expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
+        let expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
         var newHeight = expectedSize.height
         if (standardHeight > newHeight) {
             newHeight = standardHeight
         }
-        var height = tableView.rowHeight - standardHeight + newHeight
+        let height = tableView.rowHeight - standardHeight + newHeight
         return height
     }
     

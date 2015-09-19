@@ -17,7 +17,7 @@ class KarmaTabBarController: UITabBarController {
     }
     
     func updateKarma() {
-        for viewController in self.childViewControllers as! [UIViewController] {
+        for viewController in self.childViewControllers {
             if let karmaNavigationController = viewController as? KarmaNavigationController {
                 karmaNavigationController.updateKarma()
             }

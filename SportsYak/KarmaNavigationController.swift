@@ -16,13 +16,13 @@ class KarmaNavigationController: UINavigationController {
     }
     
     func updateKarma() {
-        if let childViewController = self.childViewControllers.first as? UIViewController {
+        if let childViewController = self.childViewControllers.first {
             if let leftBarButton = childViewController.navigationItem.leftBarButtonItem {
                 if let customView = leftBarButton.customView {
                     for subView in customView.subviews {
-                        if subView.isKindOfClass(UICountingLabel) {
+                        if let countingView = subView as? UICountingLabel {
                             if let user = PFMember.currentUser() {
-                                subView.countFromZeroTo(CGFloat(user.contentKarma+user.voteKarma))
+                                countingView.countFromZeroTo(CGFloat(user.contentKarma+user.voteKarma))
                             }
                         }
                     }

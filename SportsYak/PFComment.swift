@@ -47,31 +47,31 @@ class PFComment: PFObject, PFSubclassing {
     func upVote() {
         if let user = PFMember.currentUser() {
             if let userId = user.objectId {
-                if contains(self.upVotes, userId) {
+                if self.upVotes.contains(userId) {
                     PFCloud.callFunctionInBackground("removeUpVote", withParameters: ["userObjectId":userId,"commentObjectId":self.objectId!], block: { (object, error) -> Void in
                         if (error == nil) {
-                            println("removed upvote for comment \(self.objectId)")
+                            print("removed upvote for comment \(self.objectId)")
                         }
                     })
-                    if let index = find(self.upVotes, userId) {
+                    if let index = self.upVotes.indexOf(userId) {
                         self.upVotes.removeAtIndex(index)
                     }
                     self.votes -= 1
                 }
                 else {
-                    var shouldRemove = contains(self.downVotes, userId)
+                    let shouldRemove = self.downVotes.contains(userId)
                     PFCloud.callFunctionInBackground("addUpVote", withParameters: ["userObjectId":userId,"commentObjectId":self.objectId!,"shouldRemove":shouldRemove], block: { (object, error) -> Void in
                         if (error == nil) {
-                            println("added upvote for comment \(self.objectId)")
+                            print("added upvote for comment \(self.objectId)")
                         }
                     })
                     self.upVotes.append(userId)
                     if (shouldRemove) {
-                        if let index = find(self.downVotes, userId) {
+                        if let index = self.downVotes.indexOf(userId) {
                             self.downVotes.removeAtIndex(index)
                         }
                     }
-                    var votes = (shouldRemove ? 2 : 1)
+                    let votes = (shouldRemove ? 2 : 1)
                     self.votes += votes
                 }
             }
@@ -83,31 +83,31 @@ class PFComment: PFObject, PFSubclassing {
     func downVote() {
         if let user = PFMember.currentUser() {
             if let userId = user.objectId {
-                if contains(self.downVotes, userId) {
+                if self.downVotes.contains(userId) {
                     PFCloud.callFunctionInBackground("removeDownVote", withParameters: ["userObjectId":userId,"commentObjectId":self.objectId!], block: { (object, error) -> Void in
                         if (error == nil) {
-                            println("removed downvote for comment \(self.objectId)")
+                            print("removed downvote for comment \(self.objectId)")
                         }
                     })
-                    if let index = find(self.downVotes, userId) {
+                    if let index = self.downVotes.indexOf(userId) {
                         self.downVotes.removeAtIndex(index)
                     }
                     self.votes -= 1
                 }
                 else {
-                    var shouldRemove = contains(self.upVotes, userId)
+                    let shouldRemove = self.upVotes.contains(userId)
                     PFCloud.callFunctionInBackground("addDownVote", withParameters: ["userObjectId":userId,"commentObjectId":self.objectId!,"shouldRemove":shouldRemove], block: { (object, error) -> Void in
                         if (error == nil) {
-                            println("added downvote for comment \(self.objectId)")
+                            print("added downvote for comment \(self.objectId)")
                         }
                     })
                     self.downVotes.append(userId)
                     if (shouldRemove) {
-                        if let index = find(self.upVotes, userId) {
+                        if let index = self.upVotes.indexOf(userId) {
                             self.upVotes.removeAtIndex(index)
                         }
                     }
-                    var votes = (shouldRemove ? 2 : 1)
+                    let votes = (shouldRemove ? 2 : 1)
                     self.votes -= votes
                 }
             }
@@ -129,7 +129,7 @@ class PFComment: PFObject, PFSubclassing {
     }
     
     class func queryForUserComments(user: PFMember) -> PFQuery? {
-        var query = PFComment.query()
+        let query = PFComment.query()
         query!.limit = 100
         query!.orderByDescending("createdAt")
         query!.whereKey("user", equalTo: user)
@@ -155,7 +155,7 @@ class PFComment: PFObject, PFSubclassing {
         var shouldShow = true
         if let user = PFMember.currentUser() {
             if (self.user.objectId != nil) {
-                if (find(user.mutedUserIds, self.user.objectId!) != nil) {
+                if (user.mutedUserIds.contains( self.user.objectId!)) {
                     shouldShow = false
                 }
             }
