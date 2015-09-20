@@ -36,8 +36,8 @@ class SelectTeamViewController: UIViewController, UITableViewDataSource, UITable
             }
             if query != nil {
                 print("fetching teams for type: \(self.type)")
-                query!.findObjectsInBackgroundWithBlock {
-                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                query!.findObjectsInBackgroundWithBlock({
+                    (objects, error) -> Void in
                     
                     if error == nil {
                         print("Successfully retrieved \(objects!.count) teams.")
@@ -51,7 +51,7 @@ class SelectTeamViewController: UIViewController, UITableViewDataSource, UITable
                     } else {
                         print("Error: \(error!) \(error!.userInfo)")
                     }
-                }
+                })
             }
         }
     }

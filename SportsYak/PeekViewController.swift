@@ -32,11 +32,11 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func loadData() {
-        if let _ = PFMember.currentUser() {
+        if let user = PFMember.currentUser() {
             if let query = PFEvent.query() {
                 print("fetching events")
-                query.findObjectsInBackgroundWithBlock {
-                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                query.findObjectsInBackgroundWithBlock({
+                    (objects, error) -> Void in
                     
                     if error == nil {
                         print("Successfully retrieved \(objects!.count) events.")
@@ -51,7 +51,7 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     } else {
                         print("Error: \(error!) \(error!.userInfo)")
                     }
-                }
+                })
                 self.tableView.hidden = true
             }
         }

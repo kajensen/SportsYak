@@ -65,11 +65,8 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
                 }
                 else {
                     let savedSort = self.postSort
-                    query = PFPost.queryWithEvent(self.event, postType: self.postType, postSort: self.postSort)
-                    if (query != nil) {
-                        query!.findObjectsInBackgroundWithBlock {
-                            (objects: [AnyObject]?, error: NSError?) -> Void in
-                            
+                    if let query = PFPost.queryWithEvent(self.event, postType: self.postType, postSort: self.postSort) {
+                        query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
                             if error == nil {
                                 print("Successfully retrieved \(objects!.count) team one \(self.event.teamOneId) posts.")
                                 if let objects = objects as? [PFPost] {
@@ -88,7 +85,7 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
                             } else {
                                 print("Error: \(error!) \(error!.userInfo)")
                             }
-                        }
+                        })
                     }
                 }
             }
@@ -101,10 +98,9 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
                 }
                 else {
                     let savedSort = self.postSort
-                    query = PFPost.queryWithEvent(self.event, postType: self.postType, postSort: self.postSort)
-                    if (query != nil) {
-                        query!.findObjectsInBackgroundWithBlock {
-                            (objects: [AnyObject]?, error: NSError?) -> Void in
+                    if let query = PFPost.queryWithEvent(self.event, postType: self.postType, postSort: self.postSort) {
+                        query.findObjectsInBackgroundWithBlock({
+                            (objects, error) -> Void in
                             
                             if error == nil {
                                 print("Successfully retrieved \(objects!.count) team two \(self.event.teamTwoId) posts.")
@@ -124,7 +120,7 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
                             } else {
                                 print("Error: \(error!) \(error!.userInfo)")
                             }
-                        }
+                        })
                     }
                 }
             }

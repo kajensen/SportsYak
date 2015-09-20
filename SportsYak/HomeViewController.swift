@@ -48,7 +48,7 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
     }
     
     func loadData(forceDownload : Bool) {
-        if let _ = PFMember.currentUser() {
+        if let user = PFMember.currentUser() {
             if (self.postType == PostType.Nearby) {
                 if (self.postSort == PostSort.Hot && self.postsNearbyH.count > 0  && !forceDownload) {
                     self.loadPosts(self.postsNearbyH)
@@ -59,8 +59,8 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                 else {
                     let savedSort = self.postSort
                     if let query = PFPost.queryWithNearby(self.postSort) {
-                        query.findObjectsInBackgroundWithBlock {
-                            (objects: [AnyObject]?, error: NSError?) -> Void in
+                        query.findObjectsInBackgroundWithBlock({
+                            (objects, error) -> Void in
                             
                             if error == nil {
                                 print("Successfully retrieved \(objects!.count) nearby posts.")
@@ -80,7 +80,7 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                             } else {
                                 print("Error: \(error!) \(error!.userInfo)")
                             }
-                        }
+                        })
                         self.tableView.hidden = true
                     }
                 }
@@ -95,8 +95,8 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                 else {
                     let savedSort = self.postSort
                     if let query = PFPost.queryWithMyTeams(self.postSort) {
-                        query.findObjectsInBackgroundWithBlock {
-                            (objects: [AnyObject]?, error: NSError?) -> Void in
+                        query.findObjectsInBackgroundWithBlock({
+                            (objects, error) -> Void in
                             
                             if error == nil {
                                 print("Successfully retrieved \(objects!.count) my squad posts.")
@@ -116,7 +116,7 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                             } else {
                                 print("Error: \(error!) \(error!.userInfo)")
                             }
-                        }
+                        })
                         self.tableView.hidden = true
                     }
                 }

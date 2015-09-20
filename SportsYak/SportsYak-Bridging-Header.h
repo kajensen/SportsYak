@@ -5,3 +5,4 @@
 #import "UIPlaceHolderTextView.h"
 #import "UICountingLabel.h"
 #import "UIView+Swift.h"
+#import <Instabug/Instabug.h>

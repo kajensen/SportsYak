@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var hasFetchedUserPosts = false
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        Instabug.startWithToken("53b85f046af0ad35e9a95866fe72adf2", captureSource: IBGCaptureSourceUIKit, invocationEvent: IBGInvocationEventShake)
+
         PFMember.registerSubclass()
         PFNFLTeam.registerSubclass()
         PFPost.registerSubclass()
@@ -146,8 +149,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         if let user = PFMember.currentUser() {
             if let query = PFPost.queryForUserPosts(user) {
-                query.findObjectsInBackgroundWithBlock {
-                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                query.findObjectsInBackgroundWithBlock({
+                    (objects, error) -> Void in
                     self.hasFetchedUserPosts = true
                     if error == nil {
                         print("Successfully retrieved \(objects!.count) user posts.")
@@ -162,11 +165,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                         print("Error: \(error!) \(error!.userInfo)")
                     }
                     self.updateContentKarma()
-                }
+                })
             }
             if let query = PFComment.queryForUserComments(user) {
-                query.findObjectsInBackgroundWithBlock {
-                    (objects: [AnyObject]?, error: NSError?) -> Void in
+                query.findObjectsInBackgroundWithBlock ({
+                    (objects, error) -> Void in
                     self.hasFetchedUserComments = true
                     if error == nil {
                         print("Successfully retrieved \(objects!.count) user comments.")
@@ -181,7 +184,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                         print("Error: \(error!) \(error!.userInfo)")
                     }
                     self.updateContentKarma()
-                }
+                })
             }
         }
     }

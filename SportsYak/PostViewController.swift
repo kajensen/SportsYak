@@ -124,11 +124,9 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func loadData() {
-        if let _ = PFMember.currentUser() {
+        if let user = PFMember.currentUser() {
             if let query = PFComment.queryWithPost(self.post) {
-                query.findObjectsInBackgroundWithBlock {
-                    (objects: [AnyObject]?, error: NSError?) -> Void in
-                    
+                query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
                     if error == nil {
                         // The find succeeded.
                         print("Successfully retrieved \(objects!.count) comments.")
@@ -145,7 +143,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         // Log details of the failure
                         print("Error: \(error!) \(error!.userInfo)")
                     }
-                }
+                })
                 self.tableView.hidden = true
             }
         }

@@ -22,10 +22,12 @@ class SplashViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if let config = PFConfig.getConfig() {
-            self.requiredVersion = config["requiredVersion"] as? NSNumber
+        PFConfig.getConfigInBackgroundWithBlock { (config, error) -> Void in
+            if (config != nil) {
+                self.requiredVersion = config!["requiredVersion"] as? NSNumber
+            }
+            self.validateApp()
         }
-        self.validateApp()
     }
     
     func validateApp() {

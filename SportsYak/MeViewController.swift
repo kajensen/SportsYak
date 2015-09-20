@@ -67,8 +67,8 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                             query.includeKey("comment")
                             query.includeKey("comment.post")
                             query.orderByDescending("createdAt")
-                            query.findObjectsInBackgroundWithBlock {
-                                (objects: [AnyObject]?, error: NSError?) -> Void in
+                            query.findObjectsInBackgroundWithBlock({
+                                (objects, error) -> Void in
                                 
                                 if error == nil {
                                     print("Successfully retrieved \(objects!.count) notifications.")
@@ -82,7 +82,7 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 } else {
                                     print("Error: \(error!) \(error!.userInfo)")
                                 }
-                            }
+                            })
                         }
                     }
                 }
@@ -95,8 +95,8 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                             query.whereKey("user", equalTo: user)
                             query.includeKey("post")
                             query.orderByDescending("createdAt")
-                            query.findObjectsInBackgroundWithBlock {
-                                (objects: [AnyObject]?, error: NSError?) -> Void in
+                            query.findObjectsInBackgroundWithBlock({
+                                (objects, error) -> Void in
                                 
                                 if error == nil {
                                     print("Successfully retrieved \(objects!.count) comments.")
@@ -110,13 +110,13 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 } else {
                                     print("Error: \(error!) \(error!.userInfo)")
                                 }
-                            }
+                            })
                         }
                         if let query = PFPost.query() {
                             query.whereKey("user", equalTo: user)
                             query.orderByDescending("createdAt")
-                            query.findObjectsInBackgroundWithBlock {
-                                (objects: [AnyObject]?, error: NSError?) -> Void in
+                            query.findObjectsInBackgroundWithBlock({
+                                (objects, error) -> Void in
                                 
                                 if error == nil {
                                     print("Successfully retrieved \(objects!.count) posts.")
@@ -130,7 +130,7 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 } else {
                                     print("Error: \(error!) \(error!.userInfo)")
                                 }
-                            }
+                            })
                         }
                         self.tableView.hidden = true
                     }

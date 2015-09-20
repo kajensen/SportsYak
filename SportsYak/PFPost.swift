@@ -182,7 +182,6 @@ class PFPost: PFObject, PFSubclassing {
 
     class func queryWithEvent(event : PFEvent, postType: PostType, postSort : PostSort) -> PFQuery? {
         if let type = TeamType(rawValue: event.teamType) {
-            _ = type.className
             print("fetching event posts")
             var teamId : String
             if (postType == PostType.TeamOne) {
