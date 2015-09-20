@@ -12,7 +12,6 @@ import Parse
 class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate, PostTableViewCellDelegate {
 
     @IBOutlet var buttonGroupView: ButtonGroupUnderlineView!
-    @IBOutlet var tableView: UITableView!
     var postsNearbyN = [PFPost]()
     var postsNearbyH = [PFPost]()
     var postsMySquadsN = [PFPost]()
@@ -24,6 +23,7 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         self.loadData(false)
     }
     
@@ -47,14 +47,14 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
         // Dispose of any resources that can be recreated.
     }
     
-    func loadData(forceDownload : Bool) {
+    override func loadData(forceDownload : Bool) {
         if let user = PFMember.currentUser() {
             if (self.postType == PostType.Nearby) {
                 if (self.postSort == PostSort.Hot && self.postsNearbyH.count > 0  && !forceDownload) {
-                    self.loadPosts(self.postsNearbyH)
+                    self.didLoadPosts(self.postsNearbyH)
                 }
                 else if (self.postSort == PostSort.New && self.postsNearbyN.count > 0 && !forceDownload) {
-                    self.loadPosts(self.postsNearbyN)
+                    self.didLoadPosts(self.postsNearbyN)
                 }
                 else {
                     let savedSort = self.postSort
@@ -70,27 +70,27 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                                     }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsNearbyH = objects
-                                        self.loadPosts(self.postsNearbyH)
+                                        self.didLoadPosts(self.postsNearbyH)
                                     }
                                     else {
                                         self.postsNearbyN = objects
-                                        self.loadPosts(self.postsNearbyN)
+                                        self.didLoadPosts(self.postsNearbyN)
                                     }
                                 }
                             } else {
                                 print("Error: \(error!) \(error!.userInfo)")
                             }
                         })
-                        self.tableView.hidden = true
+                        //self.tableView.hidden = true
                     }
                 }
             }
             else {
                 if (self.postSort == PostSort.Hot && self.postsMySquadsH.count > 0 && !forceDownload) {
-                    self.loadPosts(self.postsMySquadsH)
+                    self.didLoadPosts(self.postsMySquadsH)
                 }
                 else if (self.postSort == PostSort.New && self.postsMySquadsN.count > 0 && !forceDownload) {
-                    self.loadPosts(self.postsMySquadsN)
+                    self.didLoadPosts(self.postsMySquadsN)
                 }
                 else {
                     let savedSort = self.postSort
@@ -106,30 +106,31 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                                     }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsMySquadsH = objects
-                                        self.loadPosts(self.postsMySquadsH)
+                                        self.didLoadPosts(self.postsMySquadsH)
                                     }
                                     else {
                                         self.postsMySquadsN = objects
-                                        self.loadPosts(self.postsMySquadsN)
+                                        self.didLoadPosts(self.postsMySquadsN)
                                     }
                                 }
                             } else {
                                 print("Error: \(error!) \(error!.userInfo)")
                             }
                         })
-                        self.tableView.hidden = true
+                        //self.tableView.hidden = true
                     }
                 }
             }
         }
     }
     
-    func loadPosts(posts : [PFPost]) {
+    func didLoadPosts(posts : [PFPost]) {
         if (self.posts != posts) {
             self.posts = posts
             self.tableView.reloadData()
-            self.tableView.hidden = false
+            //self.tableView.hidden = false
         }
+        super.refreshFinished()
     }
 
     // MARK: - Table view data source

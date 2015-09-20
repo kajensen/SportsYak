@@ -637,26 +637,26 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="nbM-wN-Foc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nbM-wN-Foc">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
-                                <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="EventCell" textLabel="vy9-FX-pXo" imageView="036-ae-6Tq" style="IBUITableViewCellStyleDefault" id="QzJ-rS-zbQ">
-                                        <rect key="frame" x="0.0" y="50" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QzJ-rS-zbQ" id="gOm-lY-3L5">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="59"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vy9-FX-pXo">
-                                                    <rect key="frame" x="55" y="0.0" width="510" height="43"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vy9-FX-pXo">
+                                                    <rect key="frame" x="55" y="0.0" width="510" height="59"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Filled Circle-100" id="036-ae-6Tq">
-                                                    <rect key="frame" x="15" y="9" width="25" height="25"/>
+                                                    <rect key="frame" x="15" y="17" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -723,7 +723,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="1qb-85-5kC">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
-                                <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TeamCell" id="hYB-Tw-ipM" customClass="TeamTableViewCell" customModule="SportsYak" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="600" height="44"/>
@@ -795,6 +795,7 @@
                     <connections>
                         <outlet property="tableView" destination="1qb-85-5kC" id="zdR-hn-joT"/>
                         <segue destination="yJB-83-6F7" kind="show" identifier="SelectTeam" id="ak8-Uy-1vs"/>
+                        <segue destination="zxz-wZ-tJd" kind="show" identifier="Web" id="o8N-JX-f4F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0TK-2c-jny" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1275,6 +1276,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wlr-HG-3qa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1584" y="896"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="UUZ-QL-iSY">
+            <objects>
+                <viewController id="zxz-wZ-tJd" customClass="WebViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nCD-QH-9Ha"/>
+                        <viewControllerLayoutGuide type="bottom" id="9Y2-lm-pLO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Okt-T5-JCH">
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VEy-5T-oMp">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <dataDetectorType key="dataDetectorTypes"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VEy-5T-oMp" firstAttribute="bottom" secondItem="9Y2-lm-pLO" secondAttribute="top" id="1JB-LE-9X1"/>
+                            <constraint firstItem="VEy-5T-oMp" firstAttribute="leading" secondItem="Okt-T5-JCH" secondAttribute="leading" id="U8G-WF-T6E"/>
+                            <constraint firstAttribute="trailing" secondItem="VEy-5T-oMp" secondAttribute="trailing" id="sC1-hd-MBy"/>
+                            <constraint firstItem="VEy-5T-oMp" firstAttribute="top" secondItem="nCD-QH-9Ha" secondAttribute="bottom" id="yM2-vc-V9l"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="VEy-5T-oMp" id="1jZ-D1-1PE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9ZZ-r0-K3O" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1584" y="1614"/>
         </scene>
         <!--Event View Controller-->
         <scene sceneID="yzs-3Y-edJ">

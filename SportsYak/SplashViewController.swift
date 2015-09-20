@@ -17,7 +17,7 @@ class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.versionLabel.text = nil
     }
     
     override func viewDidAppear(animated: Bool) {

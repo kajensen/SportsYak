@@ -53,15 +53,15 @@ class KarmaViewController: UIViewController {
         let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         activityViewController.popoverPresentationController?.sourceView = self.shareView
 
-        /*controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
-        UIActivityTypePrint,
-        UIActivityTypeCopyToPasteboard,
-        UIActivityTypeAssignToContact,
-        UIActivityTypeAddToReadingList,
-        UIActivityTypePostToFlickr,
-        UIActivityTypePostToVimeo,
-        UIActivityTypePostToTencentWeibo,
-        UIActivityTypeAirDrop];*/
+        activityViewController.excludedActivityTypes = [UIActivityTypePostToWeibo,
+            UIActivityTypePrint,
+            UIActivityTypeCopyToPasteboard,
+            UIActivityTypeAssignToContact,
+            UIActivityTypeAddToReadingList,
+            UIActivityTypePostToFlickr,
+            UIActivityTypePostToVimeo,
+            UIActivityTypePostToTencentWeibo,
+            UIActivityTypeAirDrop]
         
         self.presentViewController(activityViewController, animated: true, completion: nil)
     }

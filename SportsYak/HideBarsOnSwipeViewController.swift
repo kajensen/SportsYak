@@ -9,8 +9,11 @@
 import UIKit
 
 class HideBarsOnSwipeViewController: UIViewController, UIScrollViewDelegate {
+    @IBOutlet var tableView: UITableView!
     @IBOutlet var topViews: [AnyObject]?
     @IBOutlet var bottomViews: [AnyObject]?
+    var isDragging = false
+    var refreshControl : BOZPongRefreshControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +26,36 @@ class HideBarsOnSwipeViewController: UIViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if (self.refreshControl == nil) {
+            self.refreshControl = BOZPongRefreshControl.attachToTableView(self.tableView, withRefreshTarget: self, andRefreshAction: "refreshTriggered")
+        }
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        self.refreshControl.scrollViewDidScroll()
+    }
+    
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        self.refreshControl.scrollViewDidEndDragging()
+    }
+    
+    func refreshTriggered() {
+        self.loadData(true)
+    }
+    
+    func refreshFinished() {
+        self.refreshControl.finishedLoading()
+    }
+    
+    func loadData(forceDownload: Bool) {
+        self.refreshControl.finishedLoading()
+    }
+    
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        isDragging = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         //self.navigationController?.setToolbarHidden(true, animated: true)
         //self.setTabBarVisible(false, animated: true)
@@ -35,15 +67,21 @@ class HideBarsOnSwipeViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-        //self.navigationController?.setToolbarHidden(false, animated: true)
-        //self.setTabBarVisible(true, animated: true)
-        if (self.topViews != nil) {
-            for view in self.topViews! {
-                setViewHidden(view, hidden: true, animated: true)
+        isDragging = false
+        self.performSelector("hideBarsDelay", withObject: nil, afterDelay: 3)
+    }
+    
+    func hideBarsDelay() {
+        if (!isDragging) {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+            //self.navigationController?.setToolbarHidden(false, animated: true)
+            //self.setTabBarVisible(true, animated: true)
+            if (self.topViews != nil) {
+                for view in self.topViews! {
+                    setViewHidden(view, hidden: true, animated: true)
+                }
             }
         }
-
     }
     
     func setTabBarHidden(hidden:Bool, animated:Bool) {

@@ -24,9 +24,11 @@
 		9037D5C71B98A00D0039851B /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9037D5C61B98A00D0039851B /* SplashViewController.swift */; };
 		904DB8D91B9544F9006E4F00 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 904DB8D71B9544F9006E4F00 /* CoreData.xcdatamodeld */; };
 		904DB8E11B954AE0006E4F00 /* ContentKarma.swift in Sources */ = {isa = PBXBuildFile; fileRef = 904DB8E01B954AE0006E4F00 /* ContentKarma.swift */; };
+		9066CD701BAF510A008B17B4 /* BOZPongRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 9066CD6F1BAF510A008B17B4 /* BOZPongRefreshControl.m */; settings = {ASSET_TAGS = (); }; };
 		906C19731B9E7F3F002254CC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 906C19721B9E7F3F002254CC /* Images.xcassets */; };
 		906C19751B9E98B5002254CC /* PFFlag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 906C19741B9E98B5002254CC /* PFFlag.swift */; };
 		906C19781B9EBAD2002254CC /* UIView+Swift.m in Sources */ = {isa = PBXBuildFile; fileRef = 906C19771B9EBAD2002254CC /* UIView+Swift.m */; };
+		90AFE3921BAF72E500FB4AEC /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AFE3911BAF72E500FB4AEC /* WebViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		90B10B491B8BA1E800A56CF0 /* LFTPulseAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B481B8BA1E800A56CF0 /* LFTPulseAnimation.swift */; };
 		90B10B4B1B8BA5DE00A56CF0 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B4A1B8BA5DE00A56CF0 /* Async.swift */; };
 		90B10B4F1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B10B4E1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift */; };
@@ -86,10 +88,13 @@
 		9037D5C61B98A00D0039851B /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		904DB8D81B9544F9006E4F00 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		904DB8E01B954AE0006E4F00 /* ContentKarma.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentKarma.swift; sourceTree = "<group>"; };
+		9066CD6E1BAF510A008B17B4 /* BOZPongRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BOZPongRefreshControl.h; sourceTree = "<group>"; };
+		9066CD6F1BAF510A008B17B4 /* BOZPongRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BOZPongRefreshControl.m; sourceTree = "<group>"; };
 		906C19721B9E7F3F002254CC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		906C19741B9E98B5002254CC /* PFFlag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PFFlag.swift; sourceTree = "<group>"; };
 		906C19761B9EBAD2002254CC /* UIView+Swift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Swift.h"; sourceTree = "<group>"; };
 		906C19771B9EBAD2002254CC /* UIView+Swift.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Swift.m"; sourceTree = "<group>"; };
+		90AFE3911BAF72E500FB4AEC /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		90B10B481B8BA1E800A56CF0 /* LFTPulseAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LFTPulseAnimation.swift; sourceTree = "<group>"; };
 		90B10B4A1B8BA5DE00A56CF0 /* Async.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		90B10B4E1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -215,6 +220,7 @@
 				90FE8F3F1B8A69900033AE9A /* HideBarsOnSwipeViewController.swift */,
 				90F3A2C71B9540A900254D5F /* KarmaTabBarController.swift */,
 				9037D5C61B98A00D0039851B /* SplashViewController.swift */,
+				90AFE3911BAF72E500FB4AEC /* WebViewController.swift */,
 			);
 			path = SportsYak;
 			sourceTree = "<group>";
@@ -222,6 +228,7 @@
 		9013588C1B751CCF00C559BF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9066CD6D1BAF510A008B17B4 /* BOZPongRefreshControl */,
 				906C19761B9EBAD2002254CC /* UIView+Swift.h */,
 				906C19771B9EBAD2002254CC /* UIView+Swift.m */,
 				90F3A2C41B953BC000254D5F /* UICountingLabel.h */,
@@ -265,6 +272,15 @@
 				90B10B4E1B8BAC1400A56CF0 /* TeamCollectionViewCell.swift */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		9066CD6D1BAF510A008B17B4 /* BOZPongRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				9066CD6E1BAF510A008B17B4 /* BOZPongRefreshControl.h */,
+				9066CD6F1BAF510A008B17B4 /* BOZPongRefreshControl.m */,
+			);
+			path = BOZPongRefreshControl;
 			sourceTree = "<group>";
 		};
 		90F3CEDC1B75335C0051FED4 /* PFObjects */ = {
@@ -462,12 +478,14 @@
 				90FE8F3C1B8A3ADF0033AE9A /* KarmaViewController.swift in Sources */,
 				901358BE1B752B7800C559BF /* CommentTableViewCell.swift in Sources */,
 				90B10B491B8BA1E800A56CF0 /* LFTPulseAnimation.swift in Sources */,
+				9066CD701BAF510A008B17B4 /* BOZPongRefreshControl.m in Sources */,
 				90FE8F401B8A69900033AE9A /* HideBarsOnSwipeViewController.swift in Sources */,
 				90F3CEFC1B7591020051FED4 /* UIPlaceHolderTextView.m in Sources */,
 				90F3CEF01B7539170051FED4 /* SharedLocationManager.swift in Sources */,
 				90F3CEF41B7558D80051FED4 /* SelectTeamViewController.swift in Sources */,
 				90F3A2C61B953BC000254D5F /* UICountingLabel.m in Sources */,
 				901358C21B75313200C559BF /* ComposeViewController.swift in Sources */,
+				90AFE3921BAF72E500FB4AEC /* WebViewController.swift in Sources */,
 				9013588F1B751CCF00C559BF /* AppDelegate.swift in Sources */,
 				90FE8F361B8A23A90033AE9A /* PFTeam.swift in Sources */,
 				904DB8D91B9544F9006E4F00 /* CoreData.xcdatamodeld in Sources */,
@@ -527,6 +545,7 @@
 /* Begin XCBuildConfiguration section */
 		901358A81B751CCF00C559BF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E5FC210B23AEB34F1001225 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -573,6 +592,7 @@
 		};
 		901358A91B751CCF00C559BF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5A7E4CFF876A7DE88D89C1A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -655,6 +675,7 @@
 		};
 		901358AE1B751CCF00C559BF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9E5FC210B23AEB34F1001225 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -675,6 +696,7 @@
 		};
 		901358AF1B751CCF00C559BF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C5A7E4CFF876A7DE88D89C1A /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (

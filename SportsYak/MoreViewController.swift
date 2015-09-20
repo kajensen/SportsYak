@@ -45,6 +45,18 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         return 0
     }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (section == 0){
+            return "My Teams"
+        }
+        else if (section == 1) {
+            return "Share the Love"
+        }
+        else {
+            return "Important Stuff"
+        }
+    }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if (indexPath.section == 0){
@@ -82,7 +94,7 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             else if (indexPath.section == 2) {
                 if (indexPath.row == 0) {
-                    cell.textLabel?.text = "Getting Help/Contact Us"
+                    cell.textLabel?.text = "Contact Us"
                 }
                 else if (indexPath.row == 1) {
                     cell.textLabel?.text = "Rules and Info"
@@ -101,24 +113,71 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if (indexPath.section == 0) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if (indexPath.section == 1) {
             if (indexPath.row == 0) { // SHARE
+                let text = "Share gameday with your squads. Talk smack, embrace victory, join your sports community with SportsYak @sportsyak."
+                
+                let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+                let cell = tableView.cellForRowAtIndexPath(indexPath)
+                activityViewController.popoverPresentationController?.sourceRect = cell!.frame
+                
+                activityViewController.excludedActivityTypes = [UIActivityTypePostToWeibo,
+                    UIActivityTypePrint,
+                    UIActivityTypeCopyToPasteboard,
+                    UIActivityTypeAssignToContact,
+                    UIActivityTypeAddToReadingList,
+                    UIActivityTypePostToFlickr,
+                    UIActivityTypePostToVimeo,
+                    UIActivityTypePostToTencentWeibo,
+                    UIActivityTypeAirDrop]
+                
+                self.presentViewController(activityViewController, animated: true, completion: nil)
             }
             else if (indexPath.row == 1) { // RATE
+                if let appId = NSBundle.mainBundle().infoDictionary?["CFBundleIdentifier"] as? String {
+                    if let checkURL = NSURL(string: "http://itunes.apple.com/us/app/SportsYak/id\(appId)?mt=8") {
+                        UIApplication.sharedApplication().openURL(checkURL)
+                    }
+                }
             }
             else if (indexPath.row == 2) { // TWITTER
+                if let twitterUrl = NSURL(string:"twitter://user?screen_name=SportsYak") {
+                    if UIApplication.sharedApplication().canOpenURL(twitterUrl) {
+                        UIApplication.sharedApplication().openURL(twitterUrl)
+                    }
+                    else {
+                        if let safariUrl = NSURL(string: "https://twitter.com/SportsYak") {
+                            UIApplication.sharedApplication().openURL(safariUrl)
+                        }
+                    }
+                }
             }
             else if (indexPath.row == 3) { // FACEBOOK
+                if let facebookUrl = NSURL(string:"fb://profile/SportsYak") {
+                    if UIApplication.sharedApplication().canOpenURL(facebookUrl) {
+                        UIApplication.sharedApplication().openURL(facebookUrl)
+                    }
+                    else {
+                        if let safariUrl = NSURL(string: "https://facebook.com/SportsYak") {
+                            UIApplication.sharedApplication().openURL(safariUrl)
+                        }
+                    }
+                }
             }
         }
-        else if (indexPath.section == 1) {
+        else if (indexPath.section == 2) {
             if (indexPath.row == 0) { // HELP
+                Instabug.invokeFeedbackSender()
             }
             else if (indexPath.row == 1) { // RULES
+                self.performSegueWithIdentifier("Web", sender: "http://sportsyak.arborapps.io/rules")
             }
             else if (indexPath.row == 2) { // TERMS
+                self.performSegueWithIdentifier("Web", sender: "http://sportsyak.arborapps.io/terms")
             }
             else if (indexPath.row == 3) { // POLICY
+                self.performSegueWithIdentifier("Web", sender: "http://sportsyak.arborapps.io/policy")
             }
         }
     }
@@ -154,6 +213,13 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     if let indexPath = self.tableView.indexPathForCell(cell) {
                         selectTeamViewController.type = TeamType(rawValue: indexPath.row)!
                     }
+                }
+            }
+        }
+        else if (segue.identifier == "Web") {
+            if let webViewController = segue.destinationViewController as? WebViewController {
+                if let address = sender as? String {
+                    webViewController.url = NSURL(string: address)
                 }
             }
         }

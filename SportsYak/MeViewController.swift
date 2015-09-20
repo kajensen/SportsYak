@@ -17,7 +17,6 @@ enum MeType: Int {
 
 class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, PostTableViewCellDelegate {
 
-    @IBOutlet var tableView: UITableView!
     @IBOutlet var mapView: MKMapView!
     var notifications = [PFNotification]()
     var posts : [PFPost]?
@@ -53,7 +52,7 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
         }
     }
     
-    func loadData(forceDownload: Bool) {
+    override func loadData(forceDownload: Bool) {
         if let user = PFMember.currentUser() {
             if let _ = user.objectId {
                 if (self.meType == MeType.Notifications) {
@@ -168,6 +167,7 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
             self.tableView.reloadData()
             self.tableView.hidden = false
         }
+        self.refreshFinished()
     }
     
     /*override func viewDidLayoutSubviews() {
