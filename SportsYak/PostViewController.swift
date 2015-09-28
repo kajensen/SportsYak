@@ -30,6 +30,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet var bottomConstraint: NSLayoutConstraint!
     var readonly = true
     
+    @IBOutlet var bottomView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -76,6 +78,8 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
             }
         }
+        
+        self.bottomView.hidden = self.readonly
     }
     
     func setupView() {
@@ -124,17 +128,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func loadData() {
-        if let user = PFMember.currentUser() {
+        if let _ = PFMember.currentUser() {
             if let query = PFComment.queryWithPost(self.post) {
                 query.findObjectsInBackgroundWithBlock({ (objects, error) -> Void in
                     if error == nil {
-                        // The find succeeded.
                         print("Successfully retrieved \(objects!.count) comments.")
-                        // Do something with the found objects
                         if let objects = objects as? [PFComment] {
-                            for object in objects {
-                                print(object.objectId)
-                            }
                             self.comments = objects
                             self.tableView.reloadData()
                             self.tableView.hidden = false

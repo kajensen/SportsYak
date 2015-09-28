@@ -1830,6 +1830,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bottomConstraint" destination="nqG-kF-yMo" id="fww-4y-Zcv"/>
+                        <outlet property="bottomView" destination="IIf-Vd-4sL" id="NBC-7h-diQ"/>
                         <outlet property="commentTextView" destination="2aN-ts-4UD" id="cLm-fo-tm4"/>
                         <outlet property="downVoteButton" destination="9fM-PJ-gVs" id="p6e-ov-e35"/>
                         <outlet property="postLabel" destination="q2I-vS-q5r" id="uQa-wx-6vq"/>

@@ -199,8 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				906C19721B9E7F3F002254CC /* Images.xcassets */,
-				904DB8E01B954AE0006E4F00 /* ContentKarma.swift */,
-				904DB8D71B9544F9006E4F00 /* CoreData.xcdatamodeld */,
+				9079CC6C1BB9BDAE00AE7984 /* Core Data */,
 				90F3CEFD1B75A8A90051FED4 /* Views */,
 				90F3CEDC1B75335C0051FED4 /* PFObjects */,
 				9013588E1B751CCF00C559BF /* AppDelegate.swift */,
@@ -241,7 +240,6 @@
 				9013588D1B751CCF00C559BF /* Info.plist */,
 				90F3CEF91B7591010051FED4 /* SportsYak-Bridging-Header.h */,
 				90FE8F3D1B8A65330033AE9A /* Constants.swift */,
-				909CD03E1BB9B85000992E30 /* CoreData.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -282,6 +280,16 @@
 				9066CD6F1BAF510A008B17B4 /* BOZPongRefreshControl.m */,
 			);
 			path = BOZPongRefreshControl;
+			sourceTree = "<group>";
+		};
+		9079CC6C1BB9BDAE00AE7984 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				904DB8E01B954AE0006E4F00 /* ContentKarma.swift */,
+				904DB8D71B9544F9006E4F00 /* CoreData.xcdatamodeld */,
+				909CD03E1BB9B85000992E30 /* CoreData.swift */,
+			);
+			name = "Core Data";
 			sourceTree = "<group>";
 		};
 		909CD0401BB9B93100992E30 /* NSDate */ = {

@@ -72,9 +72,6 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 if error == nil {
                                     print("Successfully retrieved \(objects!.count) notifications.")
                                     if let objects = objects as? [PFNotification] {
-                                        for object in objects {
-                                            print(object.objectId)
-                                        }
                                         self.notifications = objects
                                         self.setupData(self.notifications)
                                     }
@@ -100,9 +97,6 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 if error == nil {
                                     print("Successfully retrieved \(objects!.count) comments.")
                                     if let objects = objects as? [PFComment] {
-                                        for object in objects {
-                                            print(object.objectId)
-                                        }
                                         self.comments = objects
                                         self.setupMyStuff()
                                     }
@@ -120,9 +114,6 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 if error == nil {
                                     print("Successfully retrieved \(objects!.count) posts.")
                                     if let objects = objects as? [PFPost] {
-                                        for object in objects {
-                                            print(object.objectId)
-                                        }
                                         self.posts = objects
                                         self.setupMyStuff()
                                     }

@@ -577,7 +577,7 @@ typedef enum {
 - (CGFloat)calculateAnimationDuration
 {
     CGFloat endToEndDistance = [self rightPaddleContactX] - [self leftPaddleContactX];
-    CGFloat proportionOfHorizontalDistanceLeftForBallToTravel = fabsf((ballDestination.x - ballOrigin.x) / endToEndDistance);
+    CGFloat proportionOfHorizontalDistanceLeftForBallToTravel = fabs((ballDestination.x - ballOrigin.x) / endToEndDistance);
     return (self.totalHorizontalTravelTimeForBall * proportionOfHorizontalDistanceLeftForBallToTravel);
 }
 
@@ -704,7 +704,7 @@ typedef enum {
 {
     static CGFloat ellipsis = 0.01f;
     
-    return (fabsf(float1 - float2) < ellipsis);
+    return (fabs(float1 - float2) < ellipsis);
 }
 
 @end

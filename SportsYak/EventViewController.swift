@@ -69,9 +69,6 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
                             if error == nil {
                                 print("Successfully retrieved \(objects!.count) team one \(self.event.teamOneId) posts.")
                                 if let objects = objects as? [PFPost] {
-                                    for object in objects {
-                                        print(object.objectId)
-                                    }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsTeamOneH = objects
                                         self.setupPosts(self.postsTeamOneH)
@@ -104,9 +101,6 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
                             if error == nil {
                                 print("Successfully retrieved \(objects!.count) team two \(self.event.teamTwoId) posts.")
                                 if let objects = objects as? [PFPost] {
-                                    for object in objects {
-                                        print(object.objectId)
-                                    }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsTeamTwoH = objects
                                         self.setupPosts(self.postsTeamTwoH)

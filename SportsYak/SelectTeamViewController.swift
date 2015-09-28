@@ -42,9 +42,6 @@ class SelectTeamViewController: UIViewController, UITableViewDataSource, UITable
                     if error == nil {
                         print("Successfully retrieved \(objects!.count) teams.")
                         if let objects = objects as? [PFTeam] {
-                            for object in objects {
-                                print(object.objectId)
-                            }
                             self.teams = objects
                             self.tableView.reloadData()
                         }

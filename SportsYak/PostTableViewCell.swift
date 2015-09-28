@@ -57,8 +57,6 @@ class PostTableViewCell: UITableViewCell {
         self.voteLabel.text = "\(post.upVotes.count - post.downVotes.count)"
         if let user = PFMember.currentUser() {
             if let userId = user.objectId {
-                print("\(post.upVotes) \(post.upVotes.contains(userId))")
-                print("\(post.downVotes) \(post.downVotes.contains(userId))")
                 self.upVoteButton.selected = false
                 self.downVoteButton.selected = false
                 if post.upVotes.contains(userId) {

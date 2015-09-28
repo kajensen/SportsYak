@@ -39,9 +39,6 @@ class NotificationTableViewCell: UITableViewCell {
             self.configureWithPost(post)
             self.notificationImageView.image = UIImage(named: "Up Circled-100")
         }
-        else {
-            print("no post or comment.")
-        }
 
     }
     

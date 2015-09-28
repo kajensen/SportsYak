@@ -65,9 +65,6 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                             if error == nil {
                                 print("Successfully retrieved \(objects!.count) nearby posts.")
                                 if let objects = objects as? [PFPost] {
-                                    for object in objects {
-                                        print(object.objectId)
-                                    }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsNearbyH = objects
                                         self.didLoadPosts(self.postsNearbyH)
@@ -101,9 +98,6 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
                             if error == nil {
                                 print("Successfully retrieved \(objects!.count) my squad posts.")
                                 if let objects = objects as? [PFPost] {
-                                    for object in objects {
-                                        print(object.objectId)
-                                    }
                                     if (savedSort == PostSort.Hot) {
                                         self.postsMySquadsH = objects
                                         self.didLoadPosts(self.postsMySquadsH)
