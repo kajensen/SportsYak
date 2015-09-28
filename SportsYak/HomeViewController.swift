@@ -146,11 +146,10 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         let fixedWidth = tableView.contentSize.width - 64 //width of cell, 8*3 padding 40 (vote view)
         let standardHeight : CGFloat = 23 //base height of textview
-        let textView = UITextView()
-        //textView.font = [UIFont fontWithName:@"Myriad Pro" size:13.0f];
+        let textView = UILabel()
+        textView.font = UIFont.systemFontOfSize(12)
         let post = self.posts[indexPath.row]
         textView.text = post.text
-        textView.scrollEnabled = false
         let expectedSize = textView.sizeThatFits(CGSizeMake(fixedWidth, CGFloat(MAXFLOAT)))
         var newHeight = expectedSize.height
         if (standardHeight > newHeight) {

@@ -26,8 +26,8 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         if (event != nil) {
-            self.buttonGroupView.buttons.first?.setTitle(event.teamOneName, forState: UIControlState.Normal)
-            self.buttonGroupView.buttons.last?.setTitle(event.teamTwoName, forState: UIControlState.Normal)
+            self.buttonGroupView.buttons.first?.setTitle(event.teamOneName(), forState: UIControlState.Normal)
+            self.buttonGroupView.buttons.last?.setTitle(event.teamTwoName(), forState: UIControlState.Normal)
         }
         self.loadData(false)
     }

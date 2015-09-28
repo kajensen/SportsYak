@@ -9,7 +9,9 @@
 import UIKit
 import Parse
 
+
 class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    let FOUR_HOURS_AGO = NSTimeInterval(14400)
 
     @IBOutlet var tableView: UITableView!
     var events = [PFEvent]()
@@ -35,6 +37,8 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if let user = PFMember.currentUser() {
             if let query = PFEvent.query() {
                 print("fetching events")
+                query.includeKey("nflTeamOne")
+                query.includeKey("nflTeamTwo")
                 query.findObjectsInBackgroundWithBlock({
                     (objects, error) -> Void in
                     
@@ -70,8 +74,13 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("EventCell", forIndexPath: indexPath) 
         let event = self.events[indexPath.row]
-        cell.textLabel!.text = "\(event.teamOneName) vs \(event.teamTwoName)"
-        if (event.live) {
+        if let teamOneName = event.teamOneName(), teamTwoName = event.teamTwoName() {
+            cell.textLabel!.text = "\(teamOneName) vs \(teamTwoName)"
+        }
+        print(event.date)
+        print(NSDate())
+        let timeElapsed = -1*event.date.timeIntervalSinceDate(NSDate())
+        if (event.isLive && timeElapsed > -600 && timeElapsed < FOUR_HOURS_AGO ) {
             cell.imageView?.image = UIImage(named: "Filled Circle-100")
         }
         else {

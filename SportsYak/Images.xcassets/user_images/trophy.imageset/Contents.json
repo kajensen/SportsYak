@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "tophy.png"
+      "filename" : "tophy.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

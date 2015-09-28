@@ -37,7 +37,7 @@ class Constants {
         return UIColor.clearColor()
     }
     
-    class func userImage(index: Int) -> UIImage {
+    class func userImage(index: Int) -> UIImage? {
         if (index >= 0 && index < Constants.USER_IMAGE_NAMES.count) {
             let imageName = Constants.USER_IMAGE_NAMES[index]
             if let image = UIImage(named: imageName) {
@@ -49,7 +49,7 @@ class Constants {
                 return image
             }
         }
-        return UIImage()
+        return nil
     }
 }
 

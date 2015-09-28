@@ -20,7 +20,7 @@ protocol PostTableViewCellDelegate {
 class PostTableViewCell: UITableViewCell {
 
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var textView: UITextView!
+    @IBOutlet var postLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var replyLabel: UILabel!
     
@@ -46,11 +46,11 @@ class PostTableViewCell: UITableViewCell {
         self.post = post
         if post.shouldShow() {
             self.titleLabel.text = post.title
-            self.textView.text = post.text
+            self.postLabel?.text = post.text
         }
         else {
             self.titleLabel.text = "[post muted]"
-            self.textView.text = "you have previously muted this user"
+            self.postLabel?.text = "you have previously muted this user"
         }
         self.timeLabel.text = post.createdAt?.timeAgoSimple
         self.replyLabel.text = post.replyString()

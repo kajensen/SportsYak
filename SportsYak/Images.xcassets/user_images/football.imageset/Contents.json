@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "rugby.png"
+      "filename" : "rugby.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

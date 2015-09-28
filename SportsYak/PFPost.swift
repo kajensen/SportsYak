@@ -183,12 +183,12 @@ class PFPost: PFObject, PFSubclassing {
     class func queryWithEvent(event : PFEvent, postType: PostType, postSort : PostSort) -> PFQuery? {
         if let type = TeamType(rawValue: event.teamType) {
             print("fetching event posts")
-            var teamId : String
+            var teamId : String?
             if (postType == PostType.TeamOne) {
-                teamId = event.teamOneId
+                teamId = event.teamOneId()
             }
             else {
-                teamId = event.teamTwoId
+                teamId = event.teamTwoId()
             }
             let query = PFPost.query()
             if (postSort == PostSort.New) {
@@ -199,8 +199,10 @@ class PFPost: PFObject, PFSubclassing {
             }
             query!.limit = 100
             query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -SIX_DAYS))
-            query!.whereKey("teamId", equalTo: teamId)
-            return query
+            if (teamId != nil) {
+                query!.whereKey("teamId", equalTo: teamId!)
+                return query
+            }
         }
 
         return nil

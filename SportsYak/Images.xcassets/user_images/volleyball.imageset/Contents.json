@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "volleyball.png"
+      "filename" : "volleyball.png",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

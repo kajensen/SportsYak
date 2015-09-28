@@ -167,6 +167,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate, UITextFieldDe
     }
     
     @IBAction func cancel(sender: AnyObject) {
+        self.textView.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

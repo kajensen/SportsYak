@@ -13,7 +13,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     @IBOutlet var tableView: UITableView!
     @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var textView: UITextView!
+    @IBOutlet var postLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var replyLabel: UILabel!
     @IBOutlet var voteLabel: UILabel!
@@ -81,11 +81,11 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func setupView() {
         if post.shouldShow() {
             self.titleLabel.text = post.title
-            self.textView.text = post.text
+            self.postLabel.text = post.text
         }
         else {
             self.titleLabel.text = "[post muted]"
-            self.textView.text = "you have previously muted this user"
+            self.postLabel.text = "you have previously muted this user"
         }
         self.timeLabel.text = post.createdAt?.timeAgoSimple
         self.replyLabel.text = post.replyString()

@@ -19,9 +19,9 @@ protocol CommentTableViewCellDelegate {
 
 class CommentTableViewCell: UITableViewCell {
 
-    @IBOutlet var textView: UITextView!
     @IBOutlet var timeLabel: UILabel!
     @IBOutlet var replyLabel: UILabel!
+    @IBOutlet var commentLabel: UILabel!
     
     @IBOutlet var voteLabel: UILabel!
     
@@ -47,10 +47,10 @@ class CommentTableViewCell: UITableViewCell {
     func configureWithComment(comment:PFComment, readonly: Bool) {
         self.comment = comment
         if comment.shouldShow() {
-            self.textView.text = comment.text
+            self.commentLabel.text = comment.text
         }
         else {
-            self.textView.text = "[comment muted] you have previously muted this user"
+            self.commentLabel.text = "[comment muted] you have previously muted this user"
         }
         self.timeLabel.text = comment.createdAt?.timeAgoSimple
         self.voteLabel.text = "\(comment.upVotes.count - comment.downVotes.count)"
