@@ -54,7 +54,6 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func loadData(forceDownload : Bool) {
         
-        var query : PFQuery?
         if (event != nil) {
             if (self.postType == PostType.TeamOne) {
                 if (self.postSort == PostSort.Hot && self.postsTeamOneH.count > 0 && !forceDownload) {

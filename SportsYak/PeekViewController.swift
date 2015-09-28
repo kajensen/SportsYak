@@ -34,7 +34,7 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func loadData() {
-        if let user = PFMember.currentUser() {
+        if let _ = PFMember.currentUser() {
             if let query = PFEvent.query() {
                 print("fetching events")
                 query.includeKey("nflTeamOne")

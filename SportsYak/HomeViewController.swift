@@ -48,7 +48,7 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
     }
     
     override func loadData(forceDownload : Bool) {
-        if let user = PFMember.currentUser() {
+        if let _ = PFMember.currentUser() {
             if (self.postType == PostType.Nearby) {
                 if (self.postSort == PostSort.Hot && self.postsNearbyH.count > 0  && !forceDownload) {
                     self.didLoadPosts(self.postsNearbyH)

@@ -60,7 +60,7 @@ class CommentTableViewCell: UITableViewCell {
         self.downVoteButton.enabled = !readonly
         self.userImageView.image = Constants.userImage(comment.imageIndex)
         self.userImageBackgroundView.backgroundColor = Constants.userColor(comment.colorIndex)
-        self.userImageBackgroundView.layer.cornerRadius = self.userImageBackgroundView.frame.size.width/2.0
+        self.userImageBackgroundView.layer.cornerRadius = self.userImageBackgroundView.frame.size.width/4.0
         self.userImageBackgroundView.layer.masksToBounds = false
         if let user = PFMember.currentUser() {
             if let userId = user.objectId {
