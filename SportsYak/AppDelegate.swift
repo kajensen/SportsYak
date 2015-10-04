@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import Bolts
 import CoreLocation
-import CoreData
+import BRYXBanner
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {

@@ -38,6 +38,7 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if let query = PFEvent.query() {
                 query.includeKey("nflTeamOne")
                 query.includeKey("nflTeamTwo")
+                query.whereKey("isLive", equalTo:true)
                 query.findObjectsInBackgroundWithBlock({
                     (objects, error) -> Void in
                     
