@@ -1,6 +1,7 @@
 PODS:
   - AKPickerView (0.2.6)
   - Bolts/Tasks (1.2.2)
+  - BRYXBanner (0.4.1)
   - ChameleonFramework/Default (1.2.1)
   - ChameleonFramework/Swift (1.2.1):
     - ChameleonFramework/Default
@@ -13,6 +14,7 @@ PODS:
 
 DEPENDENCIES:
   - AKPickerView
+  - BRYXBanner
   - ChameleonFramework/Swift
   - GoogleAnalytics
   - Instabug
@@ -23,6 +25,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AKPickerView: e31dcb9572c04d8439512315798862d9eb84b18f
   Bolts: 20a2bd788273360cb1e31530dc19b8544eef2544
+  BRYXBanner: b9d72df3a6ed7f17bb5828828cdde8a68e7aa678
   ChameleonFramework: 3476f813ac1615aef0a9a958f05520dfca47e09d
   GoogleAnalytics: fcf1f1cad57ae1a9a53520018f0f680ceeeb8b49
   Instabug: 6f87a52937b449c03e9f99b81ee85b13eea0cf25

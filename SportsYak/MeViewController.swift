@@ -122,7 +122,6 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                                 }
                             })
                         }
-                        self.tableView.hidden = true
                     }
                 }
             }
@@ -156,7 +155,6 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
         if (self.myStuff != data) {
             self.myStuff = data
             self.tableView.reloadData()
-            self.tableView.hidden = false
         }
         self.refreshFinished()
     }

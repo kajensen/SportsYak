@@ -74,8 +74,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
         UIView.my_appearanceWhenContainedIn(UIAlertController).tintColor = Constants.GLOBAL_TINT
 
+        // push
+        // Extract the notification data
+        if let notificationPayload = launchOptions?[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary {
+            // don't really need to use this...
+            print(notificationPayload)
+        }
+        
         return true
     }
+
+    // LOCATION
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if (status == CLAuthorizationStatus.AuthorizedWhenInUse) {
@@ -117,6 +126,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
+    // PUSH
+    
+    func application(application: UIApplication,  didReceiveRemoteNotification userInfo: [NSObject : AnyObject],  fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        print(userInfo)
+        if let user = PFMember.currentUser() {
+            // GET NOTIFICATIONS
+            if let message = userInfo["message"] as? String {
+                let banner = Banner(title: "Notification", subtitle: message, image: nil, backgroundColor: Constants.GLOBAL_TINT)
+                banner.dismissesOnTap = true
+                banner.show(duration: 2.0)
+            }
+        }
+        else {
+            completionHandler(UIBackgroundFetchResult.NoData)
+        }
+    }
+
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         // Store the deviceToken in the current Installation and save it to Parse
         let installation = PFInstallation.currentInstallation()

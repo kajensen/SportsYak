@@ -14,8 +14,8 @@ class PFMember: PFUser {
     @NSManaged var contentKarma: Int
     @NSManaged var voteKarma: Int
     @NSManaged var url: String!
-    @NSManaged var location: PFGeoPoint!
-    @NSManaged var nflTeam: PFNFLTeam!
+    @NSManaged var location: PFGeoPoint?
+    @NSManaged var nflTeam: PFNFLTeam?
     @NSManaged var showNFL: Bool
     @NSManaged var mutedUserIds: [String]
 
@@ -46,7 +46,7 @@ class PFMember: PFUser {
     func teams() -> [PFTeam] {
         var teams = [PFTeam]()
         if (showNFL && nflTeam != nil) {
-            teams.append(nflTeam)
+            teams.append(nflTeam!)
         }
         return teams
     }
@@ -54,7 +54,7 @@ class PFMember: PFUser {
     func teamIds() -> [String] {
         var teamIds = [String]()
         if (showNFL && nflTeam != nil) {
-            if let nflTeamId = nflTeam.objectId {
+            if let nflTeamId = nflTeam!.objectId {
                 teamIds.append(nflTeamId)
             }
         }
@@ -87,21 +87,21 @@ class PFMember: PFUser {
         }
     }
     
-    func isOn(team : PFObject?) -> Bool {
-        if (self.nflTeam.objectId == team!.objectId) {
+    func isOn(team : PFObject) -> Bool {
+        if (self.nflTeam?.objectId == team.objectId) {
             return self.showNFL
         }
         return false
     }
     
-    func turnOffTeam(team : PFObject?) {
-        if (self.nflTeam.objectId == team!.objectId) {
+    func turnOffTeam(team : PFObject) {
+        if (self.nflTeam?.objectId == team.objectId) {
             self.showNFL = false
         }
     }
     
-    func turnOnTeam(team : PFObject?) {
-        if (self.nflTeam.objectId == team!.objectId) {
+    func turnOnTeam(team : PFObject) {
+        if (self.nflTeam?.objectId == team.objectId) {
             self.showNFL = true
         }
     }

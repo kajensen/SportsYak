@@ -38,7 +38,7 @@ class TeamTableViewCell: UITableViewCell {
             if self.team!.isDataAvailable() {
                 self.titleLabel.text = self.team!.name
                 if let user = PFMember.currentUser() {
-                    let isOn = user.isOn(self.team)
+                    let isOn = user.isOn(self.team!)
                     self.tSwitch.on = isOn
                 }
             }

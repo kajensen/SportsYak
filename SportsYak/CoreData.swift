@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Bolts
 
 class CoreData: NSObject {
     
@@ -93,8 +94,7 @@ class CoreData: NSObject {
     func setContentKarma(objectId: String, votes: Int) {
         
         let fReq: NSFetchRequest = NSFetchRequest(entityName: "ContentKarma")
-        
-        fReq.predicate = NSPredicate(format:"objectId == \(objectId) ")
+        fReq.predicate = NSPredicate(format: "objectId = %s", argumentArray: [objectId])
         fReq.returnsObjectsAsFaults = false
         
         if let moc = self.managedObjectContext {
@@ -115,7 +115,8 @@ class CoreData: NSObject {
                     NSLog("Inserted New ContentKarma for \(objectId) (\(votes))")
                     self.saveContext()
                 }
-            } catch _ as NSError {
+            } catch let error as NSError {
+                print(error)
             }
         }
         
@@ -137,7 +138,8 @@ class CoreData: NSObject {
                     if let user = PFMember.currentUser() {
                         user.resetContentKarma(votes)
                     }
-                } catch _ as NSError {
+                } catch let error as NSError {
+                    print(error)
                 }
             }
         }
@@ -152,38 +154,46 @@ class CoreData: NSObject {
                 query.findObjectsInBackgroundWithBlock({
                     (objects, error) -> Void in
                     self.hasFetchedUserPosts = true
-                    if error == nil {
-                        print("Successfully retrieved \(objects!.count) user posts.")
-                        if let objects = objects as? [PFPost] {
-                            for object in objects {
-                                if let objectId = object.objectId {
-                                    self.setContentKarma(objectId, votes: object.votes)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                        if error == nil {
+                            print("Successfully retrieved \(objects!.count) user posts.")
+                            if let objects = objects as? [PFPost] {
+                                for object in objects {
+                                    if let objectId = object.objectId {
+                                        self.setContentKarma(objectId, votes: object.votes)
+                                    }
                                 }
                             }
+                        } else {
+                            print("Error: \(error!) \(error!.userInfo)")
                         }
-                    } else {
-                        print("Error: \(error!) \(error!.userInfo)")
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.updateContentKarma()
+                        }
                     }
-                    self.updateContentKarma()
                 })
             }
             if let query = PFComment.queryForUserComments(user) {
                 query.findObjectsInBackgroundWithBlock ({
                     (objects, error) -> Void in
                     self.hasFetchedUserComments = true
-                    if error == nil {
-                        print("Successfully retrieved \(objects!.count) user comments.")
-                        if let objects = objects as? [PFComment] {
-                            for object in objects {
-                                if let objectId = object.objectId {
-                                    self.setContentKarma(objectId, votes: object.votes)
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                        if error == nil {
+                            print("Successfully retrieved \(objects!.count) user comments.")
+                            if let objects = objects as? [PFComment] {
+                                for object in objects {
+                                    if let objectId = object.objectId {
+                                        self.setContentKarma(objectId, votes: object.votes)
+                                    }
                                 }
                             }
+                        } else {
+                            print("Error: \(error!) \(error!.userInfo)")
                         }
-                    } else {
-                        print("Error: \(error!) \(error!.userInfo)")
+                        dispatch_async(dispatch_get_main_queue()) {
+                            self.updateContentKarma()
+                        }
                     }
-                    self.updateContentKarma()
                 })
             }
         }
