@@ -74,6 +74,7 @@ class HideBarsOnSwipeViewController: UIViewController, UIScrollViewDelegate {
     func hideBarsDelay() {
         if (!isDragging) {
             self.navigationController?.setNavigationBarHidden(false, animated: true)
+            
             //self.navigationController?.setToolbarHidden(false, animated: true)
             //self.setTabBarVisible(true, animated: true)
             if (self.topViews != nil) {

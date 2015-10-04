@@ -136,7 +136,7 @@ class CoreData: NSObject {
                     }
                     
                     if let user = PFMember.currentUser() {
-                        user.resetContentKarma(votes)
+                        user.resetContentKarma(votes) //sends notification automatically
                     }
                 } catch let error as NSError {
                     print(error)

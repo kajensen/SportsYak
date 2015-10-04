@@ -28,19 +28,19 @@ class PFMember: PFUser {
     func addVoteKarma(points : Int) {
         self.voteKarma += points
         NSLog("Updating User VoteKarma to (\(points))")
-        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.KARMA_UPDATED, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.NOTIFICATION_UPDATED_KARMA, object: nil)
     }
 
     func removeVoteKarma(points : Int) {
         self.voteKarma -= points
         NSLog("Updating User VoteKarma to (\(points))")
-        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.KARMA_UPDATED, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.NOTIFICATION_UPDATED_KARMA, object: nil)
     }
     
     func resetContentKarma(points : Int) {
         self.contentKarma = points
         NSLog("Updating User ContentKarma to (\(points))")
-        NSNotificationCenter.defaultCenter().postNotificationName(Notifications.KARMA_UPDATED, object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName(Constants.NOTIFICATION_UPDATED_KARMA, object: nil)
     }
 
     func teams() -> [PFTeam] {

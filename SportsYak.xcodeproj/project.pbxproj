@@ -381,6 +381,14 @@
 					901358881B751CCF00C559BF = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = JSQ8N76B4C;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					9013589F1B751CCF00C559BF = {
 						CreatedOnToolsVersion = 6.4;
@@ -668,6 +676,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SportsYak/SportsYak-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -690,6 +699,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7089f931-4c95-4142-89f8-abf1df07e9e1";
 				SWIFT_OBJC_BRIDGING_HEADER = "SportsYak/SportsYak-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -137,6 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 banner.dismissesOnTap = true
                 banner.show(duration: 2.0)
             }
+            completionHandler(UIBackgroundFetchResult.NewData)
         }
         else {
             completionHandler(UIBackgroundFetchResult.NoData)

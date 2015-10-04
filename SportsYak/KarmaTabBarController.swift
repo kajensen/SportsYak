@@ -12,16 +12,6 @@ class KarmaTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateKarma", name: Notifications.KARMA_UPDATED, object: nil)
-    }
-    
-    func updateKarma() {
-        for viewController in self.childViewControllers {
-            if let karmaNavigationController = viewController as? KarmaNavigationController {
-                karmaNavigationController.updateKarma()
-            }
-        }
     }
 
     override func didReceiveMemoryWarning() {

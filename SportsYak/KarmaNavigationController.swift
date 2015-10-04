@@ -12,17 +12,27 @@ class KarmaNavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.updateKarma()
+        self.updateKarma(false)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshKarma", name: Constants.NOTIFICATION_UPDATED_KARMA, object: nil)
     }
     
-    func updateKarma() {
+    override func viewDidAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateKarma(true)
+    }
+    
+    func refreshKarma() {
+        self.updateKarma(true)
+    }
+    
+    func updateKarma(animated: Bool) {
         if let childViewController = self.childViewControllers.first {
             if let leftBarButton = childViewController.navigationItem.leftBarButtonItem {
                 if let customView = leftBarButton.customView {
                     for subView in customView.subviews {
-                        if let countingView = subView as? UICountingLabel {
+                        if let countingLabel = subView as? UICountingLabel {
                             if let user = PFMember.currentUser() {
-                                countingView.countFromZeroTo(CGFloat(user.contentKarma+user.voteKarma))
+                                countingLabel.countFromCurrentValueTo(CGFloat(user.contentKarma+user.voteKarma), withDuration: animated ? 3.0 : 0.0)
                             }
                         }
                     }
@@ -39,7 +49,7 @@ class KarmaNavigationController: UINavigationController {
                 countingButton.addSubview(countingLabel)
                 let leftBarButton = UIBarButtonItem(customView: countingButton)
                 if let user = PFMember.currentUser() {
-                    countingLabel.countFromZeroTo(CGFloat(user.contentKarma+user.voteKarma))
+                    countingLabel.countFromCurrentValueTo(CGFloat(user.contentKarma+user.voteKarma), withDuration: animated ? 3.0 : 0.0)
                 }
                 childViewController.navigationItem.setLeftBarButtonItem(leftBarButton, animated: false)
             }
