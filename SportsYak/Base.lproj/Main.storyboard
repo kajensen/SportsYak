@@ -32,7 +32,7 @@
         <!--Splash View Controller-->
         <scene sceneID="Fco-pc-FsY">
             <objects>
-                <viewController id="Cw5-rc-ite" customClass="SplashViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Cw5-rc-ite" customClass="SplashViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XkJ-hd-8p9"/>
                         <viewControllerLayoutGuide type="bottom" id="Meb-hl-Zdc"/>
@@ -48,7 +48,7 @@
                                 <rect key="frame" x="282" y="521" width="37" height="37"/>
                                 <color key="color" red="0.86274509799999999" green="0.6705882353" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SportsYak" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cic-fF-7hF">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TrashTalk" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="cic-fF-7hF">
                                 <rect key="frame" x="225" y="209" width="151" height="42"/>
                                 <fontDescription key="fontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="36"/>
                                 <color key="textColor" red="0.86274509799999999" green="0.6705882353" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -103,7 +103,7 @@
         <!--Karma View Controller-->
         <scene sceneID="q7R-sw-JYB">
             <objects>
-                <viewController id="5Mk-Mf-O7J" customClass="KarmaViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="5Mk-Mf-O7J" customClass="KarmaViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dkD-hV-UHd"/>
                         <viewControllerLayoutGuide type="bottom" id="2AZ-H2-wOM"/>
@@ -349,7 +349,7 @@
         <!--Home-->
         <scene sceneID="1K8-bC-W3e">
             <objects>
-                <navigationController hidesBarsOnSwipe="YES" id="ewt-zM-5Rg" customClass="KarmaNavigationController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController hidesBarsOnSwipe="YES" id="ewt-zM-5Rg" customClass="KarmaNavigationController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="Mountain-100" id="pau-RQ-8gB"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="uCC-Lx-7dO">
@@ -367,7 +367,7 @@
         <!--Home View Controller-->
         <scene sceneID="JpH-2S-iIN">
             <objects>
-                <viewController id="agb-Hf-ryz" customClass="HomeViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="agb-Hf-ryz" customClass="HomeViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ox1-y2-xOE"/>
                         <viewControllerLayoutGuide type="bottom" id="clT-gf-tza"/>
@@ -384,7 +384,7 @@
                                 <rect key="frame" x="0.0" y="50" width="600" height="437"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" id="B6x-Ud-Mdm" customClass="PostTableViewCell" customModule="SportsYak" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" id="B6x-Ud-Mdm" customClass="PostTableViewCell" customModule="TrashTalk" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B6x-Ud-Mdm" id="dTS-8Z-ZJW">
@@ -495,7 +495,7 @@
                                     <outlet property="delegate" destination="agb-Hf-ryz" id="4WH-Nq-f1A"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAY-fW-Rm7" customClass="ButtonGroupUnderlineView" customModule="SportsYak" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAY-fW-Rm7" customClass="ButtonGroupUnderlineView" customModule="TrashTalk" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ab1-EX-lCn">
@@ -590,7 +590,7 @@
         <!--Me-->
         <scene sceneID="fya-YY-JWv">
             <objects>
-                <navigationController id="Rs1-Yh-615" customClass="KarmaNavigationController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="Rs1-Yh-615" customClass="KarmaNavigationController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Me" image="Guest-100" id="tJL-7V-auL"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="KKG-L2-DGq">
@@ -608,7 +608,7 @@
         <!--Games-->
         <scene sceneID="8cr-X6-7lX">
             <objects>
-                <navigationController id="bg5-l9-qDd" customClass="KarmaNavigationController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="bg5-l9-qDd" customClass="KarmaNavigationController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Games" image="Binoculars-100" id="OgF-mL-iVI"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Joa-tD-E3R">
@@ -626,7 +626,7 @@
         <!--Games-->
         <scene sceneID="ltU-GZ-AeP">
             <objects>
-                <viewController id="DBy-wS-VIg" customClass="PeekViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="DBy-wS-VIg" customClass="PeekViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0fg-hh-N91"/>
                         <viewControllerLayoutGuide type="bottom" id="QQo-TR-zud"/>
@@ -692,7 +692,7 @@
         <!--More-->
         <scene sceneID="oMA-1w-1dz">
             <objects>
-                <navigationController id="ACm-fU-5Kd" customClass="KarmaNavigationController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="ACm-fU-5Kd" customClass="KarmaNavigationController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="More" image="More-100" id="JH4-a6-Tqb"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Nod-b1-joX">
@@ -710,7 +710,7 @@
         <!--More-->
         <scene sceneID="b2u-00-JVj">
             <objects>
-                <viewController id="fFI-zu-Juy" customClass="MoreViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fFI-zu-Juy" customClass="MoreViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vM2-DX-hra"/>
                         <viewControllerLayoutGuide type="bottom" id="W8J-un-77i"/>
@@ -723,7 +723,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TeamCell" id="hYB-Tw-ipM" customClass="TeamTableViewCell" customModule="SportsYak" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TeamCell" id="hYB-Tw-ipM" customClass="TeamTableViewCell" customModule="TrashTalk" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hYB-Tw-ipM" id="tWY-7T-hHt">
@@ -803,7 +803,7 @@
         <!--Me View Controller-->
         <scene sceneID="T0y-nr-6zj">
             <objects>
-                <viewController id="BQ9-vc-zcH" customClass="MeViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BQ9-vc-zcH" customClass="MeViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Vb-5O-xbf"/>
                         <viewControllerLayoutGuide type="bottom" id="9PR-XV-g6R"/>
@@ -820,7 +820,7 @@
                                 <rect key="frame" x="0.0" y="160" width="600" height="327"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NotificationCell" rowHeight="60" id="lwm-r8-aKk" customClass="NotificationTableViewCell" customModule="SportsYak" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="NotificationCell" rowHeight="60" id="lwm-r8-aKk" customClass="NotificationTableViewCell" customModule="TrashTalk" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="600" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lwm-r8-aKk" id="CtD-d7-xst">
@@ -874,7 +874,7 @@
                                             <segue destination="bGn-E2-1xp" kind="show" identifier="ViewNotification" id="xdE-td-ujr"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" id="cXB-54-gt0" customClass="PostTableViewCell" customModule="SportsYak" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" id="cXB-54-gt0" customClass="PostTableViewCell" customModule="TrashTalk" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="82" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cXB-54-gt0" id="eja-cn-Fnl">
@@ -1006,7 +1006,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TeamCell" id="EGY-0a-d0V" customClass="TeamCollectionViewCell" customModule="SportsYak" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TeamCell" id="EGY-0a-d0V" customClass="TeamCollectionViewCell" customModule="TrashTalk" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1095,7 +1095,7 @@
         <!--Send a Post-->
         <scene sceneID="7iH-IO-qVf">
             <objects>
-                <viewController id="1u9-7I-NtX" customClass="ComposeViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1u9-7I-NtX" customClass="ComposeViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WGr-rw-Ffe"/>
                         <viewControllerLayoutGuide type="bottom" id="YxC-xx-Rqt"/>
@@ -1218,7 +1218,7 @@
         <!--Select Team View Controller-->
         <scene sceneID="YdR-vx-PO4">
             <objects>
-                <viewController id="yJB-83-6F7" customClass="SelectTeamViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="yJB-83-6F7" customClass="SelectTeamViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="irQ-p9-ehD"/>
                         <viewControllerLayoutGuide type="bottom" id="hv1-TF-59Y"/>
@@ -1275,7 +1275,7 @@
         <!--Web View Controller-->
         <scene sceneID="UUZ-QL-iSY">
             <objects>
-                <viewController id="zxz-wZ-tJd" customClass="WebViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zxz-wZ-tJd" customClass="WebViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nCD-QH-9Ha"/>
                         <viewControllerLayoutGuide type="bottom" id="9Y2-lm-pLO"/>
@@ -1309,7 +1309,7 @@
         <!--Event View Controller-->
         <scene sceneID="yzs-3Y-edJ">
             <objects>
-                <viewController id="Mae-db-BCL" customClass="EventViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Mae-db-BCL" customClass="EventViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oNU-O8-gcQ"/>
                         <viewControllerLayoutGuide type="bottom" id="wTN-pk-A1f"/>
@@ -1326,7 +1326,7 @@
                                 <rect key="frame" x="0.0" y="50" width="600" height="437"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" id="xiO-r0-Wcz" customClass="PostTableViewCell" customModule="SportsYak" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" id="xiO-r0-Wcz" customClass="PostTableViewCell" customModule="TrashTalk" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xiO-r0-Wcz" id="0uU-EE-hgZ">
@@ -1437,7 +1437,7 @@
                                     <outlet property="delegate" destination="Mae-db-BCL" id="Uqb-bz-K7l"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbN-KU-LyP" customClass="ButtonGroupUnderlineView" customModule="SportsYak" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pbN-KU-LyP" customClass="ButtonGroupUnderlineView" customModule="TrashTalk" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3C-Dn-FfO">
@@ -1527,7 +1527,7 @@
         <!--Post-->
         <scene sceneID="R4r-TY-DwD">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="bGn-E2-1xp" customClass="PostViewController" customModule="SportsYak" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="bGn-E2-1xp" customClass="PostViewController" customModule="TrashTalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yiX-DC-yX9"/>
                         <viewControllerLayoutGuide type="bottom" id="nVs-Av-gGJ"/>
@@ -1544,7 +1544,7 @@
                                 <rect key="frame" x="0.0" y="131" width="600" height="306"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentCell" id="3wX-fN-HkW" customClass="CommentTableViewCell" customModule="SportsYak" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommentCell" id="3wX-fN-HkW" customClass="CommentTableViewCell" customModule="TrashTalk" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="600" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3wX-fN-HkW" id="haa-5h-JzU">

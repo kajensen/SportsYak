@@ -72,7 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         if let segmentedControlFont = UIFont(name: "Din Alternate", size: 12) {
             UISegmentedControl.appearance().setTitleTextAttributes([NSFontAttributeName:segmentedControlFont], forState: UIControlState.Normal)
         }
-        UIView.my_appearanceWhenContainedIn(UIAlertController).tintColor = Constants.GLOBAL_TINT
 
         // push
         // Extract the notification data
