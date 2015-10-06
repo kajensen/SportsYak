@@ -80,10 +80,10 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             if (indexPath.section == 1) {
                 if (indexPath.row == 0) {
-                    cell.textLabel?.text = "Share Sports Yak"
+                    cell.textLabel?.text = "Share Trash Talk"
                 }
                 else if (indexPath.row == 1) {
-                    cell.textLabel?.text = "Rate Sports Yak"
+                    cell.textLabel?.text = "Rate Trash Talk"
                 }
                 else if (indexPath.row == 2) {
                     cell.textLabel?.text = "Follow Us on Twitter"
@@ -116,7 +116,7 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         if (indexPath.section == 1) {
             if (indexPath.row == 0) { // SHARE
-                let text = "Share gameday with your squads. Talk smack, embrace victory, join your sports community with SportsYak @sportsyak."
+                let text = "Share gameday with your squads. Talk smack, embrace victory, join your sports community with TrashTalk @TrashTalkApp."
                 
                 let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
                 let cell = tableView.cellForRowAtIndexPath(indexPath)
@@ -136,30 +136,30 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
             else if (indexPath.row == 1) { // RATE
                 if let appId = NSBundle.mainBundle().infoDictionary?["CFBundleIdentifier"] as? String {
-                    if let checkURL = NSURL(string: "http://itunes.apple.com/us/app/SportsYak/id\(appId)?mt=8") {
+                    if let checkURL = NSURL(string: "http://itunes.apple.com/us/app/trash-talk-realtime-sports/id\(appId)?mt=8") {
                         UIApplication.sharedApplication().openURL(checkURL)
                     }
                 }
             }
             else if (indexPath.row == 2) { // TWITTER
-                if let twitterUrl = NSURL(string:"twitter://user?screen_name=SportsYak") {
+                if let twitterUrl = NSURL(string:"twitter://user?screen_name=TrashTalkApp") {
                     if UIApplication.sharedApplication().canOpenURL(twitterUrl) {
                         UIApplication.sharedApplication().openURL(twitterUrl)
                     }
                     else {
-                        if let safariUrl = NSURL(string: "https://twitter.com/SportsYak") {
+                        if let safariUrl = NSURL(string: "https://twitter.com/TrashTalkApp") {
                             UIApplication.sharedApplication().openURL(safariUrl)
                         }
                     }
                 }
             }
             else if (indexPath.row == 3) { // FACEBOOK
-                if let facebookUrl = NSURL(string:"fb://profile/SportsYak") {
+                if let facebookUrl = NSURL(string:"fb://profile/TrashTalkApp") {
                     if UIApplication.sharedApplication().canOpenURL(facebookUrl) {
                         UIApplication.sharedApplication().openURL(facebookUrl)
                     }
                     else {
-                        if let safariUrl = NSURL(string: "https://facebook.com/SportsYak") {
+                        if let safariUrl = NSURL(string: "https://facebook.com/TrashTalkApp") {
                             UIApplication.sharedApplication().openURL(safariUrl)
                         }
                     }
@@ -171,13 +171,13 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 Instabug.invokeFeedbackSender()
             }
             else if (indexPath.row == 1) { // RULES
-                self.performSegueWithIdentifier("Web", sender: "http://sportsyak.arborapps.io/rules")
+                self.performSegueWithIdentifier("Web", sender: "http://trashtalk.arborapps.io/rules")
             }
             else if (indexPath.row == 2) { // TERMS
-                self.performSegueWithIdentifier("Web", sender: "http://sportsyak.arborapps.io/terms")
+                self.performSegueWithIdentifier("Web", sender: "http://trashtalk.arborapps.io/terms")
             }
             else if (indexPath.row == 3) { // POLICY
-                self.performSegueWithIdentifier("Web", sender: "http://sportsyak.arborapps.io/policy")
+                self.performSegueWithIdentifier("Web", sender: "http://trashtalk.arborapps.io/policy")
             }
         }
     }

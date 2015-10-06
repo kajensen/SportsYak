@@ -14,3 +14,5 @@ pod 'RKDropdownAlert'
 pod 'AKPickerView'
 pod 'ChameleonFramework/Swift'
 pod 'BRYXBanner'
+
+pod 'FBSDKCoreKit'
