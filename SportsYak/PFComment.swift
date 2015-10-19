@@ -138,9 +138,8 @@ class PFComment: PFObject, PFSubclassing {
     
     func flag(flagType : FlagType) {
         let flag = PFFlag(post: nil, comment: self, flagType: flagType)
-        flag.saveInBackground()
         self.flags += 1
-        self.saveInBackground()
+        flag.saveInBackground()
     }
     
     func mute() {

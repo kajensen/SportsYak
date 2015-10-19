@@ -18,8 +18,21 @@
 	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb825019574278470</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>12</string>
+	<string>14</string>
+	<key>FacebookAppID</key>
+	<string>825019574278470</string>
+	<key>FacebookDisplayName</key>
+	<string>Trash Talk</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -56,18 +69,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-    <key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb825019574278470</string>
-            </array>
-        </dict>
-    </array>
-    <key>FacebookAppID</key>
-    <string>825019574278470</string>
-    <key>FacebookDisplayName</key>
-    <string>Trash Talk</string>
 </dict>
 </plist>

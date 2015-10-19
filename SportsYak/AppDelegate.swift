@@ -28,19 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         PFComment.registerSubclass()
         PFEvent.registerSubclass()
         PFNotification.registerSubclass()
+        PFFlag.registerSubclass()
         
-        // [Optional] Power your app with Local Datastore. For more info, go to
-        // https://parse.com/docs/ios_guide#localdatastore/iOS
-        // Parse.enableLocalDatastore()
-        
-        // Initialize Parse.
         Parse.setApplicationId("dKZqBjSRUJV3H9QU2aIqLQFX5dMsoSBT1rBGjPoF",
             clientKey: "wV3wBuIFJN8sCI0AdjiA9vvMkU9Ms2J9oCXNs6W0")
         
         PFUser.enableAutomaticUser()
         print("launching with user \(PFMember.currentUser())")
 
-        // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
         let locationManager = SharedLocationManager.sharedInstance
@@ -129,7 +124,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func application(application: UIApplication,  didReceiveRemoteNotification userInfo: [NSObject : AnyObject],  fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         print(userInfo)
-        if let user = PFMember.currentUser() {
+        if let _ = PFMember.currentUser() {
             // GET NOTIFICATIONS
             if let message = userInfo["message"] as? String {
                 let banner = Banner(title: "Notification", subtitle: message, image: nil, backgroundColor: Constants.GLOBAL_TINT)

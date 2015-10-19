@@ -218,9 +218,8 @@ class PFPost: PFObject, PFSubclassing {
     
     func flag(flagType : FlagType) {
         let flag = PFFlag(post: self, comment: nil, flagType: flagType)
-        flag.saveInBackground()
         self.flags += 1
-        self.saveInBackground()
+        flag.saveInBackground()
     }
     
     func mute() {

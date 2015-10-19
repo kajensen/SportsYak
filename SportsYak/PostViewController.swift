@@ -199,7 +199,7 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         alertController.addAction(flagAction)
         alertController.addAction(cancelAction)
         
-        alertController.popoverPresentationController?.sourceView = cell.viewForBaselineLayout()
+        alertController.popoverPresentationController?.sourceView = cell.viewForFirstBaselineLayout
 
         self.presentViewController(alertController, animated: true, completion: nil)
     }
@@ -284,10 +284,10 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let activityViewController = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         
         if let button = sender as? UIButton {
-            activityViewController.popoverPresentationController?.sourceView = button.viewForBaselineLayout()
+            activityViewController.popoverPresentationController?.sourceView = button.viewForFirstBaselineLayout
         }
         else if let cell = sender as? UITableViewCell {
-            activityViewController.popoverPresentationController?.sourceView = cell.viewForBaselineLayout()
+            activityViewController.popoverPresentationController?.sourceView = cell.viewForFirstBaselineLayout
         }
         /*controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
         UIActivityTypePrint,
@@ -359,11 +359,12 @@ class PostViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let muteAction = UIAlertAction(title: "Mute", style: UIAlertActionStyle.Destructive) { (alertAction) -> Void in
             if (post != nil) {
                 post!.mute()
+                self.navigationController?.popViewControllerAnimated(true)
             }
             else if (comment != nil) {
                 comment!.mute()
+                self.loadData()
             }
-            self.tableView.reloadData()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
         alertController.addAction(muteAction)
