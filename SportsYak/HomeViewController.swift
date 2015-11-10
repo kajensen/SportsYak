@@ -19,7 +19,6 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
     var posts = [PFPost]()
     var postType = PostType.Nearby
     var postSort = PostSort.New
-    var hasSetupUnderline = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,16 +29,6 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.reloadData()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        if (!hasSetupUnderline) {
-            hasSetupUnderline = true
-            if let button = self.buttonGroupView.buttons.first {
-                self.buttonGroupView.tapped(button)
-            }
-        }
     }
 
     override func didReceiveMemoryWarning() {

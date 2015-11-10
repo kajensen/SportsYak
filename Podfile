@@ -1,4 +1,4 @@
-platform :ios, '8.0'
+platform :ios, '9.0'
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
@@ -7,6 +7,8 @@ pod 'Instabug'
 pod 'Parse'
 
 pod 'GoogleAnalytics'
+pod 'Fabric'
+pod 'Crashlytics'
 
 #UI
 pod 'SVProgressHUD'

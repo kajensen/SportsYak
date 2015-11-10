@@ -1,0 +1,61 @@
+PODS:
+  - AKPickerView (0.2.6)
+  - Bolts (1.3.0):
+    - Bolts/AppLinks (= 1.3.0)
+    - Bolts/Tasks (= 1.3.0)
+  - Bolts/AppLinks (1.3.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.3.0)
+  - BRYXBanner (0.4.1)
+  - ChameleonFramework/Default (2.0.3)
+  - ChameleonFramework/Swift (2.0.3):
+    - ChameleonFramework/Default
+  - Crashlytics (3.4.0):
+    - Fabric (~> 1.6.0)
+  - Fabric (1.6.0):
+    - Fabric/Base (= 1.6.0)
+  - Fabric/Base (1.6.0)
+  - FBSDKCoreKit (4.6.0):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc (= 4.6.0)
+    - FBSDKCoreKit/no-arc (= 4.6.0)
+  - FBSDKCoreKit/arc (4.6.0):
+    - Bolts (~> 1.1)
+  - FBSDKCoreKit/no-arc (4.6.0):
+    - Bolts (~> 1.1)
+    - FBSDKCoreKit/arc
+  - GoogleAnalytics (3.13.0)
+  - Instabug (4.1.7)
+  - Parse (1.8.5):
+    - Bolts/Tasks (>= 1.2.2)
+  - RKDropdownAlert (0.3.0)
+  - SVProgressHUD (1.1.3)
+
+DEPENDENCIES:
+  - AKPickerView
+  - BRYXBanner
+  - ChameleonFramework/Swift
+  - Crashlytics
+  - Fabric
+  - FBSDKCoreKit
+  - GoogleAnalytics
+  - Instabug
+  - Parse
+  - RKDropdownAlert
+  - SVProgressHUD
+
+SPEC CHECKSUMS:
+  AKPickerView: e31dcb9572c04d8439512315798862d9eb84b18f
+  Bolts: 805a4a87413e49d4a0c2b7d469084cbc46b09342
+  BRYXBanner: b9d72df3a6ed7f17bb5828828cdde8a68e7aa678
+  ChameleonFramework: 31cf675235772b0fb6f43bf76547eafc2d6442ae
+  Crashlytics: 1ee87895c37472eb3f01f409ea1654a464d2f8d4
+  Fabric: d737eda3a26ac940a5430230eedb35f16b226131
+  FBSDKCoreKit: 9954492d90c5fd65ae831395697a1660360d61f1
+  GoogleAnalytics: fcf1f1cad57ae1a9a53520018f0f680ceeeb8b49
+  Instabug: 58f773fcefe0dec9b1bd3fcf09c6e46560353f5d
+  Parse: 17ad8e0677ed682f7f00503860fcda0f4eb74168
+  RKDropdownAlert: f4b3364c251829ad439dc666836a1f2dad26f4c7
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+
+COCOAPODS: 0.39.0

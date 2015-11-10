@@ -21,7 +21,6 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
     var postType = PostType.TeamOne
     var postSort = PostSort.New
     var event : PFEvent!
-    var hasSetupUnderline = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,16 +34,6 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.reloadData()
-    }
-        
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        if (!hasSetupUnderline) {
-            hasSetupUnderline = true
-            if let button = self.buttonGroupView.buttons.first {
-                self.buttonGroupView.tapped(button)
-            }
-        }
     }
     
     override func didReceiveMemoryWarning() {

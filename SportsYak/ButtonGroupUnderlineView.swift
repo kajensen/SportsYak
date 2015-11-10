@@ -24,7 +24,6 @@ class ButtonGroupUnderlineView: UIView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.layoutSubviews()
     }
     
     override func layoutSubviews() {
@@ -40,6 +39,7 @@ class ButtonGroupUnderlineView: UIView {
     
     convenience init () {
         self.init(frame:CGRectZero)
+        self.layoutSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,10 +58,11 @@ class ButtonGroupUnderlineView: UIView {
                 var frame = button.frame
                 frame.origin.y = frame.size.height + 4 + underlineThickness
                 frame.size.height = underlineThickness
-                frame.size.width = 0 //animate out
+                frame.size.width = button.titleLabel != nil ? button.titleLabel!.frame.size.width : 0
                 self.underline = UIView(frame: frame)
                 self.underline!.backgroundColor = button.tintColor
                 self.addSubview(self.underline!)
+                self.performSelector("tapped:", withObject: button, afterDelay: 0.5)
             }
         }
     }

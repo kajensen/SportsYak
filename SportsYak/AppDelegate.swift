@@ -12,6 +12,8 @@ import Bolts
 import CoreLocation
 import BRYXBanner
 import FBSDKCoreKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate {
@@ -75,6 +77,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             // don't really need to use this...
             print(notificationPayload)
         }
+
+        Fabric.with([Crashlytics.self])
+
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
 
