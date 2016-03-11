@@ -11,8 +11,9 @@ import Parse
 
 class EventViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PostTableViewCellDelegate {
     
-    @IBOutlet var buttonGroupView: ButtonGroupUnderlineView!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var teamSegmentedControl: UISegmentedControl!
+    
     var postsTeamOneN = [PFPost]()
     var postsTeamOneH = [PFPost]()
     var postsTeamTwoN = [PFPost]()
@@ -25,8 +26,8 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         if (event != nil) {
-            self.buttonGroupView.buttons.first?.setTitle(event.teamOneName(), forState: UIControlState.Normal)
-            self.buttonGroupView.buttons.last?.setTitle(event.teamTwoName(), forState: UIControlState.Normal)
+            self.teamSegmentedControl.setTitle(event.teamOneName(), forSegmentAtIndex: 0)
+            self.teamSegmentedControl.setTitle(event.teamTwoName(), forSegmentAtIndex: 1)            
         }
         self.loadData(false)
     }
@@ -165,15 +166,8 @@ class EventViewController: UIViewController, UITableViewDataSource, UITableViewD
         loadData(false)
     }
     
-    @IBAction func teamOne(sender: UIButton) {
-        self.buttonGroupView.tapped(sender)
-        self.postType = PostType.TeamOne
-        loadData(false)
-    }
-    
-    @IBAction func teamTwo(sender: UIButton) {
-        self.buttonGroupView.tapped(sender)
-        self.postType = PostType.TeamTwo
+    @IBAction func teamControlChanged(sender: UISegmentedControl) {
+        self.postType = PostType(rawValue: sender.selectedSegmentIndex) ?? .TeamOne
         loadData(false)
     }
     

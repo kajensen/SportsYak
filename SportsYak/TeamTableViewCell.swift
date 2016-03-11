@@ -50,6 +50,10 @@ class TeamTableViewCell: UITableViewCell {
         switch type {
         case TeamType.NFL:
             title = "NFL posts"
+        case TeamType.NBA:
+            title = "NBA posts"
+        case TeamType.MLB:
+            title = "MLB posts"
         default:
             print("uh oh, no type")
         }

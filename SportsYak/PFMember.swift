@@ -16,7 +16,11 @@ class PFMember: PFUser {
     @NSManaged var url: String!
     @NSManaged var location: PFGeoPoint?
     @NSManaged var nflTeam: PFNFLTeam?
+    @NSManaged var mlbTeam: PFMLBTeam?
+    @NSManaged var nbaTeam: PFNBATeam?
     @NSManaged var showNFL: Bool
+    @NSManaged var showMLB: Bool
+    @NSManaged var showNBA: Bool
     @NSManaged var mutedUserIds: [String]
 
     func setup() {
@@ -48,6 +52,12 @@ class PFMember: PFUser {
         if (showNFL && nflTeam != nil) {
             teams.append(nflTeam!)
         }
+        if (showMLB && mlbTeam != nil) {
+            teams.append(mlbTeam!)
+        }
+        if (showNBA && nbaTeam != nil) {
+            teams.append(nbaTeam!)
+        }
         return teams
     }
     
@@ -56,6 +66,16 @@ class PFMember: PFUser {
         if (showNFL && nflTeam != nil) {
             if let nflTeamId = nflTeam!.objectId {
                 teamIds.append(nflTeamId)
+            }
+        }
+        if (showMLB && mlbTeam != nil) {
+            if let mlbTeamId = mlbTeam!.objectId {
+                teamIds.append(mlbTeamId)
+            }
+        }
+        if (showNBA && nbaTeam != nil) {
+            if let showNBAId = nbaTeam!.objectId {
+                teamIds.append(showNBAId)
             }
         }
         return teamIds
@@ -72,10 +92,14 @@ class PFMember: PFUser {
 
     func teamForType(type : TeamType) -> PFTeam? {
         switch type {
-            case TeamType.NFL:
-                return self.nflTeam
-            default:
-                print("uh oh, no team")
+        case TeamType.NFL:
+            return self.nflTeam
+        case TeamType.NBA:
+            return self.nbaTeam
+        case TeamType.MLB:
+            return self.mlbTeam
+        default:
+            print("uh oh, no team")
         }
         return nil
     }
@@ -84,12 +108,24 @@ class PFMember: PFUser {
         if let nflTeam = team as? PFNFLTeam {
             self.nflTeam = nflTeam
             self.showNFL = true
+        } else if let mlbTeam = team as? PFMLBTeam {
+            self.mlbTeam = mlbTeam
+            self.showMLB = true
+        } else if let nbaTeam = team as? PFNBATeam {
+            self.nbaTeam = nbaTeam
+            self.showNBA = true
         }
     }
     
     func isOn(team : PFObject) -> Bool {
         if (self.nflTeam?.objectId == team.objectId) {
             return self.showNFL
+        }
+        if (self.nbaTeam?.objectId == team.objectId) {
+            return self.showNBA
+        }
+        if (self.mlbTeam?.objectId == team.objectId) {
+            return self.showMLB
         }
         return false
     }
@@ -98,11 +134,23 @@ class PFMember: PFUser {
         if (self.nflTeam?.objectId == team.objectId) {
             self.showNFL = false
         }
+        if (self.nbaTeam?.objectId == team.objectId) {
+            self.showNBA = false
+        }
+        if (self.mlbTeam?.objectId == team.objectId) {
+            self.showMLB = false
+        }
     }
     
     func turnOnTeam(team : PFObject) {
         if (self.nflTeam?.objectId == team.objectId) {
             self.showNFL = true
+        }
+        if (self.nbaTeam?.objectId == team.objectId) {
+            self.showNBA = true
+        }
+        if (self.mlbTeam?.objectId == team.objectId) {
+            self.showMLB = true
         }
     }
 
@@ -110,6 +158,8 @@ class PFMember: PFUser {
         let query = PFMember.query()
         if (query != nil) {
             query!.includeKey("nflTeam")
+            query!.includeKey("nbaTeam")
+            query!.includeKey("mlbTeam")
         }
         return query
     }

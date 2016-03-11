@@ -11,10 +11,10 @@ import Parse
 
 
 class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    let FOUR_HOURS_AGO = NSTimeInterval(14400)
-
+    
     @IBOutlet var tableView: UITableView!
     var events = [PFEvent]()
+    var teamType = TeamType.NFL
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +33,23 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func didSelectControl(sender: UISegmentedControl) {
+        teamType = TeamType(rawValue: sender.selectedSegmentIndex) ?? .NFL
+        loadData()
+    }
+    
     func loadData() {
         if let _ = PFMember.currentUser() {
             if let query = PFEvent.query() {
+                query.whereKey("teamType", equalTo: teamType.rawValue)
                 query.includeKey("nflTeamOne")
                 query.includeKey("nflTeamTwo")
-                query.whereKey("isLive", equalTo:true)
+                query.includeKey("mlbTeamOne")
+                query.includeKey("mlbTeamTwo")
+                query.includeKey("nbaTeamOne")
+                query.includeKey("nbaTeamTwo")
+                query.whereKey("date", greaterThan: NSDate(timeIntervalSinceNow: -18000))
+                query.whereKey("date", lessThan: NSDate())
                 query.findObjectsInBackgroundWithBlock({
                     (objects, error) -> Void in
                     
@@ -75,7 +86,7 @@ class PeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.textLabel!.text = "\(teamOneName) vs \(teamTwoName)"
         }
         let timeElapsed = -1*event.date.timeIntervalSinceDate(NSDate())
-        if (event.isLive && timeElapsed > -600 && timeElapsed < FOUR_HOURS_AGO ) {
+        if (timeElapsed > -600 && timeElapsed < -9000 ) {
             cell.imageView?.image = UIImage(named: "Filled Circle-100")
         }
         else {

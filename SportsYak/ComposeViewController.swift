@@ -76,7 +76,7 @@ class ComposeViewController: UIViewController, UITextViewDelegate, UITextFieldDe
         self.teamPickerView.delegate = self;
         self.teamPickerView.dataSource = self;
         self.teamPickerView.font = UIFont(name: "DIN Alternate", size: 15)!
-        self.teamPickerView.highlightedFont = UIFont(name: "DINAlternate-Bold", size: 15)!
+        self.teamPickerView.highlightedFont = UIFont(name: "DINAlternate-Bold", size: 20)!
         if let user = PFMember.currentUser() {
             self.teams = user.teams()
         }

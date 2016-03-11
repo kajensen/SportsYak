@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 import Parse
 
 enum MeType: Int {
@@ -15,41 +14,22 @@ enum MeType: Int {
     case MyStuff
 }
 
-class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, PostTableViewCellDelegate {
+class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate, PostTableViewCellDelegate {
 
-    @IBOutlet var mapView: MKMapView!
     var notifications = [PFNotification]()
     var posts : [PFPost]?
     var comments : [PFComment]?
     var myStuff = [PFObject]()
     var meType = MeType.Notifications
-    var hasShownPulses = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupView()
         self.loadData(false)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.reloadData()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if (!hasShownPulses) {
-            hasShownPulses = true
-            let pulseEffect = LFTPulseAnimation(repeatCount: Float.infinity, radius:20, position:self.mapView.center)
-            pulseEffect.backgroundColor = Constants.GLOBAL_TINT.CGColor
-            let pulseEffect2 = LFTPulseAnimation(repeatCount: Float.infinity, radius:40, position:self.mapView.center)
-            pulseEffect2.backgroundColor = Constants.GLOBAL_TINT.CGColor
-            let pulseEffect3 = LFTPulseAnimation(repeatCount: Float.infinity, radius:60, position:self.mapView.center)
-            pulseEffect3.backgroundColor = Constants.GLOBAL_TINT.CGColor
-            self.view.layer.insertSublayer(pulseEffect, above: self.mapView.layer)
-            self.view.layer.insertSublayer(pulseEffect2, above: self.mapView.layer)
-            self.view.layer.insertSublayer(pulseEffect3, above: self.mapView.layer)
-        }
     }
     
     override func loadData(forceDownload: Bool) {
@@ -164,13 +144,6 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
             self.buttonGroupView.tapped(button)
         }
     }*/
-    
-    func setupView() {
-        if let location = SharedLocationManager.sharedInstance.location {
-            let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 2000, 2000)
-            self.mapView.setRegion(region, animated: false)
-        }
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -263,53 +236,6 @@ class MeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UI
                 self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
             }
         }
-    }
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var rows = 0
-        if let user = PFMember.currentUser() {
-            rows = user.teams().count
-        }
-        return rows
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TeamCell", forIndexPath: indexPath) as! TeamCollectionViewCell
-        if let user = PFMember.currentUser() {
-            let team = user.teams()[indexPath.row]
-            cell.configureWithTeam(team)
-            
-            let cvPoint = collectionView.convertPoint(cell.center, toView: self.view)
-            let pulseEffect = LFTPulseAnimation(repeatCount: Float.infinity, radius:10, position:cvPoint)
-            pulseEffect.backgroundColor = UIColor(hexString: team.colorMainHex).CGColor
-            let pulseEffect2 = LFTPulseAnimation(repeatCount: Float.infinity, radius:20, position:cvPoint)
-            pulseEffect2.backgroundColor = UIColor(hexString: team.colorMainHex).CGColor
-            let pulseEffect3 = LFTPulseAnimation(repeatCount: Float.infinity, radius:40, position:cvPoint)
-            pulseEffect3.backgroundColor = UIColor(hexString: team.colorMainHex).CGColor
-            self.view.layer.insertSublayer(pulseEffect, below: collectionView.layer)
-            self.view.layer.insertSublayer(pulseEffect2, below: collectionView.layer)
-            self.view.layer.insertSublayer(pulseEffect3, below: collectionView.layer)
-            
-            let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(1.5 * Double(NSEC_PER_SEC)))
-            dispatch_after(dispatchTime, dispatch_get_main_queue(), {
-                let cvPoint = collectionView.convertPoint(cell.center, toView: self.view)
-                let pulseEffect = LFTPulseAnimation(repeatCount: Float.infinity, radius:10, position:cvPoint)
-                pulseEffect.backgroundColor = UIColor(hexString: team.colorSecondaryHex).CGColor
-                let pulseEffect2 = LFTPulseAnimation(repeatCount: Float.infinity, radius:20, position:cvPoint)
-                pulseEffect2.backgroundColor = UIColor(hexString: team.colorSecondaryHex).CGColor
-                let pulseEffect3 = LFTPulseAnimation(repeatCount: Float.infinity, radius:40, position:cvPoint)
-                pulseEffect3.backgroundColor = UIColor(hexString: team.colorSecondaryHex).CGColor
-                self.view.layer.insertSublayer(pulseEffect, below: collectionView.layer)
-                self.view.layer.insertSublayer(pulseEffect2, below: collectionView.layer)
-                self.view.layer.insertSublayer(pulseEffect3, below: collectionView.layer)
-            })
-        }
-        
-        return cell
     }
 
     @IBAction func segmentedControlChanged(sender: UISegmentedControl) {

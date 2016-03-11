@@ -29,10 +29,14 @@ class SelectTeamViewController: UIViewController, UITableViewDataSource, UITable
         if let _ = PFMember.currentUser() {
             var query : PFQuery?
             switch self.type {
-                case TeamType.NFL:
-                    query = PFNFLTeam.query()!
-                default:
-                    print("uh oh, invalid type")
+            case TeamType.NFL:
+                query = PFNFLTeam.query()!
+            case TeamType.MLB:
+                query = PFMLBTeam.query()!
+            case TeamType.NBA:
+                query = PFNBATeam.query()!
+            default:
+                print("uh oh, invalid type")
             }
             if query != nil {
                 print("fetching teams for type: \(self.type)")

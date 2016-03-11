@@ -19,6 +19,7 @@ protocol PostTableViewCellDelegate {
 
 class PostTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var sportImageView: UIImageView?
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var postLabel: UILabel!
     @IBOutlet var timeLabel: UILabel!
@@ -68,7 +69,7 @@ class PostTableViewCell: UITableViewCell {
             }
         }
         self.upVoteButton.enabled = !readonly
-        self.downVoteButton.enabled = !readonly
+        self.downVoteButton.enabled = !readonly        
     }
 
     @IBAction func downVote(sender: AnyObject) {

@@ -11,13 +11,12 @@ import Parse
 
 class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, UITableViewDelegate, PostTableViewCellDelegate {
 
-    @IBOutlet var buttonGroupView: ButtonGroupUnderlineView!
     var postsNearbyN = [PFPost]()
     var postsNearbyH = [PFPost]()
     var postsMySquadsN = [PFPost]()
     var postsMySquadsH = [PFPost]()
     var posts = [PFPost]()
-    var postType = PostType.Nearby
+    var postType = PostType.MySquads
     var postSort = PostSort.New
 
     override func viewDidLoad() {
@@ -172,18 +171,6 @@ class HomeViewController: HideBarsOnSwipeViewController, UITableViewDataSource, 
     
     func buttonGroupUnderlineViewDidSelectButtonAtIndex(index: Int) {
         self.postType = PostType(rawValue: index) ?? PostType.Nearby
-        loadData(false)
-    }
-
-    @IBAction func nearby(sender: UIButton) {
-        self.buttonGroupView.tapped(sender)
-        self.postType = PostType.Nearby
-        loadData(false)
-    }
-
-    @IBAction func mySquads(sender: UIButton) {
-        self.buttonGroupView.tapped(sender)
-        self.postType = PostType.MySquads
         loadData(false)
     }
     

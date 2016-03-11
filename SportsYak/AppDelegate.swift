@@ -26,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
 
         PFMember.registerSubclass()
         PFNFLTeam.registerSubclass()
+        PFNBATeam.registerSubclass()
+        PFMLBTeam.registerSubclass()
         PFPost.registerSubclass()
         PFComment.registerSubclass()
         PFEvent.registerSubclass()
@@ -115,6 +117,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                             if let fetchedUser = object as? PFMember {
                                 print("refreshed user")
                                 user.nflTeam = fetchedUser.nflTeam
+                                user.nbaTeam = fetchedUser.nbaTeam
+                                user.mlbTeam = fetchedUser.mlbTeam
                             }
                         } else {
                             print("Error: \(error!) \(error!.userInfo)")

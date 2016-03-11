@@ -152,7 +152,7 @@ class PFPost: PFObject, PFSubclassing {
                     query!.orderByDescending("votes")
                 }
                 query!.limit = 100
-                query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -SIX_DAYS))
+                //query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -SIX_DAYS))
                 return query
             }
         }
@@ -173,7 +173,7 @@ class PFPost: PFObject, PFSubclassing {
                     query!.orderByDescending("votes")
                 }
                 query!.limit = 100
-                query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -SIX_DAYS))
+                //query!.whereKey("createdAt", greaterThan: NSDate(timeIntervalSinceNow: -SIX_DAYS))
                 return query
             }
         }

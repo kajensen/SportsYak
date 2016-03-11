@@ -135,10 +135,8 @@ class MoreViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 self.presentViewController(activityViewController, animated: true, completion: nil)
             }
             else if (indexPath.row == 1) { // RATE
-                if let appId = NSBundle.mainBundle().infoDictionary?["CFBundleIdentifier"] as? String {
-                    if let checkURL = NSURL(string: "http://itunes.apple.com/us/app/trash-talk-realtime-sports/id\(appId)?mt=8") {
-                        UIApplication.sharedApplication().openURL(checkURL)
-                    }
+                if let checkURL = NSURL(string: "http://itunes.apple.com/us/app/trash-talk-realtime-sports/id1033303390?mt=8") {
+                    UIApplication.sharedApplication().openURL(checkURL)
                 }
             }
             else if (indexPath.row == 2) { // TWITTER
